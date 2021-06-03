@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Language: XML
+  $Author:$
+  $Date:$
+  $Revision$
+  $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
+-->
+<csm:Model xmlns:doc="http://www.cosmotech.com/csm_doc/8.1" xmlns:dbk="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" xmlns:csm="http://www.cosmotech.com/csm/8.1">
+  <csm:Scheduler>
+    <csm:RunTask>
+      <csm:Entity>1</csm:Entity>
+    </csm:RunTask>
+  </csm:Scheduler>
+  <csm:Bar id="1" name="MyBar">
+    <csm:Compound>
+      <csm:SubEntities>
+        <csm:Customer id="2" name="Customer1"/>
+        <csm:Customer id="3" name="Customer2"/>
+        <csm:Customer id="4" name="Customer3"/>
+        <csm:Customer id="5" name="Customer4"/>
+      </csm:SubEntities>
+      <csm:Environment>
+        <csm:Vertex>2</csm:Vertex>
+        <csm:Vertex>3</csm:Vertex>
+        <csm:Vertex>4</csm:Vertex>
+        <csm:Vertex>5</csm:Vertex>
+        <csm:Arc>
+          <csm:Source>2</csm:Source>
+          <csm:Destination>4</csm:Destination>
+        </csm:Arc>
+        <csm:Arc>
+          <csm:Source>4</csm:Source>
+          <csm:Destination>2</csm:Destination>
+        </csm:Arc>
+        <csm:Arc>
+          <csm:Source>2</csm:Source>
+          <csm:Destination>3</csm:Destination>
+        </csm:Arc>
+        <csm:Arc>
+          <csm:Source>3</csm:Source>
+          <csm:Destination>2</csm:Destination>
+        </csm:Arc>
+        <csm:Arc>
+          <csm:Source>2</csm:Source>
+          <csm:Destination>5</csm:Destination>
+        </csm:Arc>
+        <csm:Arc>
+          <csm:Source>5</csm:Source>
+          <csm:Destination>2</csm:Destination>
+        </csm:Arc>
+        <csm:Arc>
+          <csm:Source>4</csm:Source>
+          <csm:Destination>3</csm:Destination>
+        </csm:Arc>
+        <csm:Arc>
+          <csm:Source>3</csm:Source>
+          <csm:Destination>4</csm:Destination>
+        </csm:Arc>
+      </csm:Environment>
+    </csm:Compound>
+    <csm:Scheduler>
+      <csm:ParallelTaskBlock concurrencyLevel="1">
+        <csm:ParallelTask>
+          <csm:Entity>2</csm:Entity>
+        </csm:ParallelTask>
+        <csm:ParallelTask>
+          <csm:Entity>3</csm:Entity>
+        </csm:ParallelTask>
+        <csm:ParallelTask>
+          <csm:Entity>4</csm:Entity>
+        </csm:ParallelTask>
+        <csm:ParallelTask>
+          <csm:Entity>5</csm:Entity>
+        </csm:ParallelTask>
+      </csm:ParallelTaskBlock>
+      <csm:SimpleTask>
+        <csm:Entity>2</csm:Entity>
+        <csm:Process>Update</csm:Process>
+      </csm:SimpleTask>
+      <csm:SimpleTask>
+        <csm:Entity>3</csm:Entity>
+        <csm:Process>Update</csm:Process>
+      </csm:SimpleTask>
+      <csm:SimpleTask>
+        <csm:Entity>4</csm:Entity>
+        <csm:Process>Update</csm:Process>
+      </csm:SimpleTask>
+      <csm:SimpleTask>
+        <csm:Entity>5</csm:Entity>
+        <csm:Process>Update</csm:Process>
+      </csm:SimpleTask>
+    </csm:Scheduler>
+  </csm:Bar>
+</csm:Model>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Language: XML
+  $Author:$
+  $Date:$
+  $Revision$
+  $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
+-->
+<csmSon:Simulation xmlns:csmSon="http://www.cosmotech.com/csm_simulation/8.1">
+  <csmSon:Documentation/>
+  <csmSon:ModelInstance type="Brewery" id="Model">
+    <csmSon:Loader type="csmXMLInstantiation">
+      <csmSon:Property name="File">MyBrewery</csmSon:Property>
+    </csmSon:Loader>
+    <csmSon:Loader type="csmXMLInitialization">
+      <csmSon:Property name="File">Studio-MeKuOa</csmSon:Property>
+    </csmSon:Loader>
+  </csmSon:ModelInstance>
+  <csmSon:SimulatorInstance>
+    <csmSon:SchedulerInstance>
+      <csmSon:RepeatTaskBlock repetitions="10">
+        <csmSon:WhileTaskBlock>
+          <csmSon:Condition>
+            <csmSon:OrBlock>
+              <csmSon:AndBlock>
+                <csmSon:Repetitions value="100"/>
+                <csmSon:Attribute left="{Model}Model::{Entity}MyBar::{Attribute}Stock" operator="Greater" right="5"/>
+              </csmSon:AndBlock>
+            </csmSon:OrBlock>
+          </csmSon:Condition>
+          <csmSon:SequentialTaskBlock>
+            <csmSon:ModelTask>Model</csmSon:ModelTask>
+            <csmSon:SimpleTask>
+              <csmSon:ModelName>Model</csmSon:ModelName>
+              <csmSon:Entity>MyBar</csmSon:Entity>
+              <csmSon:MesoFunction>UpdateNbThirstyCustomers</csmSon:MesoFunction>
+            </csmSon:SimpleTask>
+            <csmSon:SimpleTask>
+              <csmSon:ModelName>Model</csmSon:ModelName>
+              <csmSon:Entity>MyBar</csmSon:Entity>
+              <csmSon:Process>Serve</csmSon:Process>
+            </csmSon:SimpleTask>
+            <csmSon:SimpleTask>
+              <csmSon:ModelName>Model</csmSon:ModelName>
+              <csmSon:Entity>MyBar</csmSon:Entity>
+              <csmSon:MesoFunction>UpdateAverageSatisfaction</csmSon:MesoFunction>
+            </csmSon:SimpleTask>
+          </csmSon:SequentialTaskBlock>
+        </csmSon:WhileTaskBlock>
+        <csmSon:SimpleTask>
+          <csmSon:ModelName>Model</csmSon:ModelName>
+          <csmSon:Entity>MyBar</csmSon:Entity>
+          <csmSon:Process>Restock</csmSon:Process>
+        </csmSon:SimpleTask>
+      </csmSon:RepeatTaskBlock>
+    </csmSon:SchedulerInstance>
+    <csmSon:ProbeInstances>
+      <csmSon:ProbeInstance name="StockProbe" type="StockProbe" location="Simulation" loader="StockProbe" tag="1::1::1::0.5" active="1">
+        <csmSon:BarObs>
+          <csmSon:Reference recursiveLevel="1" path="{Model}Model::{Entity}MyBar"/>
+        </csmSon:BarObs>
+      </csmSon:ProbeInstance>
+      <csmSon:ProbeInstance name="StockProbe" tag="2" active="1"/>
+      <csmSon:ProbeInstance name="CustomerSatisfactionProbe" type="CustomerSatisfactionProbe" location="Simulation" loader="CustomerSatisfactionProbe" tag="1::1::1::0.6" active="1">
+        <csmSon:CustomerSatisfactionObs>
+          <csmSon:Reference recursiveLevel="1" path="{Model}Model::{Entity}MyBar"/>
+        </csmSon:CustomerSatisfactionObs>
+      </csmSon:ProbeInstance>
+      <csmSon:ProbeInstance name="CustomerSatisfactionProbe" tag="2.1" active="1"/>
+    </csmSon:ProbeInstances>
+    <csmSon:ConsumerInstances>
+      <csmSon:ConsumerInstance name="StockConsumer" type="AMQPConsumer">
+        <csmSon:Properties>
+          <csmSon:Property name="MaxDataSize">1000000</csmSon:Property>
+          <csmSon:Property name="MaxMessageSize">1000000</csmSon:Property>
+          <csmSon:Property name="MaxRetry">5</csmSon:Property>
+          <csmSon:Property name="SimulationName">BreweryDemoSimulation</csmSon:Property>
+          <csmSon:Property name="Topic">amqps://phoenixdev.servicebus.windows.net/o-gzypnd27g7-demobrewery</csmSon:Property>
+        </csmSon:Properties>
+        <csmSon:ProbeReferences>
+          <csmSon:ProbeReference>StockProbe</csmSon:ProbeReference>
+        </csmSon:ProbeReferences>
+      </csmSon:ConsumerInstance>
+      <csmSon:ConsumerInstance name="CustomerSatisfactionConsumer" type="AMQPConsumer">
+        <csmSon:Properties>
+          <csmSon:Property name="MaxDataSize">1000000</csmSon:Property>
+          <csmSon:Property name="MaxMessageSize">1000000</csmSon:Property>
+          <csmSon:Property name="MaxRetry">5</csmSon:Property>
+          <csmSon:Property name="SimulationName">BreweryDemoSimulation</csmSon:Property>
+          <csmSon:Property name="Topic">amqps://phoenixdev.servicebus.windows.net/o-gzypnd27g7-demobrewery</csmSon:Property>
+        </csmSon:Properties>
+        <csmSon:ProbeReferences>
+          <csmSon:ProbeReference>CustomerSatisfactionProbe</csmSon:ProbeReference>
+        </csmSon:ProbeReferences>
+      </csmSon:ConsumerInstance>
+    </csmSon:ConsumerInstances>
+  </csmSon:SimulatorInstance>
+</csmSon:Simulation>

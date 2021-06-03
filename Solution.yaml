@@ -1,0 +1,86 @@
+key: "Demo Brewery Solution"
+name:  "Demo Brewery Solution"
+description: "One Day Brewery Solution"
+repository: "brewery_simulator"
+version: "0.0.3"
+tags:
+  - "1day"
+  - "Brewery"
+parameters:
+  - id: "stock"
+    labels:
+      fr: "Stock"
+      en: "Stock"
+    varType: "int"
+  - id: "restock_qty"
+    labels:
+      fr: "Restock"
+      en: "Restock"
+    varType: "int"
+  - id: "nb_waiters"
+    labels:
+      fr: "Serveurs"
+      en: "Waiters"
+    varType: "int"
+parameterGroups:
+  - id: "bar_parameters"
+    labels:
+      fr: "Bar"
+      en: "Pub"
+    parameters:
+      - "stock"
+      - "restock_qty"
+      - "nb_waiters"
+runTemplates:
+  - id: "1"
+    name: "Run Brewery Solution with ADT Connector + params"
+    description: "Run Brewery Solution with ADT Connector + params"
+    csmSimulation: "BreweryDemoSimulationWithConnector"
+    fetchDatasets: true
+    fetchScenarioParameters: false
+    applyParameters: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: true
+    validateData: false
+    preRun: false
+    postRun: false
+    tags:
+      - "1"
+      - "ADT connector"
+      - "With params"
+    parameterGroups:
+      - "bar_parameters"
+  - id: "2"
+    name: "Run template with storage connector + params"
+    description: "Run template with storage connector + params"
+    csmSimulation: "BreweryDemoSimulationWithConnector"
+    fetchDatasets: true
+    fetchScenarioParameters: false
+    applyParameters: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: true
+    validateData: false
+    preRun: false
+    postRun: false
+    tags:
+      - "2"
+      - "Storage connector"
+      - "With params"
+    parameterGroups:
+      - "bar_parameters"
+  - id: "3"
+    name: "Run Brewery Solution with ADT Connector"
+    description: "Run Brewery Solution with ADT Connector"
+    csmSimulation: "BreweryDemoSimulationWithConnector"
+    fetchDatasets: true
+    fetchScenarioParameters: false
+    applyParameters: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
+    validateData: false
+    preRun: false
+    postRun: false
+    tags:
+      - "3"
+      - "ADT connector"
+      - "No param"

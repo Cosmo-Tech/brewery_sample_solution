@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Language: XML
+  $Author:$
+  $Date:$
+  $Revision$
+  $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
+-->
+<csmIni:Model xmlns:csmIni="http://www.cosmotech.com/csm_initialization/8.1">
+ <csmIni:Entity id="1">
+  <csmIni:State>
+   <csmIni:Attribute name="NbWaiters">
+    <csmIni:Value>10</csmIni:Value>
+   </csmIni:Attribute>
+   <csmIni:Attribute name="RestockQty">
+    <csmIni:Value>30</csmIni:Value>
+   </csmIni:Attribute>
+   <csmIni:Attribute name="Stock">
+    <csmIni:Value>50</csmIni:Value>
+   </csmIni:Attribute>
+  </csmIni:State>
+ </csmIni:Entity>
+</csmIni:Model>

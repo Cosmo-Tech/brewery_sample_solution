@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csmSon:ModelPart xmlns:csmSon="http://www.cosmotech.com/csm_modelpart/8.1">
+  <csmSon:Loader type="cexCSVEntityLoader" name="ADT CSV loader for entity type: Bar">
+    <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
+    <csmSon:Property name="DefaultType">Bar</csmSon:Property>
+    <csmSon:Property name="FieldSeparator">,</csmSon:Property>
+    <csmSon:Property name="File">/mnt/scenariorun-data/Bar.csv</csmSon:Property>
+    <csmSon:Property name="Query">id as @Name, Stock, RestockQty, NbWaiters</csmSon:Property>
+    <csmSon:Property name="StealRootLink">0</csmSon:Property>
+    <csmSon:Property name="StringDelimiter">"</csmSon:Property>
+  </csmSon:Loader>
+  <csmSon:Loader type="cexCSVEntityLoader" name="ADT CSV loader for entity type: Customer">
+    <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
+    <csmSon:Property name="DefaultType">Customer</csmSon:Property>
+    <csmSon:Property name="FieldSeparator">,</csmSon:Property>
+    <csmSon:Property name="File">/mnt/scenariorun-data/Customer.csv</csmSon:Property>
+    <csmSon:Property name="Query">id as @Name, Thirsty, Satisfaction, SurroundingSatisfaction</csmSon:Property>
+    <csmSon:Property name="StealRootLink">0</csmSon:Property>
+    <csmSon:Property name="StringDelimiter">"</csmSon:Property>
+  </csmSon:Loader>
+  <csmSon:Loader type="cexCSVEntityLoader" name="ADT CSV loader for sub-entity relationship: contains_Customer">
+    <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
+    <csmSon:Property name="DefaultType"/>
+    <csmSon:Property name="FieldSeparator">,</csmSon:Property>
+    <csmSon:Property name="File">/mnt/scenariorun-data/contains_Customer.csv</csmSon:Property>
+    <csmSon:Property name="Query">source as @ParentName, target as @ReferenceName</csmSon:Property>
+    <csmSon:Property name="StealRootLink">1</csmSon:Property>
+    <csmSon:Property name="StringDelimiter">"</csmSon:Property>
+  </csmSon:Loader>
+  <csmSon:Loader type="cexCSVGraphLoader" name="ADT CSV loader for graph relationship: arc_to_Customer">
+    <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
+    <csmSon:Property name="DefaultType"/>
+    <csmSon:Property name="FieldSeparator">,</csmSon:Property>
+    <csmSon:Property name="File">/mnt/scenariorun-data/arc_to_Customer.csv</csmSon:Property>
+    <csmSon:Property name="Query">source as @SourceName, target as @DestinationName</csmSon:Property>
+    <csmSon:Property name="StringDelimiter">"</csmSon:Property>
+    <csmSon:Property name="UseVertexScope">1</csmSon:Property>
+  </csmSon:Loader>
+</csmSon:ModelPart>

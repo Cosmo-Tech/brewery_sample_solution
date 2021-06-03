@@ -1,0 +1,10 @@
+name: Demo Brewery ADT reference
+description: Brewery reference model in ADT
+tags:
+  - ADT
+  - Brewery
+  - Reference
+connector:
+  id: "C-O9o39DyEk8g"
+  parametersValues:
+    AZURE_DIGITAL_TWINS_URL: https://o-gzypnd27g7-demobrewery.api.weu.digitaltwins.azure.net

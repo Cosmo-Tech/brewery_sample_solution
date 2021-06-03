@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Language: XML
+  $Author:$
+  $Date:$
+  $Revision$
+  $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
+-->
+<csm:Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doc="http://www.cosmotech.com/csm_doc/8.1" xmlns:dbk="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" xmlns:csm="http://www.cosmotech.com/csm/8.1">
+  <csm:ModelName>Brewery</csm:ModelName>
+  <csm:Compound>
+    <csm:Environment>ModelEnvironment</csm:Environment>
+  </csm:Compound>
+  <csm:DataType xsi:type="csm:BoolType" name="Boolean"/>
+  <csm:DataType xsi:type="csm:IntType" name="Integer" bits="32" signed="1"/>
+  <csm:DataType xsi:type="csm:FloatType" name="FloatingPoint" bits="32"/>
+  <csm:DataType xsi:type="csm:StringType" name="String"/>
+  <csm:BasicEntity name="Customer">
+    <csm:Rule name="Perceive">
+      <csm:CPPCode><![CDATA[int satisfaction = 0;
+int count = 0;
+csmForEachTypedNeighbor(BE_Customer, neighbor)
+{
+  satisfaction += neighbor->GetComState(this);
+  count++;
+}
+
+int avrg = int(float(satisfaction) / float(csm::Math::Max(satisfaction, 1)));
+SetSurroundingSatisfaction(avrg);]]></csm:CPPCode>
+      <csm:EnvironmentReference>CustomerGraph</csm:EnvironmentReference>
+    </csm:Rule>
+    <csm:Rule name="React">
+      <csm:CPPCode><![CDATA[int satisfaction = GetSatisfaction();
+if (satisfaction > GetSurroundingSatisfaction())
+{
+  SetSatisfaction(satisfaction - 1);
+}
+else if (satisfaction < GetSurroundingSatisfaction())
+{
+  SetSatisfaction(satisfaction + 1);
+}]]></csm:CPPCode>
+      <csm:EnvironmentReference>CustomerGraph</csm:EnvironmentReference>
+    </csm:Rule>
+    <csm:Process name="Update">
+      <csm:CPPCode><![CDATA[int test = rand()%10 + GetSatisfaction();
+if (!GetThirsty() && test > 5)
+{
+  SetThirsty(true);
+}]]></csm:CPPCode>
+    </csm:Process>
+    <csm:State xsi:type="csm:CompositeType" name="CustomerState">
+      <csm:Container>
+        <csm:Attribute name="Thirsty" modifier="Variable">
+          <csm:DataTypeReference>Boolean</csm:DataTypeReference>
+        </csm:Attribute>
+        <csm:Attribute name="Satisfaction" modifier="Variable">
+          <csm:DataTypeReference>Integer</csm:DataTypeReference>
+        </csm:Attribute>
+        <csm:Attribute name="SurroundingSatisfaction" modifier="Variable">
+          <csm:DataTypeReference>Integer</csm:DataTypeReference>
+        </csm:Attribute>
+      </csm:Container>
+    </csm:State>
+  </csm:BasicEntity>
+  <csm:CompoundEntity name="Bar">
+    <csm:Process name="Serve">
+      <csm:CPPCode><![CDATA[// threshold value representing the level of business of the bar waiters
+int thirsty = GetNbThirstyCustomers();
+int waiters = GetNbWaiters();
+int threshold = int(10.f * float(waiters) / float(csm::Math::Max(thirsty, 1)));
+
+csmForEachTypedSubEntity(BE_Customer, customer)
+{
+  if (customer->GetThirsty())
+  {
+    // compute test value for waiter's availability
+    int test = rand()%10 + 1;
+    if (test <= threshold && GetStock() > 0)
+    {
+      SetStock(GetStock() - 1);
+      customer->SetThirsty(false);
+      customer->SetSatisfaction(customer->GetSatisfaction() + 1);
+    }
+    else if (customer->GetSatisfaction() > 0)
+    {
+      customer->SetSatisfaction(customer->GetSatisfaction() - 1);
+    }
+  }
+}]]></csm:CPPCode>
+    </csm:Process>
+    <csm:Process name="Restock">
+      <csm:CPPCode><![CDATA[SetStock(GetStock() + GetRestockQty());]]></csm:CPPCode>
+    </csm:Process>
+    <csm:State xsi:type="csm:CompositeType" name="BarState">
+      <csm:Container>
+        <csm:Attribute name="Stock" modifier="Variable">
+          <csm:DataTypeReference>Integer</csm:DataTypeReference>
+          <csm:DefaultValue>10</csm:DefaultValue>
+        </csm:Attribute>
+        <csm:Attribute name="RestockQty" modifier="Variable">
+          <csm:DataTypeReference>Integer</csm:DataTypeReference>
+          <csm:DefaultValue>10</csm:DefaultValue>
+        </csm:Attribute>
+        <csm:Attribute name="NbWaiters" modifier="Variable">
+          <csm:DataTypeReference>Integer</csm:DataTypeReference>
+          <csm:DefaultValue>2</csm:DefaultValue>
+        </csm:Attribute>
+      </csm:Container>
+    </csm:State>
+    <csm:MesoFunction name="UpdateAverageSatisfaction">
+      <csm:CPPCode><![CDATA[]]></csm:CPPCode>
+      <csm:Operations>
+        <csm:Operation xsi:type="csm:MesoAverage" target="AverageSatisfaction" subEntityAttribute="Satisfaction"/>
+      </csm:Operations>
+    </csm:MesoFunction>
+    <csm:MesoFunction name="UpdateNbThirstyCustomers">
+      <csm:CPPCode><![CDATA[]]></csm:CPPCode>
+      <csm:Operations>
+        <csm:Operation xsi:type="csm:MesoValueCount" target="NbThirstyCustomers" subEntityAttribute="Thirsty" attributeValue="true"/>
+      </csm:Operations>
+    </csm:MesoFunction>
+    <csm:MesoState xsi:type="csm:CompositeType" name="BarMesoState">
+      <csm:Container>
+        <csm:Attribute name="AverageSatisfaction" modifier="Variable">
+          <csm:DataTypeReference>Integer</csm:DataTypeReference>
+        </csm:Attribute>
+        <csm:Attribute name="NbThirstyCustomers" modifier="Variable">
+          <csm:DataTypeReference>Integer</csm:DataTypeReference>
+        </csm:Attribute>
+      </csm:Container>
+    </csm:MesoState>
+    <csm:Compound>
+      <csm:Environment>CustomerGraph</csm:Environment>
+      <csm:SubEntities>
+        <csm:CanBeWithin>Customer</csm:CanBeWithin>
+        <csm:Name></csm:Name>
+      </csm:SubEntities>
+    </csm:Compound>
+  </csm:CompoundEntity>
+  <csm:Environments>
+    <csm:Communicator name="CustomerToCustomer">
+      <csm:CPPCode><![CDATA[return GetSatisfaction();]]></csm:CPPCode>
+      <csm:CommunicatedReference>Integer</csm:CommunicatedReference>
+      <csm:Destination>Customer</csm:Destination>
+      <csm:Source>Customer</csm:Source>
+    </csm:Communicator>
+    <csm:Environment xsi:type="csm:NoEnvironment" name="NoEnvironment"/>
+    <csm:Environment xmlns:csmRoom="http://www.cosmotech.com/csm_room/8.1" xsi:type="csmRoom:Room" name="ModelEnvironment"/>
+    <csm:Environment xsi:type="csm:Graph" name="CustomerGraph">
+      <csm:Arc name="Satisfaction">
+        <csm:CommunicatorReference>CustomerToCustomer</csm:CommunicatorReference>
+      </csm:Arc>
+    </csm:Environment>
+  </csm:Environments>
+</csm:Model>

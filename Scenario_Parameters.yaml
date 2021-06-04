@@ -1,0 +1,10 @@
+parametersValues:
+  - parameterId: "stock"
+    varType: "int"
+    value: "1"
+  - parameterId: "restock_qty"
+    varType: "int"
+    value: "2"
+  - parameterId: "nb_waiters"
+    varType: "int"
+    value: "3"

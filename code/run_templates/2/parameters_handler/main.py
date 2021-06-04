@@ -29,14 +29,14 @@ if parametersFile.exists():
     for row in parametersReader:
       print(row)
       if row[0] == 'stock':
-        print('stock read', row[2])
-        stock = row[2]
+        print('stock read', row[1])
+        stock = row[1]
       if row[0] == 'restock_qty':
-        print('restock_qty read', row[2])
-        restock = row[2]
+        print('restock_qty read', row[1])
+        restock = row[1]
       if row[0] == 'nb_waiters':
-        print('nb_waiters read', row[2])
-        nbWaiters = row[2]
+        print('nb_waiters read', row[1])
+        nbWaiters = row[1]
   tempfile = NamedTemporaryFile('w+t', newline='', delete=False)
   with open(barPath, newline='') as csvfile:
     barReader = csv.reader(csvfile)

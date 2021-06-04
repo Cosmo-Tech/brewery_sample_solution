@@ -90,8 +90,8 @@ runTemplates:
     description: "Run template with storage connector + params"
     csmSimulation: "BreweryDemoSimulationWithConnector"
     fetchDatasets: true
-    fetchScenarioParameters: false
-    applyParameters: false
+    fetchScenarioParameters: true
+    applyParameters: true
     sendDatasetsToDataWarehouse: true
     sendInputParametersToDataWarehouse: true
     validateData: false

@@ -2,7 +2,7 @@ key: "Demo Brewery Solution"
 name:  "Demo Brewery Solution"
 description: "One Day Brewery Solution"
 repository: "brewery_simulator"
-version: "0.0.3"
+version: "0.0.4"
 tags:
   - "1day"
   - "Brewery"
@@ -22,6 +22,31 @@ parameters:
       fr: "Serveurs"
       en: "Waiters"
     varType: "int"
+  - id: "currency"
+    labels:
+      fr: "Symbole de la monnaie"
+      en: "Currency symbol"
+    varType: "enum"
+  - id: "currency_name"
+    labels:
+      fr: "Nom de la monnaie"
+      en: "Currency name"
+    varType: "string"
+  - id: "currency_value"
+    labels:
+      fr: "Valeur"
+      en: "Value"
+    varType: "number"
+  - id: "currency_used"
+    labels:
+      fr: "Activer la monnaie"
+      en: "Enable currency"
+    varType: "bool"
+  - id: "start_date"
+    labels:
+      fr: "Date de départ"
+      en: "Start date"
+    varType: "date"
 parameterGroups:
   - id: "bar_parameters"
     labels:
@@ -31,6 +56,16 @@ parameterGroups:
       - "stock"
       - "restock_qty"
       - "nb_waiters"
+  - id: "basic_types"
+    labels:
+      fr: "Exemples de types standards"
+      en: "Basic types examples"
+    parameters:
+      - "currency"
+      - "currency_name"
+      - "currency_value"
+      - "currency_used"
+      - "start_date"
 runTemplates:
   - id: "1"
     name: "Run Brewery Solution with ADT Connector + params"
@@ -84,3 +119,21 @@ runTemplates:
       - "3"
       - "ADT connector"
       - "No param"
+  - id: "4"
+    name: "Basic types examples run template"
+    description: "Run template with examples of basic types"
+    csmSimulation: "BreweryDemoSimulationWithConnector"
+    fetchDatasets: true
+    fetchScenarioParameters: false
+    applyParameters: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
+    validateData: false
+    preRun: false
+    postRun: false
+    tags:
+      - "4"
+      - "Example"
+      - "Storage connector"
+    parameterGroups:
+      - "basic_types"

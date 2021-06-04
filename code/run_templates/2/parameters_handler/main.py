@@ -18,17 +18,25 @@ files = glob.glob(str(dataPath / "**"), recursive=True)
 print(files)
 barPath = dataPath / "Bar.csv"
 parametersPath = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
-parametersFile = parametersPath / "parameters.json"
+parametersFile = parametersPath / "parameters.csv"
 if parametersFile.exists():
-  with open(parametersFile, 'r') as f:
-    parameters = json.load(f, object_hook=lambda d: SimpleNamespace(**d))
-  pValues = parameters.parametersValues
-  stockParam = getValue(pValues, "stock")
-  stock = stockParam.value
-  restockQtyParam = getValue(pValues, "restock_qty")
-  restock = restockQtyParam.value
-  nbWaitersParam = getValue(pValues, "nb_waiters")
-  nbWaiters = nbWaitersParam.value
+  stock = 0
+  restock = 0
+  nbWaiters = 0
+  with open(parametersFile, 'r') as csvfile:
+    parametersReader = csv.reader(csvfile)
+    print('Start reading parameters.csv file')
+    for row in parametersReader:
+      print(row)
+      if row[0] == 'stock':
+        print('stock read', row[2])
+        stock = row[2]
+      if row[0] == 'restock_qty':
+        print('restock_qty read', row[2])
+        restock = row[2]
+      if row[0] == 'nb_waiters':
+        print('nb_waiters read', row[2])
+        nbWaiters = row[2]
   tempfile = NamedTemporaryFile('w+t', newline='', delete=False)
   with open(barPath, newline='') as csvfile:
     barReader = csv.reader(csvfile)
@@ -38,13 +46,13 @@ if parametersFile.exists():
       if line > 0:
         oldNbWaitersValue = row[0]
         row[0] = nbWaiters
-        print(oldNbWaitersValue + "=>" + nbWaiters)
+        print(oldNbWaitersValue, "=>", nbWaiters)
         oldRestockValue = row[1]
         row[1] = restock
-        print(oldRestockValue + "=>" + restock)
+        print(oldRestockValue, "=>", restock)
         oldStockValue = row[2]
         row[2] = stock
-        print(oldStockValue + "=>" + stock)
+        print(oldStockValue, "=>", stock)
         print(row)
       barWriter.writerow(row)
       line = line + 1

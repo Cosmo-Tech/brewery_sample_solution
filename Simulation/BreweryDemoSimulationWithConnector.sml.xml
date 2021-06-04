@@ -71,7 +71,7 @@
           <csmSon:Property name="MaxDataSize">1000000</csmSon:Property>
           <csmSon:Property name="MaxMessageSize">1000000</csmSon:Property>
           <csmSon:Property name="MaxRetry">5</csmSon:Property>
-          <csmSon:Property name="SimulationName">BreweryDemoSimulation</csmSon:Property>
+          <csmSon:Property name="SimulationName">BreweryDemoSimulationWithConnector</csmSon:Property>
           <csmSon:Property name="Topic">amqps://phoenixdev.servicebus.windows.net/o-gzypnd27g7-demobrewery</csmSon:Property>
         </csmSon:Properties>
         <csmSon:ProbeReferences>
@@ -83,7 +83,7 @@
           <csmSon:Property name="MaxDataSize">1000000</csmSon:Property>
           <csmSon:Property name="MaxMessageSize">1000000</csmSon:Property>
           <csmSon:Property name="MaxRetry">5</csmSon:Property>
-          <csmSon:Property name="SimulationName">BreweryDemoSimulation</csmSon:Property>
+          <csmSon:Property name="SimulationName">BreweryDemoSimulationWithConnector</csmSon:Property>
           <csmSon:Property name="Topic">amqps://phoenixdev.servicebus.windows.net/o-gzypnd27g7-demobrewery</csmSon:Property>
         </csmSon:Properties>
         <csmSon:ProbeReferences>

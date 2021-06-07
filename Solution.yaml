@@ -47,6 +47,11 @@ parameters:
       fr: "Date de départ"
       en: "Start date"
     varType: "date"
+  - id: "initial_stock_dataset"
+    labels:
+      fr: "Stock de départ"
+      en: "Initial stock"
+    varType: "object"
 parameterGroups:
   - id: "bar_parameters"
     labels:
@@ -56,6 +61,7 @@ parameterGroups:
       - "stock"
       - "restock_qty"
       - "nb_waiters"
+      - "initial_stock_dataset"
   - id: "basic_types"
     labels:
       fr: "Exemples de types standards"

@@ -2,7 +2,7 @@ key: "Demo Brewery Solution"
 name:  "Demo Brewery Solution"
 description: "One Day Brewery Solution"
 repository: "brewery_simulator"
-version: "0.0.10"
+version: "0.0.11"
 tags:
   - "1day"
   - "Brewery"
@@ -72,8 +72,8 @@ runTemplates:
     description: "Run Brewery Solution with ADT Connector + params"
     csmSimulation: "BreweryDemoSimulationWithConnector"
     fetchDatasets: true
-    fetchScenarioParameters: false
-    applyParameters: false
+    fetchScenarioParameters: true
+    applyParameters: true
     sendDatasetsToDataWarehouse: true
     sendInputParametersToDataWarehouse: true
     validateData: false

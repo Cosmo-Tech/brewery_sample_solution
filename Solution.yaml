@@ -74,8 +74,8 @@ parameterGroups:
       - "start_date"
 runTemplates:
   - id: "1"
-    name: "Run Brewery Solution with ADT Connector + params"
-    description: "Run Brewery Solution with ADT Connector + params"
+    name: "Run template with Brewery parameters"
+    description: "Run template with Brewery parameters"
     csmSimulation: "BreweryDemoSimulationWithConnector"
     fetchDatasets: true
     fetchScenarioParameters: true
@@ -87,31 +87,27 @@ runTemplates:
     postRun: false
     tags:
       - "1"
-      - "ADT connector"
       - "With params"
     parameterGroups:
       - "bar_parameters"
   - id: "2"
-    name: "Run template with storage connector + params"
-    description: "Run template with storage connector + params"
+    name: "Run template without parameters"
+    description: "Run template without parameters"
     csmSimulation: "BreweryDemoSimulationWithConnector"
     fetchDatasets: true
-    fetchScenarioParameters: true
-    applyParameters: true
+    fetchScenarioParameters: false
+    applyParameters: false
     sendDatasetsToDataWarehouse: true
-    sendInputParametersToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
     validateData: false
     preRun: false
     postRun: false
     tags:
       - "2"
-      - "Storage connector"
-      - "With params"
-    parameterGroups:
-      - "bar_parameters"
+      - "No param"
   - id: "3"
-    name: "Run Brewery Solution with ADT Connector"
-    description: "Run Brewery Solution with ADT Connector"
+    name: "Run template with mock basic types parameters"
+    description: "Run template with mock basic types parameters"
     csmSimulation: "BreweryDemoSimulationWithConnector"
     fetchDatasets: true
     fetchScenarioParameters: false
@@ -123,23 +119,6 @@ runTemplates:
     postRun: false
     tags:
       - "3"
-      - "ADT connector"
-      - "No param"
-  - id: "4"
-    name: "Basic types examples run template"
-    description: "Run template with examples of basic types"
-    csmSimulation: "BreweryDemoSimulationWithConnector"
-    fetchDatasets: true
-    fetchScenarioParameters: false
-    applyParameters: false
-    sendDatasetsToDataWarehouse: true
-    sendInputParametersToDataWarehouse: false
-    validateData: false
-    preRun: false
-    postRun: false
-    tags:
-      - "4"
       - "Example"
-      - "Storage connector"
     parameterGroups:
       - "basic_types"

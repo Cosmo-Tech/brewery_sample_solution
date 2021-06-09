@@ -17,7 +17,7 @@ def getValue(values, searchId):
 dataPath = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
 files = glob.glob(str(dataPath / "**"), recursive=True)
 print(files)
-barPath = dataPath / "Bar.csv"
+barPath = dataPath / "demobrewery/Bar.csv"
 parametersPath = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
 parametersFile = parametersPath / "parameters.csv"
 if parametersFile.exists():

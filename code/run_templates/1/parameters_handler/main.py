@@ -14,7 +14,7 @@ def getValue(values, searchId):
     logging.warning("Parameter not found")
 
 
-dataPath = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"]) / "demobrewery"
+dataPath = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
 files = glob.glob(str(dataPath / "**"), recursive=True)
 print(files)
 barPath = dataPath / "Bar.csv"

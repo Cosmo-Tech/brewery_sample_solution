@@ -27,6 +27,17 @@
           </csmSon:Condition>
           <csmSon:SequentialTaskBlock>
             <csmSon:ModelTask>Model</csmSon:ModelTask>
+            <csmSon:ForEachParallelTask recursiveLevel="1" concurrencyLevel="-1">
+              <csmSon:ModelName>Model</csmSon:ModelName>
+              <csmSon:Entity>MyBar</csmSon:Entity>
+              <csmSon:SubEntityType>Customer</csmSon:SubEntityType>
+            </csmSon:ForEachParallelTask>
+            <csmSon:ForEachTask recursiveLevel="1" concurrencyLevel="1">
+              <csmSon:ModelName>Model</csmSon:ModelName>
+              <csmSon:Entity>MyBar</csmSon:Entity>
+              <csmSon:SubEntityType>Customer</csmSon:SubEntityType>
+              <csmSon:Process>Update</csmSon:Process>
+            </csmSon:ForEachTask>
             <csmSon:SimpleTask>
               <csmSon:ModelName>Model</csmSon:ModelName>
               <csmSon:Entity>MyBar</csmSon:Entity>

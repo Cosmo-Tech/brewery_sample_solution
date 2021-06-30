@@ -24,6 +24,8 @@ if parametersFile.exists():
     stock = 0
     restock = 0
     nbWaiters = 0
+    initialStockDataset = ''
+    initialStockFileName = ''
     with open(parametersFile, 'r') as csvfile:
         parametersReader = csv.reader(csvfile)
         print('Start reading parameters.csv file')
@@ -38,6 +40,20 @@ if parametersFile.exists():
             if row[0] == 'nb_waiters':
                 print('nb_waiters read', row[1])
                 nbWaiters = row[1]
+            if row[0] == 'initial_stock_dataset':
+                print('initial_stock_dataset read', row[0])
+                initialStockDataset = row[0]
+            if row[0] == 'initial_stock_fileName':
+                print('initial_stock_fileName read', row[1])
+                initialStockFileName = row[1]
+
+    if initialStockDataset != '':
+        datasetFilePath = parametersPath / initialStockDataset / initialStockFileName
+        with open(datasetFilePath, 'r') as initialStockFile:
+            datasetReader = csv.reader(initialStockFile)
+            for row in datasetReader:
+                print(row)
+                stock = row[1]
 
     tempfile = NamedTemporaryFile('w+t', newline='', delete=False)
 
@@ -49,13 +65,13 @@ if parametersFile.exists():
             if line > 0:
                 oldNbWaitersValue = row[0]
                 row[0] = nbWaiters
-                print(oldNbWaitersValue, "=>", nbWaiters)
+                print("Legacy value:", oldNbWaitersValue, "=> New value:", nbWaiters)
                 oldRestockValue = row[1]
                 row[1] = restock
-                print(oldRestockValue, "=>", restock)
+                print("Legacy value:", oldRestockValue, "=> New value:", restock)
                 oldStockValue = row[2]
                 row[2] = stock
-                print(oldStockValue, "=>", stock)
+                print("Legacy value:", oldStockValue, "=> New value:", stock)
             barWriter.writerow(row)
             line = line + 1
     tempfile.close()

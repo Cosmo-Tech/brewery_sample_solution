@@ -72,6 +72,7 @@ parameterGroups:
       - "currency_value"
       - "currency_used"
       - "start_date"
+      - "initial_stock_dataset"
 runTemplates:
   - id: "1"
     name: "Run template with Brewery parameters"

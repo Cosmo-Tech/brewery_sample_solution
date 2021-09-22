@@ -52,6 +52,21 @@ parameters:
       fr: "Stock de départ"
       en: "Initial stock"
     varType: "%DATASETID%"
+  - id: "example_dataset_part_1"
+    labels:
+      fr: "Exemple de sous-partie de dataset 1"
+      en: "Example dataset part 1"
+    varType: "%DATASETID%"
+  - id: "example_dataset_part_2"
+    labels:
+      fr: "Exemple de sous-partie de dataset 2"
+      en: "Example dataset part 2"
+    varType: "%DATASETID%"
+  - id: "example_dataset_part_3"
+    labels:
+      fr: "Exemple de sous-partie de dataset 3"
+      en: "Example dataset part 3"
+    varType: "%DATASETID%"
 parameterGroups:
   - id: "bar_parameters"
     labels:
@@ -73,6 +88,9 @@ parameterGroups:
       - "currency_used"
       - "start_date"
       - "initial_stock_dataset"
+      - "example_dataset_part_1"
+      - "example_dataset_part_2"
+      - "example_dataset_part_3"
 runTemplates:
   - id: "1"
     name: "Run template with Brewery parameters"

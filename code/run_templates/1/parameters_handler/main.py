@@ -43,17 +43,18 @@ if parametersFile.exists():
             if row[0] == 'initial_stock_dataset':
                 print('initial_stock_dataset read', row[0])
                 initialStockDataset = row[0]
-            if row[0] == 'initial_stock_fileName':
-                print('initial_stock_fileName read', row[1])
-                initialStockFileName = row[1]
 
     if initialStockDataset != '':
-        datasetFilePath = parametersPath / initialStockDataset / initialStockFileName
-        with open(datasetFilePath, 'r') as initialStockFile:
-            datasetReader = csv.reader(initialStockFile)
-            for row in datasetReader:
-                print(row)
-                stock = row[1]
+        datasetFilePath = parametersPath / initialStockDataset
+        files = os.listdir(datasetFilePath)
+        if not files:
+            print('No files under', datasetFilePath, 'folder')
+        else:
+            with open(datasetFilePath/files[0], 'r') as initialStockFile:
+                datasetReader = csv.reader(initialStockFile)
+                for row in datasetReader:
+                    print(row)
+                    stock = row[1]
 
     tempfile = NamedTemporaryFile('w+t', newline='', delete=False)
 

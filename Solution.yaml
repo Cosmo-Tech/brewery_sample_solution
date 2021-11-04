@@ -1,5 +1,5 @@
 key: "Demo Brewery Solution"
-name:  "Demo Brewery Solution"
+name: "Demo Brewery Solution"
 description: "One Day Brewery Solution"
 repository: "brewery_simulator"
 version: "0.0.20"
@@ -67,6 +67,11 @@ parameters:
       fr: "Exemple de sous-partie de dataset 3"
       en: "Example dataset part 3"
     varType: "%DATASETID%"
+  - id: "customers"
+    labels:
+      fr: "Clients"
+      en: "Customers"
+    varType: "%DATASETID%"
 parameterGroups:
   - id: "bar_parameters"
     labels:
@@ -91,6 +96,7 @@ parameterGroups:
       - "example_dataset_part_1"
       - "example_dataset_part_2"
       - "example_dataset_part_3"
+      - "customers"
 runTemplates:
   - id: "1"
     name: "Run template with Brewery parameters"

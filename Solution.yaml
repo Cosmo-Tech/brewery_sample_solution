@@ -147,3 +147,18 @@ runTemplates:
       - "Example"
     parameterGroups:
       - "basic_types"
+  - id: "hidden test run template"
+    name: "Hidden test run template without parameters"
+    description: "Run template without parameters"
+    csmSimulation: "BreweryDemoSimulationWithConnector"
+    fetchDatasets: true
+    fetchScenarioParameters: false
+    applyParameters: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
+    validateData: false
+    preRun: false
+    postRun: false
+    tags:
+      - "2"
+      - "No param"

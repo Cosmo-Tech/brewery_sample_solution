@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Language: XML
+  $Author:$
+  $Date:$
+  $Revision$
+  $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
+-->
+<csmSon:Simulation xmlns:csmSon="http://www.cosmotech.com/csm_simulation/8.2">
+  <csmSon:Documentation/>
+  <csmSon:ModelInstance type="Brewery" id="Model">
+    <csmSon:Loader type="csmXMLInstantiation">
+      <csmSon:Property name="File">MyBrewery</csmSon:Property>
+    </csmSon:Loader>
+  </csmSon:ModelInstance>
+  <csmSon:SimulatorInstance>
+    <csmSon:SchedulerInstance>
+      <csmSon:RepeatTaskBlock repetitions="10">
+        <csmSon:WhileTaskBlock>
+          <csmSon:Condition>
+            <csmSon:OrBlock>
+              <csmSon:AndBlock>
+                <csmSon:Repetitions value="100"/>
+                <csmSon:Attribute left="{Model}Model::{Entity}MyBar::{Attribute}Stock" operator="Greater" right="5"/>
+              </csmSon:AndBlock>
+            </csmSon:OrBlock>
+          </csmSon:Condition>
+          <csmSon:SequentialTaskBlock>
+            <csmSon:ModelTask>Model</csmSon:ModelTask>
+            <csmSon:SimpleTask>
+              <csmSon:ModelName>Model</csmSon:ModelName>
+              <csmSon:Entity>MyBar</csmSon:Entity>
+              <csmSon:MesoFunction>UpdateNbThirstyCustomers</csmSon:MesoFunction>
+            </csmSon:SimpleTask>
+            <csmSon:SimpleTask>
+              <csmSon:ModelName>Model</csmSon:ModelName>
+              <csmSon:Entity>MyBar</csmSon:Entity>
+              <csmSon:Process>Serve</csmSon:Process>
+            </csmSon:SimpleTask>
+            <csmSon:SimpleTask>
+              <csmSon:ModelName>Model</csmSon:ModelName>
+              <csmSon:Entity>MyBar</csmSon:Entity>
+              <csmSon:MesoFunction>UpdateAverageSatisfaction</csmSon:MesoFunction>
+            </csmSon:SimpleTask>
+          </csmSon:SequentialTaskBlock>
+        </csmSon:WhileTaskBlock>
+        <csmSon:SimpleTask>
+          <csmSon:ModelName>Model</csmSon:ModelName>
+          <csmSon:Entity>MyBar</csmSon:Entity>
+          <csmSon:Process>Restock</csmSon:Process>
+        </csmSon:SimpleTask>
+      </csmSon:RepeatTaskBlock>
+    </csmSon:SchedulerInstance>
+    <csmSon:ProbeInstances>
+      <csmSon:ProbeInstance name="StockProbe" type="GenericAttributesSender" location="Simulation" loader="GenericAttributes" tag="1::1::1::0.5" active="1">
+        <csmSon:Entity>
+          <csmSon:Name>Model::MyBar</csmSon:Name>
+          <csmSon:AttributeName>Stock</csmSon:AttributeName>
+        </csmSon:Entity>
+      </csmSon:ProbeInstance>
+      <csmSon:ProbeInstance name="StockProbe" tag="2" active="1"/>
+      <csmSon:ProbeInstance name="SatisfactionProbe" type="GenericAttributesSender" location="Simulation" loader="GenericAttributes" tag="1::1::1::0.6" active="1">
+        <csmSon:Entity>
+          <csmSon:Name>Model::MyBar</csmSon:Name>
+          <csmSon:SubEntityTypeName>Customer</csmSon:SubEntityTypeName>
+          <csmSon:AttributeName>Satisfaction</csmSon:AttributeName>
+        </csmSon:Entity>
+      </csmSon:ProbeInstance>
+    </csmSon:ProbeInstances>
+    <csmSon:ConsumerInstances>
+      <csmSon:ConsumerInstance name="StockProbeCSV" type="CSVFileGenericConsumer">
+        <csmSon:Properties>
+          <csmSon:Property name="ColumnType">attribute</csmSon:Property>
+          <csmSon:Property name="DesignateEntityByName">1</csmSon:Property>
+          <csmSon:Property name="DeterministicOutput">0</csmSon:Property>
+          <csmSon:Property name="FileName">Stock</csmSon:Property>
+          <csmSon:Property name="FileType">all</csmSon:Property>
+          <csmSon:Property name="HideLinkedValues">0</csmSon:Property>
+          <csmSon:Property name="LinkedValueSeparator">_</csmSon:Property>
+          <csmSon:Property name="OutputDirectory"/>
+          <csmSon:Property name="RowType">iteration</csmSon:Property>
+          <csmSon:Property name="Separator">,</csmSon:Property>
+          <csmSon:Property name="SerializeAtEachIteration">0</csmSon:Property>
+        </csmSon:Properties>
+        <csmSon:ProbeReferences>
+          <csmSon:ProbeReference>StockProbe</csmSon:ProbeReference>
+        </csmSon:ProbeReferences>
+      </csmSon:ConsumerInstance>
+      <csmSon:ConsumerInstance name="SatisfactionProbeCSV" type="CSVFileGenericConsumer">
+        <csmSon:Properties>
+          <csmSon:Property name="ColumnType">attribute</csmSon:Property>
+          <csmSon:Property name="DesignateEntityByName">1</csmSon:Property>
+          <csmSon:Property name="DeterministicOutput">0</csmSon:Property>
+          <csmSon:Property name="FileName">Satisfaction</csmSon:Property>
+          <csmSon:Property name="FileType">all</csmSon:Property>
+          <csmSon:Property name="HideLinkedValues">0</csmSon:Property>
+          <csmSon:Property name="LinkedValueSeparator">_</csmSon:Property>
+          <csmSon:Property name="OutputDirectory"/>
+          <csmSon:Property name="RowType">iteration</csmSon:Property>
+          <csmSon:Property name="Separator">,</csmSon:Property>
+          <csmSon:Property name="SerializeAtEachIteration">0</csmSon:Property>
+        </csmSon:Properties>
+        <csmSon:ProbeReferences>
+          <csmSon:ProbeReference>SatisfactionProbe</csmSon:ProbeReference>
+        </csmSon:ProbeReferences>
+      </csmSon:ConsumerInstance>
+    </csmSon:ConsumerInstances>
+  </csmSon:SimulatorInstance>
+</csmSon:Simulation>

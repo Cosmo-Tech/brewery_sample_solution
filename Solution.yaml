@@ -72,6 +72,16 @@ parameters:
       fr: "Clients"
       en: "Customers"
     varType: "%DATASETID%"
+  - id: "training_start_date"
+    labels:
+      fr: "Date de départ"
+      en: "Start date"
+    varType: "date"
+  - id: "training_end_date"
+    labels:
+      fr: "Date de Fin"
+      en: "End date"
+    varType: "date"
 parameterGroups:
   - id: "bar_parameters"
     labels:
@@ -97,6 +107,13 @@ parameterGroups:
       - "example_dataset_part_2"
       - "example_dataset_part_3"
       - "customers"
+  - id: "training_dates"
+    labels:
+      fr: "Dates de simulation"
+      en: "Simulation dates"
+    parameters:
+      - "training_start_date"
+      - "training_end_date"
 runTemplates:
   - id: "1"
     name: "Run template with Brewery parameters"

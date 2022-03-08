@@ -79,31 +79,5 @@
       </csmSon:ProbeInstance>
       <csmSon:ProbeInstance name="CustomerSatisfactionProbe" tag="2.1" active="1"/>
     </csmSon:ProbeInstances>
-    <csmSon:ConsumerInstances>
-      <csmSon:ConsumerInstance name="StockConsumer" type="AMQPConsumer">
-        <csmSon:Properties>
-          <csmSon:Property name="MaxDataSize">1000000</csmSon:Property>
-          <csmSon:Property name="MaxMessageSize">1000000</csmSon:Property>
-          <csmSon:Property name="MaxRetry">5</csmSon:Property>
-          <csmSon:Property name="SimulationName">BreweryDemoSimulation</csmSon:Property>
-          <csmSon:Property name="Topic">amqps://phoenixdev.servicebus.windows.net/o-gzypnd27g7-demobrewery</csmSon:Property>
-        </csmSon:Properties>
-        <csmSon:ProbeReferences>
-          <csmSon:ProbeReference>StockProbe</csmSon:ProbeReference>
-        </csmSon:ProbeReferences>
-      </csmSon:ConsumerInstance>
-      <csmSon:ConsumerInstance name="CustomerSatisfactionConsumer" type="AMQPConsumer">
-        <csmSon:Properties>
-          <csmSon:Property name="MaxDataSize">1000000</csmSon:Property>
-          <csmSon:Property name="MaxMessageSize">1000000</csmSon:Property>
-          <csmSon:Property name="MaxRetry">5</csmSon:Property>
-          <csmSon:Property name="SimulationName">BreweryDemoSimulation</csmSon:Property>
-          <csmSon:Property name="Topic">amqps://phoenixdev.servicebus.windows.net/o-gzypnd27g7-demobrewery</csmSon:Property>
-        </csmSon:Properties>
-        <csmSon:ProbeReferences>
-          <csmSon:ProbeReference>CustomerSatisfactionProbe</csmSon:ProbeReference>
-        </csmSon:ProbeReferences>
-      </csmSon:ConsumerInstance>
-    </csmSon:ConsumerInstances>
   </csmSon:SimulatorInstance>
 </csmSon:Simulation>

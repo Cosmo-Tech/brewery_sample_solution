@@ -52,6 +52,41 @@ parameters:
       fr: 'Date de départ'
       en: 'Start date'
     varType: 'date'
+  - id: 'additional_seats'
+    labels:
+      fr: 'Sièges additionnels'
+      en: 'Additionnal seats'
+    varType: 'number'
+  - id: 'additional_tables'
+    labels:
+      fr: 'Tables additionnelles'
+      en: 'Additionnal tables'
+    varType: 'number'
+  - id: 'activated'
+    labels:
+      en: 'Activated'
+      fr: 'Activé'
+    varType: 'bool'
+  - id: 'evaluation'
+    labels:
+      fr: 'Evaluation'
+      en: 'Evaluation'
+    varType: 'string'
+  - id: 'volume_unit'
+    labels:
+      en: 'Volume unit'
+      fr: 'Unité de volume'
+    varType: 'enum'
+  - id: 'comment'
+    labels:
+      en: 'Comment'
+      fr: 'Commentaire'
+    varType: 'string'
+  - id: 'additional_date'
+    labels:
+      en: 'Additional date'
+      fr: 'Date additionelle'
+    varType: 'date'
   - id: 'initial_stock_dataset'
     labels:
       fr: 'Stock de départ'
@@ -76,6 +111,11 @@ parameters:
     labels:
       fr: 'Clients'
       en: 'Customers'
+    varType: '%DATASETID%'
+  - id: 'events'
+    labels:
+      fr: 'Evènements'
+      en: 'Events'
     varType: '%DATASETID%'
   - id: 'training_start_date'
     labels:
@@ -118,6 +158,14 @@ parameterGroups:
       - 'example_dataset_part_2'
       - 'example_dataset_part_3'
       - 'customers'
+      - 'events'
+      - 'additional_seats'
+      - 'additional_tables'
+      - 'activated'
+      - 'evaluation'
+      - 'volume_unit'
+      - 'comment'
+      - 'additional_date'
   - id: 'training_dates'
     labels:
       fr: 'Dates de simulation'

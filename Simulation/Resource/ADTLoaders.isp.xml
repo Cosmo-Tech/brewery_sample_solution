@@ -22,18 +22,15 @@
     <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
     <csmSon:Property name="DefaultType"/>
     <csmSon:Property name="FieldSeparator">,</csmSon:Property>
-    <csmSon:Property name="File">/mnt/scenariorun-data/contains.csv</csmSon:Property>
+    <csmSon:Property name="File">/mnt/scenariorun-data/Bar_vertex.csv</csmSon:Property>
     <csmSon:Property name="Query">source as @ParentName, target as @ReferenceName</csmSon:Property>
-    <csmSon:Property name="StealRootLink">1</csmSon:Property>
     <csmSon:Property name="StringDelimiter">"</csmSon:Property>
   </csmSon:Loader>
-  <csmSon:Loader type="cexCSVGraphLoader" name="ADT CSV loader for graph relationship: arc_to_Customer">
-    <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
-    <csmSon:Property name="DefaultType"/>
-    <csmSon:Property name="FieldSeparator">,</csmSon:Property>
-    <csmSon:Property name="File">/mnt/scenariorun-data/arc_Satisfaction.csv</csmSon:Property>
-    <csmSon:Property name="Query">source as @SourceName, target as @DestinationName</csmSon:Property>
-    <csmSon:Property name="StringDelimiter">"</csmSon:Property>
-    <csmSon:Property name="UseVertexScope">1</csmSon:Property>
-  </csmSon:Loader>
+  <csmSon:Loader type="cexCSVGraphLoader" scopeEntityId="1">
+      <csmSon:Property name="DefaultType"/>
+      <csmSon:Property name="FieldSeparator">,</csmSon:Property>
+      <csmSon:Property name="File">/mnt/scenariorun-data/arc_Satisfaction.csv</csmSon:Property>
+      <csmSon:Property name="Query">source as @SourceName, target as @DestinationName</csmSon:Property>
+      <csmSon:Property name="StringDelimiter">"</csmSon:Property>
+   </csmSon:Loader>
 </csmSon:ModelPart>

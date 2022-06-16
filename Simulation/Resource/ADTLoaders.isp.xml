@@ -31,7 +31,7 @@
     <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
     <csmSon:Property name="DefaultType"/>
     <csmSon:Property name="FieldSeparator">,</csmSon:Property>
-    <csmSon:Property name="File">/mnt/scenariorun-data/arc_to_Customer.csv</csmSon:Property>
+    <csmSon:Property name="File">/mnt/scenariorun-data/arc_Satisfaction.csv</csmSon:Property>
     <csmSon:Property name="Query">source as @SourceName, target as @DestinationName</csmSon:Property>
     <csmSon:Property name="StringDelimiter">"</csmSon:Property>
     <csmSon:Property name="UseVertexScope">1</csmSon:Property>

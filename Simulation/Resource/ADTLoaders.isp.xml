@@ -22,7 +22,7 @@
     <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
     <csmSon:Property name="DefaultType"/>
     <csmSon:Property name="FieldSeparator">,</csmSon:Property>
-    <csmSon:Property name="File">/mnt/scenariorun-data/contains_Customer.csv</csmSon:Property>
+    <csmSon:Property name="File">/mnt/scenariorun-data/contains.csv</csmSon:Property>
     <csmSon:Property name="Query">source as @ParentName, target as @ReferenceName</csmSon:Property>
     <csmSon:Property name="StealRootLink">1</csmSon:Property>
     <csmSon:Property name="StringDelimiter">"</csmSon:Property>

@@ -1,0 +1,16 @@
+name: "Brewery Comets Deployment"
+key: "brewery_comets"
+id: "w-pn9ryko3nxy62"
+version: 0.0.1
+solution: 
+  solutionId: "sol-2wdr4gpzw94ql"
+  runTemplateFilter: ['1', '2', '3']
+  defaultRunTemplateDataset: null
+description: "A workspace for Brewery Demo with Comets"
+version: null
+tags: null
+users: null
+ownerId: "af62440f-16d7-475d-8766-84c62b7b9d65"
+webApp: null
+sendInputToDataWarehouse: null
+useDedicatedEventHubNamespace: null

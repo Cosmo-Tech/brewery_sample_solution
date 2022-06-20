@@ -1,5 +1,5 @@
 name: "Brewery Comets Deployment"
-key: "brewery_comets"
+key: "brewerycomets"
 id: "w-pn9ryko3nxy62"
 version: 0.0.1
 solution: 
@@ -13,4 +13,4 @@ users: null
 ownerId: "af62440f-16d7-475d-8766-84c62b7b9d65"
 webApp: null
 sendInputToDataWarehouse: null
-useDedicatedEventHubNamespace: null
+useDedicatedEventHubNamespace: true

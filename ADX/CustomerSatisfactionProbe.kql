@@ -1,0 +1,11 @@
+//CustomerSatisfactionProbe
+.create-or-alter function UpdateCustomerSatisfactionProbeTable ()
+{GetMeasures("CustomerSatisfactionProbe")
+| project-keep SimulationRun,ProbeRun,CustomerNameDimension,CustomerSatisfactionMeasure}
+
+.set-or-append CustomerSatisfactionProbe <| UpdateCustomerSatisfactionProbeTable
+
+.alter table CustomerSatisfactionProbe policy update
+@'[{"IsEnabled": true, "Source": "ProbesMeasures", "Query": "UpdateCustomerSatisfactionProbeTable()","IsTransactional": false, "PropagateIngestionProperties": false}]';
+
+

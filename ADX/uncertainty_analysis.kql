@@ -1,0 +1,5 @@
+// Create the tables for the uncertainty analysis
+
+.create table Uncertainty_Analysis_results (KPI:string, mean:real, std:real, sem:real, confidence_interval_95:dynamic, SimulationRun:string )
+
+.create table Uncertainty_Analysis_row_results (AverageSatisfaction:string, Stock:string, Label:string, SimulationRun:string ) 

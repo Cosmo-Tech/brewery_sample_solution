@@ -1,0 +1,13 @@
+//StockProbe
+.create-or-alter function UpdateStockProbeTable ()
+{GetMeasures("StockProbe")
+| project-keep SimulationRun,ProbeRun,StockMeasure}
+
+.set-or-append Stockprobe <| UpdateStockProbeTable
+
+.alter table Stockprobe policy update
+@'[{"IsEnabled": true, "Source": "ProbesMeasures", "Query": "UpdateStockProbeTable()","IsTransactional": false, "PropagateIngestionProperties": false}]';
+
+
+
+

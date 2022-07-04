@@ -4,7 +4,7 @@ id: "w-pn9ryko3nxy62"
 version: 0.0.1
 solution: 
   solutionId: "sol-2wdr4gpzw94ql"
-  runTemplateFilter: ['1', '2', '3']
+  runTemplateFilter: ['1', '2', '3', '4', '5', '6']
   defaultRunTemplateDataset: null
 description: "A workspace for Brewery Demo with Comets"
 version: null
@@ -14,3 +14,5 @@ ownerId: "af62440f-16d7-475d-8766-84c62b7b9d65"
 webApp: null
 sendInputToDataWarehouse: null
 useDedicatedEventHubNamespace: true
+
+

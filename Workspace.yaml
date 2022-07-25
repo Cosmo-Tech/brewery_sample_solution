@@ -2,7 +2,7 @@ key: "DemoBrewery"
 name: "Demo Brewery Workspace"
 solution:
   solutionId: "SOL-VkqXyNONQyB"
-  runTemplateFilter: ['1', '2', '3']
+  runTemplateFilter: ['1', '2', '3', 'high cpu (DO NOT USE)']
   defaultRunTemplateDataset: null
 id: "W-rXeBwRa0PM"
 description: "A workspace for Brewery Demo"

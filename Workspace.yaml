@@ -12,4 +12,5 @@ ownerId: '3a869905-e9f5-4851-a7a9-3079aad49dff'
 users: null
 webApp: null
 sendInputToDataWarehouse: true
-useDedicatedEventHubNamespace: null
+useDedicatedEventHubNamespace: true
+sendScenarioMetadataToEventHub: true

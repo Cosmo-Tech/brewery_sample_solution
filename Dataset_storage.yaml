@@ -5,6 +5,6 @@ tags:
   - Brewery
   - Reference
 connector:
-  id: "C-XPv4LBVGAL"
+  id: 'C-XPv4LBVGAL'
   parametersValues:
-    AZURE_STORAGE_CONTAINER_BLOB_PREFIX: "%WORKSPACE_FILE%/demobrewery"
+    AZURE_STORAGE_CONTAINER_BLOB_PREFIX: '%WORKSPACE_FILE%/demobrewery'

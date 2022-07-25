@@ -1,6 +1,5 @@
 {
-  "parametersValues":
-  [
+  "parametersValues": [
     {
       "parameterId": "stock",
       "varType": "int",

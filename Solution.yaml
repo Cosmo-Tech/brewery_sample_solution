@@ -7,11 +7,6 @@ tags:
   - '1day'
   - 'Brewery'
 parameters:
-  - id: ScenarioName
-    labels:
-      fr: Nom du scenario
-      en: Scenario Name
-    varType: string
   - id: 'stock'
     labels:
       fr: 'Stock'
@@ -128,12 +123,6 @@ parameters:
       en: 'End date'
     varType: 'date'
 parameterGroups:
-  - id: 'hidden_parameters'
-    labels:
-      fr: 'Paramètres cachés'
-      en: 'Hidden parameters'
-    parameters:
-      - 'ScenarioName'
   - id: 'bar_parameters'
     labels:
       fr: 'Bar'
@@ -191,10 +180,9 @@ runTemplates:
       - 'With params'
     parameterGroups:
       - 'bar_parameters'
-      - 'hidden_parameters'
   - id: '2'
     name: 'Run template without parameters'
-    description: 'Run template without parameters (except hidden parameters such as the scenario name)'
+    description: 'Run template without parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
     fetchDatasets: true
     fetchScenarioParameters: false
@@ -207,8 +195,6 @@ runTemplates:
     tags:
       - '2'
       - 'No param'
-    parameterGroups:
-      - 'hidden_parameters'
   - id: '3'
     name: 'Run template with mock basic types parameters'
     description: 'Run template with mock basic types parameters'
@@ -226,7 +212,6 @@ runTemplates:
       - 'Example'
     parameterGroups:
       - 'basic_types'
-      - 'hidden_parameters'
   - id: 'hidden test run template'
     name: 'Hidden test run template without parameters'
     description: 'Run template without parameters'
@@ -268,4 +253,3 @@ runTemplates:
       - 'custom high cpu'
     parameterGroups:
       - 'bar_parameters'
-      - 'hidden_parameters'

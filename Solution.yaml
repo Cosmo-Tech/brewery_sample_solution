@@ -246,7 +246,7 @@ runTemplates:
     name: 'high cpu (DO NOT USE)'
     description: 'high cpu (DO NOT USE)'
     computeSize: 'highcpu'
-    resourceSizing:
+    runSizing:
       requests:
         cpu: '0.5'
         memory: '128Mi'

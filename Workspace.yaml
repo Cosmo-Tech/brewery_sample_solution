@@ -10,7 +10,8 @@ version: null
 tags: null
 ownerId: '3a869905-e9f5-4851-a7a9-3079aad49dff'
 users: null
-webApp: null
+webApp:
+  url: https://sample.app.cosmotech.com
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true
 sendScenarioMetadataToEventHub: true

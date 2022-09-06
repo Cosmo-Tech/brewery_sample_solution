@@ -1,0 +1,456 @@
+id: sol-2wdr4gpzw94ql
+key: Demo Brewery Solution
+name: Demo Brewery Solution
+description: One Day Brewery Solution
+repository: brewery_simulator
+csmSimulator: null
+version: 0.0.1-next
+ownerId: af62440f-16d7-475d-8766-84c62b7b9d65
+sdkVersion: null
+url: null
+tags:
+  - 1day
+  - Brewery
+parameters:
+  - id: stock
+    labels:
+      fr: Stock
+      en: Stock
+    varType: int
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: restock_qty
+    labels:
+      fr: Restock
+      en: Restock
+    varType: int
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: restock
+    labels:
+      fr: Réapprovisionnement
+      en: Restock
+    varType: number
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: nb_waiters
+    labels:
+      fr: Serveurs
+      en: Waiters
+    varType: int
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: currency
+    labels:
+      fr: Symbole de la monnaie
+      en: Currency symbol
+    varType: enum
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: currency_name
+    labels:
+      fr: Nom de la monnaie
+      en: Currency name
+    varType: string
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: currency_value
+    labels:
+      fr: Valeur
+      en: Value
+    varType: number
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: currency_used
+    labels:
+      fr: Activer la monnaie
+      en: Enable currency
+    varType: bool
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: start_date
+    labels:
+      fr: Date de départ
+      en: Start date
+    varType: date
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: initial_stock_dataset
+    labels:
+      fr: Stock de départ
+      en: Initial stock
+    varType: "%DATASETID%"
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: example_dataset_part_1
+    labels:
+      fr: Exemple de sous-partie de dataset 1
+      en: Example dataset part 1
+    varType: "%DATASETID%"
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: example_dataset_part_2
+    labels:
+      fr: Exemple de sous-partie de dataset 2
+      en: Example dataset part 2
+    varType: "%DATASETID%"
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: example_dataset_part_3
+    labels:
+      fr: Exemple de sous-partie de dataset 3
+      en: Example dataset part 3
+    varType: "%DATASETID%"
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: customers
+    labels:
+      fr: Clients
+      en: Customers
+    varType: "%DATASETID%"
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: training_start_date
+    labels:
+      fr: Date de départ
+      en: Start date
+    varType: date
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: training_end_date
+    labels:
+      fr: Date de Fin
+      en: End date
+    varType: date
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+  - id: ScenarioName
+    labels:
+      fr: Nom du scénario
+      en: Scenario Name
+    varType: string
+    defaultValue: null
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
+parameterGroups:
+  - id: bar_parameters
+    labels:
+      fr: Bar
+      en: Pub
+    isTable: null
+    options: null
+    parentId: null
+    parameters:
+      - stock
+      - restock_qty
+      - restock
+      - nb_waiters
+      - initial_stock_dataset
+  - id: basic_types
+    labels:
+      fr: Exemples de types standards
+      en: Basic types examples
+    isTable: null
+    options: null
+    parentId: null
+    parameters:
+      - currency
+      - currency_name
+      - currency_value
+      - currency_used
+      - start_date
+      - initial_stock_dataset
+      - example_dataset_part_1
+      - example_dataset_part_2
+      - example_dataset_part_3
+      - customers
+  - id: training_dates
+    labels:
+      fr: Dates de simulation
+      en: Simulation dates
+    isTable: null
+    options: null
+    parentId: null
+    parameters:
+      - training_start_date
+      - training_end_date
+runTemplates:
+  - id: "1"
+    name: Run template with Brewery parameters
+    description: Run template with Brewery parameters
+    csmSimulation: BreweryDemoSimulationWithConnector
+    tags:
+      - "1"
+      - With params
+    computeSize: null
+    noDataIngestionState: true
+    fetchDatasets: true
+    scenarioDataDownloadTransform: null
+    fetchScenarioParameters: true
+    applyParameters: true
+    validateData: true
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: true
+    preRun: false
+    run: null
+    postRun: false
+    parametersJson: null
+    parametersHandlerSource: cloud
+    datasetValidatorSource: cloud
+    preRunSource: null
+    runSource: cloud
+    postRunSource: null
+    scenariodataTransformSource: null
+    parameterGroups:
+      - bar_parameters
+    stackSteps: null
+    gitRepositoryUrl: null
+    gitBranchName: null
+    runTemplateSourceDir: null
+    executionTimeout: null
+  - id: "2"
+    name: Run template without parameters
+    description: Run template without parameters
+    csmSimulation: BreweryDemoSimulationWithConnector
+    tags:
+      - "2"
+      - No param
+    computeSize: null
+    noDataIngestionState: null
+    fetchDatasets: true
+    scenarioDataDownloadTransform: null
+    fetchScenarioParameters: false
+    applyParameters: false
+    validateData: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
+    preRun: false
+    run: null
+    postRun: false
+    parametersJson: null
+    parametersHandlerSource: null
+    datasetValidatorSource: null
+    preRunSource: null
+    runSource: null
+    postRunSource: null
+    scenariodataTransformSource: null
+    parameterGroups: null
+    stackSteps: null
+    gitRepositoryUrl: null
+    gitBranchName: null
+    runTemplateSourceDir: null
+    executionTimeout: null
+  - id: "3"
+    name: Run template with mock basic types parameters
+    description: Run template with mock basic types parameters
+    csmSimulation: BreweryDemoSimulationWithConnector
+    tags:
+      - "3"
+      - Example
+    computeSize: null
+    noDataIngestionState: null
+    fetchDatasets: true
+    scenarioDataDownloadTransform: null
+    fetchScenarioParameters: false
+    applyParameters: false
+    validateData: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
+    preRun: false
+    run: null
+    postRun: false
+    parametersJson: null
+    parametersHandlerSource: null
+    datasetValidatorSource: null
+    preRunSource: null
+    runSource: null
+    postRunSource: null
+    scenariodataTransformSource: null
+    parameterGroups:
+      - basic_types
+    stackSteps: null
+    gitRepositoryUrl: null
+    gitBranchName: null
+    runTemplateSourceDir: null
+    executionTimeout: null
+  - id: hidden test run template
+    name: Hidden test run template without parameters
+    description: Run template without parameters
+    csmSimulation: BreweryDemoSimulationWithConnector
+    tags:
+      - "2"
+      - No param
+    computeSize: null
+    noDataIngestionState: null
+    fetchDatasets: true
+    scenarioDataDownloadTransform: null
+    fetchScenarioParameters: false
+    applyParameters: false
+    validateData: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
+    preRun: false
+    run: null
+    postRun: false
+    parametersJson: null
+    parametersHandlerSource: null
+    datasetValidatorSource: null
+    preRunSource: null
+    runSource: null
+    postRunSource: null
+    scenariodataTransformSource: null
+    parameterGroups: null
+    stackSteps: null
+    gitRepositoryUrl: null
+    gitBranchName: null
+    runTemplateSourceDir: null
+    executionTimeout: null
+  - id: "4"
+    name: Uncertainty Analysis with Comets
+    description: Uncertainty Analysis with Comets
+    csmSimulation: BreweryDemoSimulationWithConnector
+    tags:
+      - "4"
+      - With Comets
+    computeSize: null
+    noDataIngestionState: true
+    fetchDatasets: true
+    scenarioDataDownloadTransform: null
+    fetchScenarioParameters: true
+    applyParameters: false
+    validateData: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: true
+    preRun: false
+    run: true
+    postRun: false
+    parametersJson: null
+    parametersHandlerSource: null
+    datasetValidatorSource: null
+    preRunSource: null
+    runSource: cloud
+    postRunSource: null
+    scenariodataTransformSource: null
+    parameterGroups:
+      - uncertainty_analysis_parameters
+    stackSteps: null
+    gitRepositoryUrl: null
+    gitBranchName: null
+    runTemplateSourceDir: null
+    executionTimeout: null
+  - id: "5"
+    name: Optimization with Comets
+    description: Optimization with Comets
+    csmSimulation: BreweryDemoSimulationWithConnector
+    tags:
+      - "5"
+      - With Comets
+    computeSize: null
+    noDataIngestionState: true
+    fetchDatasets: true
+    scenarioDataDownloadTransform: null
+    fetchScenarioParameters: false
+    applyParameters: false
+    validateData: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: true
+    preRun: false
+    run: true
+    postRun: false
+    parametersJson: null
+    parametersHandlerSource: null
+    datasetValidatorSource: null
+    preRunSource: null
+    runSource: cloud
+    postRunSource: null
+    scenariodataTransformSource: null
+    parameterGroups:
+      - bar_parameters
+    stackSteps: null
+    gitRepositoryUrl: null
+    gitBranchName: null
+    runTemplateSourceDir: null
+    executionTimeout: null
+  - id: "6"
+    name: Basic run with Comets
+    description: Basic run with Comets
+    csmSimulation: BreweryDemoSimulationWithConnector
+    tags:
+      - "6"
+      - With Comets
+    computeSize: null
+    noDataIngestionState: true
+    fetchDatasets: true
+    scenarioDataDownloadTransform: null
+    fetchScenarioParameters: false
+    applyParameters: false
+    validateData: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: true
+    preRun: false
+    run: true
+    postRun: false
+    parametersJson: null
+    parametersHandlerSource: null
+    datasetValidatorSource: null
+    preRunSource: null
+    runSource: cloud
+    postRunSource: null
+    scenariodataTransformSource: null
+    parameterGroups:
+      - bar_parameters
+    stackSteps: null
+    gitRepositoryUrl: null
+    gitBranchName: null
+    runTemplateSourceDir: null
+    executionTimeout: null

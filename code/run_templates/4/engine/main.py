@@ -1,7 +1,19 @@
 import comets as co
 import os
 from CosmoTech_Acceleration_Library.Accelerators.adx_wrapper import ADXQueriesWrapper
+import shutil
 
+
+# retrieving the csv from the adt
+adt_folder = os.environ.get("CSM_DATASET_ABSOLUTE_PATH", None)
+if os.path.isdir("/pkg/share/Simulation/Resource/CSVSimulationLoaders"):
+    shutil.rmtree("/pkg/share/Simulation/Resource/CSVSimulationLoaders")
+if adt_folder is not None:
+    # Copy adt_folder (with files written by the parameters_handler) to folder /pkg/share/Simulation/Resource/CSVSimulationLoaders
+    shutil.copytree(
+        adt_folder,
+        "/pkg/share/Simulation/Resource/CSVSimulationLoaders",
+    )
 
 # encoder for the ua
 def encoder(parameters):
@@ -22,7 +34,7 @@ def QuantityOfInterest(simulator):
 
 
 def main():
-    simulator = co.CosmoInterface(simulator_path="BreweryTutorialSimulation")
+    simulator = co.CosmoInterface(simulator_path="BreweryDemoSimulationNext")
 
     uncertaintytask = co.ModelTask(
         simulator, get_outcomes=QuantityOfInterest, encode=encoder

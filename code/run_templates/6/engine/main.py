@@ -3,9 +3,8 @@ import os
 
 
 def main():
-
     simulator = co.CosmoInterface(
-        simulator_path="BreweryDemoSimulationWithConnector",
+        simulator_path="BreweryDemoSimulationNext",
         amqp_consumer_address=os.environ.get("CSM_PROBES_MEASURES_TOPIC", None),
         simulation_name=os.environ.get("CSM_SIMULATION_VAR", "Simulation"),
     )
@@ -17,9 +16,7 @@ def main():
         "Model::{Entity}MyBar::@RestockQty": 12,
     }
     simulator.set_inputs(parameter)
-
     simulator.run()
-
     simulator.terminate()
 
 

@@ -358,7 +358,7 @@ runTemplates:
   - id: "4"
     name: Uncertainty Analysis with Comets
     description: Uncertainty Analysis with Comets
-    csmSimulation: BreweryDemoSimulationWithConnector
+    csmSimulation: BreweryDemoSimulationNext
     tags:
       - "4"
       - With Comets
@@ -391,7 +391,7 @@ runTemplates:
   - id: "5"
     name: Optimization with Comets
     description: Optimization with Comets
-    csmSimulation: BreweryDemoSimulationWithConnector
+    csmSimulation: BreweryDemoSimulationNext
     tags:
       - "5"
       - With Comets
@@ -424,7 +424,7 @@ runTemplates:
   - id: "6"
     name: Basic run with Comets
     description: Basic run with Comets
-    csmSimulation: BreweryDemoSimulationWithConnector
+    csmSimulation: BreweryDemoSimulationNext
     tags:
       - "6"
       - With Comets

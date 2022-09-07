@@ -17,7 +17,7 @@ def get_outcomes(simulator):
 
 
 def main():
-    simulator = co.CosmoInterface(simulator_path="BreweryTutorialSimulation")
+    simulator = co.CosmoInterface(simulator_path="BreweryDemoSimulationNext")
 
     optimtask = co.ModelTask(simulator, get_outcomes=get_outcomes, encode=encoder)
 

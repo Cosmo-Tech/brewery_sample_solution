@@ -182,6 +182,16 @@ parameters:
     maxValue: null
     regexValidation: null
     options: null
+  - id: number_of_evaluations
+    labels:
+      fr: Nombre d'évaluations
+      en: Number of evaluations
+    varType: int
+    defaultValue: 500
+    minValue: null
+    maxValue: null
+    regexValidation: null
+    options: null
 parameterGroups:
   - id: bar_parameters
     labels:
@@ -224,6 +234,15 @@ parameterGroups:
     parameters:
       - training_start_date
       - training_end_date
+  - id: uncertainty_analysis_parameters
+    labels:
+      fr: Paramètre de l'analyse d'incertitude
+      en: Parameter for the uncertainty analysis
+    isTable: null
+    options: null
+    parentId: null
+    parameters:
+      - number_of_evaluations
 runTemplates:
   - id: "1"
     name: Run template with Brewery parameters

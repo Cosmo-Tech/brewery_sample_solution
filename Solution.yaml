@@ -4,7 +4,7 @@ name: Demo Brewery Solution
 description: One Day Brewery Solution
 repository: brewery_simulator
 csmSimulator: null
-version: 0.0.1-next
+version: 0.0.7-next
 ownerId: af62440f-16d7-475d-8766-84c62b7b9d65
 sdkVersion: null
 url: null
@@ -188,7 +188,13 @@ parameters:
       en: Number of evaluations
     varType: int
     defaultValue: 500
-    minValue: null
+  - id: number_of_waiters
+    labels:
+      fr: Nombre de serveurs
+      en: Number of waiters
+    varType: int
+    defaultValue: 2
+    minValue: 1
     maxValue: null
     regexValidation: null
     options: null
@@ -243,6 +249,7 @@ parameterGroups:
     parentId: null
     parameters:
       - number_of_evaluations
+      - number_of_waiters
 runTemplates:
   - id: "1"
     name: Run template with Brewery parameters
@@ -386,15 +393,15 @@ runTemplates:
     fetchDatasets: true
     scenarioDataDownloadTransform: null
     fetchScenarioParameters: true
-    applyParameters: false
+    applyParameters: true
     validateData: false
-    sendDatasetsToDataWarehouse: true
+    sendDatasetsToDataWarehouse: false
     sendInputParametersToDataWarehouse: true
     preRun: false
     run: true
     postRun: false
     parametersJson: null
-    parametersHandlerSource: null
+    parametersHandlerSource: cloud
     datasetValidatorSource: null
     preRunSource: null
     runSource: cloud

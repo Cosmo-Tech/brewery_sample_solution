@@ -2,7 +2,8 @@ import comets as co
 import os
 from CosmoTech_Acceleration_Library.Accelerators.adx_wrapper import ADXQueriesWrapper
 import shutil
-
+from pathlib import Path
+import pandas as pd
 
 # retrieving the csv from the adt
 adt_folder = os.environ.get("CSM_DATASET_ABSOLUTE_PATH", None)
@@ -14,6 +15,14 @@ if adt_folder is not None:
         adt_folder,
         "/pkg/share/Simulation/Resource/CSVSimulationLoaders",
     )
+
+# retrieving the number of evaluation from the web app
+parametersPath = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
+parametersFile = parametersPath / "parameters.csv"
+df_parameters = pd.read_csv(parametersFile)
+nb_simulation = int(df_parameters.iloc[0, 1])
+df_bar = pd.read_csv("/pkg/share/Simulation/Resource/CSVSimulationLoaders/Bar.csv")
+
 
 # encoder for the ua
 def encoder(parameters):
@@ -57,7 +66,7 @@ def main():
         task=uncertaintytask,
         sampling=sampling,
         n_jobs=6,
-        stop_criteria={"max_evaluations": 500},
+        stop_criteria={"max_evaluations": nb_simulation},
         save_task_history=True,
     )
 

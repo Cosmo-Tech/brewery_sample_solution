@@ -50,12 +50,12 @@ parameters:
   - id: 'additional_seats'
     labels:
       fr: 'Sièges additionnels'
-      en: 'Additionnal seats'
+      en: 'Additional seats'
     varType: 'number'
   - id: 'additional_tables'
     labels:
       fr: 'Tables additionnelles'
-      en: 'Additionnal tables'
+      en: 'Additional tables'
     varType: 'number'
   - id: 'activated'
     labels:

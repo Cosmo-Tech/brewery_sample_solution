@@ -1,5 +1,17 @@
 import comets as co
 import os
+import shutil
+
+# retrieving the csv from the adt
+adt_folder = os.environ.get("CSM_DATASET_ABSOLUTE_PATH", None)
+if os.path.isdir("/pkg/share/Simulation/Resource/CSVSimulationLoaders"):
+    shutil.rmtree("/pkg/share/Simulation/Resource/CSVSimulationLoaders")
+if adt_folder is not None:
+    # Copy adt_folder (with files written by the parameters_handler) to folder /pkg/share/Simulation/Resource/CSVSimulationLoaders
+    shutil.copytree(
+        adt_folder,
+        "/pkg/share/Simulation/Resource/CSVSimulationLoaders",
+    )
 
 
 def main():

@@ -20,9 +20,7 @@ if adt_folder is not None:
 parametersPath = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
 parametersFile = parametersPath / "parameters.csv"
 df_parameters = pd.read_csv(parametersFile)
-nb_simulation = int(df_parameters.iloc[0, 1])
-df_bar = pd.read_csv("/pkg/share/Simulation/Resource/CSVSimulationLoaders/Bar.csv")
-
+nb_simulation = int(df_parameters["value"][0])
 
 # encoder for the ua
 def encoder(parameters):

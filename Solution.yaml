@@ -4,7 +4,7 @@ name: Demo Brewery Solution
 description: One Day Brewery Solution
 repository: brewery_simulator
 csmSimulator: null
-version: 0.0.7-next
+version: 0.0.11-next
 ownerId: af62440f-16d7-475d-8766-84c62b7b9d65
 sdkVersion: null
 url: null
@@ -12,26 +12,6 @@ tags:
   - 1day
   - Brewery
 parameters:
-  - id: stock
-    labels:
-      fr: Stock
-      en: Stock
-    varType: int
-    defaultValue: null
-    minValue: null
-    maxValue: null
-    regexValidation: null
-    options: null
-  - id: restock_qty
-    labels:
-      fr: Restock
-      en: Restock
-    varType: int
-    defaultValue: null
-    minValue: null
-    maxValue: null
-    regexValidation: null
-    options: null
   - id: restock
     labels:
       fr: Réapprovisionnement
@@ -48,67 +28,7 @@ parameters:
       en: Waiters
     varType: int
     defaultValue: null
-    minValue: null
-    maxValue: null
-    regexValidation: null
-    options: null
-  - id: currency
-    labels:
-      fr: Symbole de la monnaie
-      en: Currency symbol
-    varType: enum
-    defaultValue: null
-    minValue: null
-    maxValue: null
-    regexValidation: null
-    options: null
-  - id: currency_name
-    labels:
-      fr: Nom de la monnaie
-      en: Currency name
-    varType: string
-    defaultValue: null
-    minValue: null
-    maxValue: null
-    regexValidation: null
-    options: null
-  - id: currency_value
-    labels:
-      fr: Valeur
-      en: Value
-    varType: number
-    defaultValue: null
-    minValue: null
-    maxValue: null
-    regexValidation: null
-    options: null
-  - id: currency_used
-    labels:
-      fr: Activer la monnaie
-      en: Enable currency
-    varType: bool
-    defaultValue: null
-    minValue: null
-    maxValue: null
-    regexValidation: null
-    options: null
-  - id: start_date
-    labels:
-      fr: Date de départ
-      en: Start date
-    varType: date
-    defaultValue: null
-    minValue: null
-    maxValue: null
-    regexValidation: null
-    options: null
-  - id: initial_stock_dataset
-    labels:
-      fr: Stock de départ
-      en: Initial stock
-    varType: "%DATASETID%"
-    defaultValue: null
-    minValue: null
+    minValue: 1
     maxValue: null
     regexValidation: null
     options: null
@@ -207,11 +127,8 @@ parameterGroups:
     options: null
     parentId: null
     parameters:
-      - stock
-      - restock_qty
       - restock
       - nb_waiters
-      - initial_stock_dataset
   - id: basic_types
     labels:
       fr: Exemples de types standards
@@ -458,16 +375,16 @@ runTemplates:
     noDataIngestionState: true
     fetchDatasets: true
     scenarioDataDownloadTransform: null
-    fetchScenarioParameters: false
-    applyParameters: false
+    fetchScenarioParameters: true
+    applyParameters: true
     validateData: false
-    sendDatasetsToDataWarehouse: true
+    sendDatasetsToDataWarehouse: false
     sendInputParametersToDataWarehouse: true
     preRun: false
     run: true
     postRun: false
     parametersJson: null
-    parametersHandlerSource: null
+    parametersHandlerSource: cloud
     datasetValidatorSource: null
     preRunSource: null
     runSource: cloud

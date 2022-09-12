@@ -1,6 +1,9 @@
+from traceback import FrameSummary
 import comets as co
 import os
 import shutil
+import pandas as pd
+from pathlib import Path
 
 # retrieving the csv from the adt
 adt_folder = os.environ.get("CSM_DATASET_ABSOLUTE_PATH", None)
@@ -22,12 +25,6 @@ def main():
     )
 
     simulator.initialize()
-
-    parameter = {
-        "Model::{Entity}MyBar::@NbWaiters": 10,
-        "Model::{Entity}MyBar::@RestockQty": 12,
-    }
-    simulator.set_inputs(parameter)
     simulator.run()
     simulator.terminate()
 

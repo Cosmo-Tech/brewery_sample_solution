@@ -39,7 +39,7 @@ def main():
         task=optimtask,
         algorithm="CMAES",
         stop_criteria={"max_evaluations": 150},
-        n_jobs=8,
+        n_jobs=-2,
         maximize=False,
     )
 

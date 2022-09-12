@@ -65,7 +65,7 @@ def main():
     ua = co.UncertaintyAnalysis(
         task=uncertaintytask,
         sampling=sampling,
-        n_jobs=6,
+        n_jobs=-2,
         stop_criteria={"max_evaluations": nb_simulation},
         save_task_history=True,
     )

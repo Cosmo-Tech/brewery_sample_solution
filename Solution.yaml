@@ -118,6 +118,16 @@ parameters:
     maxValue: null
     regexValidation: null
     options: null
+  - id: target
+    labels:
+      fr: Stock cible
+      en: Targated stock
+    varType: int
+    defaultValue: 40
+    minValue: 1
+    maxValue: null
+    regexValidation: null
+    options: null
 parameterGroups:
   - id: bar_parameters
     labels:
@@ -167,6 +177,15 @@ parameterGroups:
     parameters:
       - number_of_evaluations
       - number_of_waiters
+  - id: optim_parameters
+    labels:
+      fr: Stock cible de l'optimisation
+      en: Target stock of the optimization
+    isTable: null
+    options: null
+    parentId: null
+    parameters:
+      - target
 runTemplates:
   - id: "1"
     name: Run template with Brewery parameters
@@ -342,10 +361,10 @@ runTemplates:
     noDataIngestionState: true
     fetchDatasets: true
     scenarioDataDownloadTransform: null
-    fetchScenarioParameters: false
+    fetchScenarioParameters: true
     applyParameters: false
     validateData: false
-    sendDatasetsToDataWarehouse: true
+    sendDatasetsToDataWarehouse: false
     sendInputParametersToDataWarehouse: true
     preRun: false
     run: true
@@ -358,7 +377,7 @@ runTemplates:
     postRunSource: null
     scenariodataTransformSource: null
     parameterGroups:
-      - bar_parameters
+      - optim_parameters
     stackSteps: null
     gitRepositoryUrl: null
     gitBranchName: null

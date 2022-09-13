@@ -1,6 +1,26 @@
 import comets as co
 import os
 from CosmoTech_Acceleration_Library.Accelerators.adx_wrapper import ADXQueriesWrapper
+import shutil
+import pandas as pd
+from pathlib import Path
+
+# retrieving the csv from the adt
+adt_folder = os.environ.get("CSM_DATASET_ABSOLUTE_PATH", None)
+if os.path.isdir("/pkg/share/Simulation/Resource/CSVSimulationLoaders"):
+    shutil.rmtree("/pkg/share/Simulation/Resource/CSVSimulationLoaders")
+if adt_folder is not None:
+    # Copy adt_folder (with files written by the parameters_handler) to folder /pkg/share/Simulation/Resource/CSVSimulationLoaders
+    shutil.copytree(
+        adt_folder,
+        "/pkg/share/Simulation/Resource/CSVSimulationLoaders",
+    )
+
+# retrieving the parameter "targated stock" from the web app
+parametersPath = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
+parametersFile = parametersPath / "parameters.csv"
+df_parameters = pd.read_csv(parametersFile)
+target = int(df_parameters["value"][0])
 
 
 def encoder(parameters):
@@ -13,7 +33,7 @@ def encoder(parameters):
 def get_outcomes(simulator):
     outputs = simulator.get_outputs(["Model::{Entity}MyBar::@Stock"])
     stock = outputs["Model::{Entity}MyBar::@Stock"]
-    return {"ObjectiveFunction": (stock - 40) ** 2}
+    return {"ObjectiveFunction": (stock - target) ** 2}
 
 
 def main():
@@ -45,12 +65,33 @@ def main():
 
     opt.run()
 
+    # Running a simple simulation with the optimal decision variable
+    simulator2 = co.CosmoInterface(
+        simulator_path="BreweryDemoSimulationNext",
+        amqp_consumer_address=os.environ.get("CSM_PROBES_MEASURES_TOPIC", None),
+        simulation_name=os.environ.get("CSM_SIMULATION_VAR", "Simulation"),
+    )
+
+    simulator2.initialize()
+    optimal_decision_variable = {
+        "Model::{Entity}MyBar::@NbWaiters": opt.results["Optimal variables"][
+            "NbWaiters"
+        ],
+        "Model::{Entity}MyBar::@RestockQty": opt.results["Optimal variables"][
+            "RestockQty"
+        ],
+    }
+    simulator2.set_inputs(optimal_decision_variable)
+    simulator2.run()
+    simulator2.terminate()
+
     # Creating the dic of results that will be sent to adx
     opt_results = [
         {
             "NbWaiters": opt.results["Optimal variables"]["NbWaiters"],
             "RestockQty": opt.results["Optimal variables"]["RestockQty"],
             "ObjectiveFunction": opt.results["Optimal values"]["ObjectiveFunction"],
+            "Target": target,
             "SimulationRun": str(os.environ.get("CSM_SIMULATION_ID", None)),
         }
     ]

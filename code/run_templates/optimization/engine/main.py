@@ -16,7 +16,7 @@ if adt_folder is not None:
         "/pkg/share/Simulation/Resource/CSVSimulationLoaders",
     )
 
-# retrieving the parameter "targated stock" from the web app
+# retrieving the parameter "targeted stock" from the web app
 parametersPath = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
 parametersFile = parametersPath / "parameters.csv"
 df_parameters = pd.read_csv(parametersFile)
@@ -71,6 +71,8 @@ def main():
         amqp_consumer_address=os.environ.get("CSM_PROBES_MEASURES_TOPIC", None),
         simulation_name=os.environ.get("CSM_SIMULATION_VAR", "Simulation"),
     )
+    print("là", os.environ.get("CSM_PROBES_MEASURES_TOPIC", None), flush=True)
+    print("ici", os.environ.get("CSM_SIMULATION_ID"), flush=True)
 
     simulator2.initialize()
     optimal_decision_variable = {

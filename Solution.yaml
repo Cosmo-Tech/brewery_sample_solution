@@ -121,7 +121,7 @@ parameters:
   - id: target
     labels:
       fr: Stock cible
-      en: Targated stock
+      en: Targeted stock
     varType: int
     defaultValue: 40
     minValue: 1
@@ -131,7 +131,7 @@ parameters:
 parameterGroups:
   - id: bar_parameters
     labels:
-      fr: Bar
+      fr: Bar 
       en: Pub
     isTable: null
     options: null
@@ -317,12 +317,12 @@ runTemplates:
     gitBranchName: null
     runTemplateSourceDir: null
     executionTimeout: null
-  - id: "4"
+  - id: "uncertainty_analysis"
     name: Uncertainty Analysis with Comets
     description: Uncertainty Analysis with Comets
     csmSimulation: BreweryDemoSimulationNext
     tags:
-      - "4"
+      - "uncertainty_analysis"
       - With Comets
     computeSize: null
     noDataIngestionState: true
@@ -350,12 +350,12 @@ runTemplates:
     gitBranchName: null
     runTemplateSourceDir: null
     executionTimeout: null
-  - id: "5"
+  - id: "optimization"
     name: Optimization with Comets
     description: Optimization with Comets
     csmSimulation: BreweryDemoSimulationNext
     tags:
-      - "5"
+      - "optimization"
       - With Comets
     computeSize: null
     noDataIngestionState: true
@@ -383,12 +383,12 @@ runTemplates:
     gitBranchName: null
     runTemplateSourceDir: null
     executionTimeout: null
-  - id: "6"
+  - id: "basic_simulation"
     name: Basic run with Comets
     description: Basic run with Comets
     csmSimulation: BreweryDemoSimulationNext
     tags:
-      - "6"
+      - "basic_simulation"
       - With Comets
     computeSize: null
     noDataIngestionState: true

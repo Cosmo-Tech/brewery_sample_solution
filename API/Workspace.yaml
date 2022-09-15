@@ -1,16 +1,24 @@
-key: OptimBenchmarkWorkspace
-name: OptimBenchmarkWorkspace
+key: brewerycomets
+name: Brewery Comets Deployment
 solution:
-  solutionId: sol-20dqwzlp09wm1
-  runTemplateFilter: null
+  solutionId: sol-2wdr4gpzw94ql
+  runTemplateFilter:
+    - "1"
+    - "basic_simulation"
+    - "optimization"
+    - "uncertainty_analysis"
+      
   defaultRunTemplateDataset: null
-id: w-po901kxqow13j
-description: Benchmark of optimization
+id: w-pn9ryko3nxy62
+description: Workspace for Brewery Demo with Comets
 version: null
 tags: null
-ownerId: 57c850b7-95d7-4a66-8318-117018f684fc
+ownerId: af62440f-16d7-475d-8766-84c62b7b9d65
 users: null
-webApp: null
+webApp:
+  url: https://cometsdev.app.cosmotech.com
+  iframes: null
+  options: null
 sendInputToDataWarehouse: null
-useDedicatedEventHubNamespace: false
-sendScenarioMetadataToEventHub: null
+useDedicatedEventHubNamespace: true
+sendScenarioMetadataToEventHub: false

@@ -14,9 +14,9 @@ csm twin-engine docker release $version --registry csmenginesdev.azurecr.io/
 
 ### Cosmo Tech platform
 - Organization: `O-gZYpnd27G7`
-- Workspace: `w-po901kxqow13j`
+- Workspace: `w-pn9ryko3nxy62`
 - Solution: `sol-2wdr4gpzw94ql`
-- Workspace key: `OptimBenchmarkWorkspace`
+- Workspace key: `brewerycomets`
 - Scenario: ``
 
 ### API

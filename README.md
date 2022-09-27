@@ -1,1 +1,18 @@
-# brewery_sample_solution
+# Brewery sample solution
+
+## Build
+
+With CoSMo Studio installed and csm available in your path, you can build the project with the commands:
+
+```
+csm clean
+csm flow
+```
+
+# Deploy
+
+To create & publish a new simulator image, use:
+
+```
+csm twin-engine docker release <x.y.z> --registry csmenginesdev.azurecr.io/
+```

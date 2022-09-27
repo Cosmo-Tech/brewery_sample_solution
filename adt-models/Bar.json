@@ -20,7 +20,7 @@
     },
     {
       "@type": "Relationship",
-      "name": "contains_Customer",
+      "name": "Bar_vertex",
       "target": "dtmi:Customer;1"
     }
   ],

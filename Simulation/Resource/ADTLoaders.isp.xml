@@ -18,7 +18,7 @@
     <csmSon:Property name="StealRootLink">0</csmSon:Property>
     <csmSon:Property name="StringDelimiter">"</csmSon:Property>
   </csmSon:Loader>
-  <csmSon:Loader type="cexCSVEntityLoader" name="ADT CSV loader for sub-entity relationship: contains_Customer">
+  <csmSon:Loader type="cexCSVEntityLoader" name="ADT CSV loader for sub-entity relationship: Bar_vertex">
     <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
     <csmSon:Property name="DefaultType"/>
     <csmSon:Property name="FieldSeparator">,</csmSon:Property>
@@ -27,7 +27,7 @@
     <csmSon:Property name="StealRootLink">1</csmSon:Property>
     <csmSon:Property name="StringDelimiter">"</csmSon:Property>
   </csmSon:Loader>
-  <csmSon:Loader type="cexCSVGraphLoader" name="ADT CSV loader for graph relationship: arc_to_Customer">
+  <csmSon:Loader type="cexCSVGraphLoader" name="ADT CSV loader for graph relationship: arc_Satisfaction">
     <csmSon:Property name="DecimalSeparator">.</csmSon:Property>
     <csmSon:Property name="DefaultType"/>
     <csmSon:Property name="FieldSeparator">,</csmSon:Property>

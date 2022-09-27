@@ -9,7 +9,7 @@ csm clean
 csm flow
 ```
 
-# Deploy
+## Deploy
 
 To create & publish a new simulator image, use:
 

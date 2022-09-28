@@ -18,14 +18,14 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description='Generate a brewery instance with Bar and Customer entities, and relationships between them.'
     )
-    parser.add_argument("-b", "--bars", help="Number of bars in the instance", default="10", type=int)
+    parser.add_argument("-t", "--tables", help="Number of tables in the bar", default="10", type=int)
     parser.add_argument("-c", "--customers", help="Number of customers in the instance", default="50", type=int)
     parser.add_argument("-n", "--name", help="Name of the generated instance", default="brewery_instance")
-    parser.add_argument("-l", "--locale", help="Localization of generated names (leave empty to use all names)")
+    parser.add_argument("-l", "--locale", help="Localization of generated names (leave empty to use English)")
 
-    parser.add_argument("--restock", help="Restock quantity for generated bars", default="30", type=int)
-    parser.add_argument("--stock", help="Stock quantity for generated bars", default="60", type=int)
-    parser.add_argument("--waiters", help="Number of waiters for generated bars", default="10", type=int)
+    parser.add_argument("--restock", help="Restock quantity for generated bar", default="30", type=int)
+    parser.add_argument("--stock", help="Stock quantity for generated bar", default="60", type=int)
+    parser.add_argument("--waiters", help="Number of waiters for generated bar", default="10", type=int)
 
     parser.add_argument("--satisfaction", help="Initial statisfaction of generated customers", default="0", type=int)
     parser.add_argument("--surrounding_satisfaction", help="Initial surrounding statisfaction of generated customers",
@@ -53,35 +53,18 @@ def generate_people(faker_instance, count):
     return people
 
 
-def generate_companies(faker_instance, count):
-    companies = []
-    try:
-        for i in range(count):
-            companies.append(faker_instance.unique.company())
-    except Exception as e:
-        print(e)
-        sys.exit(1)
-    return companies
-
-
 def get_id_from_name(name):
-    # chars_to_remove = [' ', "'", '.', '-', '\,']
-    # return re.sub('[' + ''.join(chars_to_remove) + ']', '_', name)
     return re.sub(r'[\. \'-\,]', '_', name)
 
 
-def generate_bar(company, options):
+def generate_bar(options):
     return {
-        'id': get_id_from_name(company),
-        'name': company,
+        'id': 'MyBar',
+        'name': 'MyBar',
         'restock': options['restock'],
         'stock': options['stock'],
         'waiters': options['waiters'],
     }
-
-
-def generate_bars(companies, options):
-    return [generate_bar(company, options) for company in companies]
 
 
 def generate_customer(person, options):
@@ -117,7 +100,7 @@ def generate_customers_groups(customers, groups_count):
     return customer_groups
 
 
-def generate_bars_to_customers_mapping(bars, customer_groups):
+def generate_bar_to_customers_mapping(bar, customers):
     '''
     Generate a dict similar to:
     {
@@ -126,10 +109,7 @@ def generate_bars_to_customers_mapping(bars, customer_groups):
       bar_id3: [customer_id2, customer_id5, customer_id7]
     }
     '''
-    bar_to_customers = {}
-    for index, bar in enumerate(bars):
-        bar_to_customers[bar['id']] = customer_groups[index]
-    return bar_to_customers
+    return {bar['id']: [customer['id'] for customer in customers]}
 
 
 def generate_customers_to_customers_links(customer_groups):
@@ -142,16 +122,15 @@ def generate_customers_to_customers_links(customer_groups):
     return pairs
 
 
-def generate_bar_csv_file_content(bars):
+def generate_bar_csv_file_content(bar):
     file_content = 'NbWaiters,RestockQty,Stock,id\n'
-    for bar in bars:
-        cells = [
-            str(bar['waiters']),
-            str(bar['restock']),
-            str(bar['stock']),
-            bar['id']
-        ]
-        file_content += ','.join(cells) + '\n'
+    cells = [
+        str(bar['waiters']),
+        str(bar['restock']),
+        str(bar['stock']),
+        bar['id']
+    ]
+    file_content += ','.join(cells) + '\n'
     return file_content
 
 
@@ -168,7 +147,7 @@ def generate_customers_csv_file_content(customers):
     return file_content
 
 
-def generate_bars_to_customers_csv_file_content(bar_to_customers):
+def generate_bar_to_customers_csv_file_content(bar_to_customers):
     file_content = 'source,target,name\n'
     for bar, customers in bar_to_customers.items():
         for customer in customers:
@@ -193,11 +172,11 @@ def generate_arc_to_customers_csv_file_content(customers_to_customers_links):
     return file_content
 
 
-def generate_csv_files_content(bars, customers, bar_to_customers, customers_to_customers_links):
+def generate_csv_files_content(bar, customers, bar_to_customers, customers_to_customers_links):
     return {
-        'Bar.csv': generate_bar_csv_file_content(bars),
+        'Bar.csv': generate_bar_csv_file_content(bar),
         'Customer.csv': generate_customers_csv_file_content(customers),
-        'Bar_vertex.csv': generate_bars_to_customers_csv_file_content(bar_to_customers),
+        'Bar_vertex.csv': generate_bar_to_customers_csv_file_content(bar_to_customers),
         'arc_Satisfaction.csv': generate_arc_to_customers_csv_file_content(customers_to_customers_links),
     }
 
@@ -211,7 +190,7 @@ def export_csv_files(csv_files_content, dir_name):
 
 def main():
     args = parse_arguments()
-    bars_options = {
+    bar_options = {
         'restock': args.restock,
         'stock': args.stock,
         'waiters': args.waiters,
@@ -224,15 +203,14 @@ def main():
 
     faker_instance = get_faker_instance(args.locale)
     people = generate_people(faker_instance, args.customers)
-    companies = generate_companies(faker_instance, args.bars)
-    bars = generate_bars(companies, bars_options)
+    bar = generate_bar(bar_options)
     customers = generate_customers(people, customers_options)
+    bar_to_customers = generate_bar_to_customers_mapping(bar, customers)
 
-    customer_groups = generate_customers_groups(customers, len(bars))
-    bar_to_customers = generate_bars_to_customers_mapping(bars, customer_groups)
+    customer_groups = generate_customers_groups(customers, args.tables)
     customers_to_customers_links = generate_customers_to_customers_links(customer_groups)
 
-    csv_files_content = generate_csv_files_content(bars, customers, bar_to_customers, customers_to_customers_links)
+    csv_files_content = generate_csv_files_content(bar, customers, bar_to_customers, customers_to_customers_links)
     export_csv_files(csv_files_content, args.name)
 
 

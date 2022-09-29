@@ -169,6 +169,12 @@ def generate_arc_to_customers_csv_file_content(customers_to_customers_links):
             'arc_from_' + pair[0] + '_to_' + pair[1]
         ]
         file_content += ','.join(cells) + '\n'
+        cells = [
+            pair[1],
+            pair[0],
+            'arc_from_' + pair[1] + '_to_' + pair[0]
+        ]
+        file_content += ','.join(cells) + '\n'
     return file_content
 
 

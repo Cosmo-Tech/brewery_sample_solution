@@ -11,11 +11,11 @@ pip3 install faker
 python3 generate_brewery_dataset.py
 ```
 
-## Number of bars & customers
+## Number of tables & customers
 
-The number of bars and customers can be forced by adding the -b and -c options:
+The number of tables in bars and customers can be forced by adding the -t and -c options:
 ```
-python3 generate_brewery_dataset.py -b 1 -c 5
+python3 generate_brewery_dataset.py -t 1 -c 5
 ```
 
 ## Names localization

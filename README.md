@@ -6,7 +6,7 @@ With CoSMo Studio installed and csm available in your path, you can build the pr
 
 ```
 csm clean
-csm flow
+csm flow --docker
 ```
 
 ## Deploy

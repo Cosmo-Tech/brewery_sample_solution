@@ -27,26 +27,46 @@ parameters:
       fr: 'Symbole de la monnaie'
       en: 'Currency symbol'
     varType: 'enum'
+    options:
+      tooltipText:
+        fr: "Choisissez un symbole :\n\t- $\n\t- €\n\t- ฿\n\t- ¥"
+        en: "Choose a symbol:\n\t- $\n\t- €\n\t- ฿\n\t- ¥"
   - id: 'currency_name'
     labels:
       fr: 'Nom de la monnaie'
       en: 'Currency name'
     varType: 'string'
+    options:
+      tooltipText:
+        fr: 'Choisissez un nom de monnaie'
+        en: 'Choose a currency name'
   - id: 'currency_value'
     labels:
       fr: 'Valeur'
       en: 'Value'
     varType: 'number'
+    options:
+      tooltipText:
+        fr: 'Choisissez une valeur'
+        en: 'Set value'
   - id: 'currency_used'
     labels:
       fr: 'Activer la monnaie'
       en: 'Enable currency'
     varType: 'bool'
+    options:
+      tooltipText:
+        fr: 'Activez la monnaie'
+        en: 'Enable the currency'
   - id: 'start_date'
     labels:
       fr: 'Date de départ'
       en: 'Start date'
     varType: 'date'
+    options:
+      tooltipText:
+        fr: 'Choisissez une date de début'
+        en: 'Choose a start date'
   - id: 'additional_seats'
     labels:
       fr: 'Sièges additionnels'
@@ -57,6 +77,10 @@ parameters:
       fr: 'Tables additionnelles'
       en: 'Additional tables'
     varType: 'number'
+    options:
+      tooltipText:
+        fr: 'Choisissez un nombre de tables additionnelles'
+        en: 'Set additional tables'
   - id: 'activated'
     labels:
       en: 'Activated'
@@ -92,6 +116,10 @@ parameters:
       fr: 'Exemple de sous-partie de dataset 1'
       en: 'Example dataset part 1'
     varType: '%DATASETID%'
+    options: 
+      tooltipText:
+        fr: 'Choisissez un dataset'
+        en: 'Set a dataset'
   - id: 'example_dataset_part_2'
     labels:
       fr: 'Exemple de sous-partie de dataset 2'
@@ -102,16 +130,28 @@ parameters:
       fr: 'Exemple de sous-partie de dataset 3'
       en: 'Example dataset part 3'
     varType: '%DATASETID%'
+    options:
+      tooltipText:
+        fr: 'Choisissez un dataset'
+        en: 'Set a dataset'
   - id: 'customers'
     labels:
       fr: 'Clients'
       en: 'Customers'
     varType: '%DATASETID%'
+    options:
+      tooltipText:
+        fr: 'Importez ou exportez un fichier clients'
+        en: 'Import or export a customers file'
   - id: 'events'
     labels:
-      fr: 'Evènements'
+      fr: 'Evénements'
       en: 'Events'
     varType: '%DATASETID%'
+    options:
+      tooltipText:
+        fr: "Importez ou exportez un fichier d'événements"
+        en: 'Import or export an events file'
   - id: 'training_start_date'
     labels:
       fr: 'Date de départ'

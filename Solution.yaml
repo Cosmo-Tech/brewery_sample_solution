@@ -67,6 +67,19 @@ parameters:
       tooltipText:
         fr: 'Choisissez une date de début'
         en: 'Choose a start date'
+  - id: 'average_consumption'
+    labels:
+      fr: 'Consommation moyenne'
+      en: 'Average consumption'
+    varType: 'number'
+    minValue: 0
+    maxValue: 10
+    defaultValue: 3
+    options:
+      subType: 'SLIDER'
+      tooltipText:
+        fr: 'En pintes'
+        en: 'In pints'
   - id: 'additional_seats'
     labels:
       fr: 'Sièges additionnels'
@@ -182,6 +195,7 @@ parameterGroups:
       - 'currency_value'
       - 'currency_used'
       - 'start_date'
+      - 'average_consumption'
       - 'initial_stock_dataset'
       - 'example_dataset_part_1'
       - 'example_dataset_part_2'

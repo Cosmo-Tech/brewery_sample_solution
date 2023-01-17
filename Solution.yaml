@@ -109,6 +109,8 @@ parameters:
       en: 'Volume unit'
       fr: 'Unité de volume'
     varType: 'enum'
+    options:
+      subType: 'RADIO'
   - id: 'comment'
     labels:
       en: 'Comment'

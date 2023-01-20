@@ -5,3 +5,5 @@ tutorials/.ipynb_checkpoints/
 .venv
 __pycache__
 .vscode
+terraform_cloud.yaml
+terraform_workspace.yaml

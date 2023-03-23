@@ -79,7 +79,7 @@ parameters:
       fr: 'Date de départ'
       en: 'Start date'
     varType: 'date'
-    defaultValue: 2014-08-18T19:11:54.000Z
+    defaultValue: '2014-08-18T19:11:54.000Z'
     options:
       tooltipText:
         fr: 'Choisissez une date de début'
@@ -159,9 +159,9 @@ parameters:
       en: 'Additional date'
       fr: 'Date additionelle'
     varType: 'date'
-    defaultValue: 2022-06-21T22:00:00.000Z
-    minValue: 2021-12-31T23:00:00.000Z
-    maxValue: 2022-12-30T23:00:00.000Z
+    defaultValue: '2022-06-22T00:00:00.000Z'
+    minValue: '2021-01-01T00:00:00.000Z'
+    maxValue: '2022-12-31T00:00:00.000Z'
   - id: 'initial_stock_dataset'
     labels:
       fr: 'Stock de départ'

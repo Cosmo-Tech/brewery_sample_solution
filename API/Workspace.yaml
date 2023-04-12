@@ -1,24 +1,145 @@
-key: brewerycomets
-name: Brewery Comets Deployment
+key: 'brewerycomets'
+name: 'Brewery Comets Deployment'
 solution:
-  solutionId: sol-2wdr4gpzw94ql
+  solutionId: 'sol-2wdr4gpzw94ql'
   runTemplateFilter:
-    - "1"
-    - "basic_simulation"
-    - "optimization"
-    - "uncertainty_analysis"
-      
+    - '1'
+    - 'basic_simulation'
+    - 'optimization'
+    - 'uncertainty_analysis'
   defaultRunTemplateDataset: null
-id: w-pn9ryko3nxy62
-description: Workspace for Brewery Demo with Comets
+id: 'w-pn9ryko3nxy62'
+description: 'Workspace for Brewery Demo with Comets'
 version: null
 tags: null
-ownerId: af62440f-16d7-475d-8766-84c62b7b9d65
+ownerId: 'af62440f-16d7-475d-8766-84c62b7b9d65'
 users: null
 webApp:
-  url: https://cometsdev.app.cosmotech.com
+  url: 'https://cometsdev.app.cosmotech.com'
   iframes: null
-  options: null
+  options:
+    charts:
+      workspaceId: '290de699-9026-42c0-8c83-e4e87c3f22dd'
+      logInWithUserCredentials: false
+      scenarioViewIframeDisplayRatio: 4.514285714285714
+      dashboardsViewIframeDisplayRatio: 1.610062893081761
+      dashboardsView:
+        - title:
+            en: 'Basic simulation'
+            fr: 'Simulation simple'
+          reportId: '80ff378b-2b7a-42b7-8694-a8ad7edb2655'
+          settings:
+            navContentPaneEnabled: false
+            panes:
+              filters:
+                expanded: false
+                visible: false
+          dynamicFilters: []
+          pageName:
+            en: 'ReportSection'
+            fr: 'ReportSection'
+        - title:
+            en: 'Optimization'
+            fr: 'Optimisation'
+          reportId: '4f82b77b-d5da-443d-b797-2395c9a6306b'
+          settings:
+            navContentPaneEnabled: false
+            panes:
+              filters:
+                expanded: true
+                visible: true
+          dynamicFilters: []
+          pageName:
+            en: 'ReportSection'
+            fr: 'ReportSection'
+        - title:
+            en: 'Uncertainty analysis'
+            fr: 'Analyse d''incertitude'
+          reportId: 'd55ea059-6dda-4154-a021-f5b280473afb'
+          settings:
+            navContentPaneEnabled: false
+            panes:
+              filters:
+                expanded: false
+                visible: true
+          dynamicFilters: []
+          pageName:
+            en: 'ReportSection'
+            fr: 'ReportSection'
+      scenarioView:
+        uncertainty_analysis:
+          title:
+            en: 'Scenario dashboard for run type 1'
+            fr: 'Rapport du scenario du run type 1'
+          reportId: '23c88f6b-8ef8-49fc-b948-3b1acd1e0d60'
+          settings:
+            navContentPaneEnabled: false
+            filterPaneEnabled: true
+            panes:
+              filters:
+                expanded: true
+                visible: true
+          staticFilters: []
+          dynamicFilters:
+            - table: 'Uncertainty_Analysis_row_results'
+              column: 'SimulationRun'
+              values: 'csmSimulationRun'
+            - table: 'Uncertainty_Analysis_results'
+              column: 'SimulationRun'
+              values: 'csmSimulationRun'
+          pageName:
+            en: 'ReportSection937f9c72cc8f1062aa88'
+            fr: 'ReportSection937f9c72cc8f1062aa88'
+        optimization:
+          title:
+            en: 'Scenario dashboard for run type 1'
+            fr: 'Rapport du scenario du run type 1'
+          reportId: '24610da8-eaf4-44ee-845f-b1cdc862d54b'
+          settings:
+            navContentPaneEnabled: false
+            filterPaneEnabled: true
+            panes:
+              filters:
+                expanded: true
+                visible: true
+          staticFilters: []
+          dynamicFilters:
+            - table: 'Stockprobe'
+              column: 'SimulationRun'
+              values: 'csmSimulationRun'
+            - table: 'Optimization_results'
+              column: 'SimulationRun'
+              values: 'csmSimulationRun'
+          pageName:
+            en: 'ReportSection937f9c72cc8f1062aa88'
+            fr: 'ReportSection937f9c72cc8f1062aa88'
+        basic_simulation:
+          title:
+            en: 'Scenario dashboard for run type 1'
+            fr: 'Rapport du scenario du run type 1'
+          reportId: 'b2d05bfa-f131-44f6-ad10-9ece5f172d15'
+          settings:
+            navContentPaneEnabled: false
+            filterPaneEnabled: true
+            panes:
+              filters:
+                expanded: true
+                visible: true
+          staticFilters: []
+          dynamicFilters:
+            - table: 'Stockprobe'
+              column: 'SimulationRun'
+              values: 'csmSimulationRun'
+          pageName:
+            en: 'ReportSection937f9c72cc8f1062aa88'
+            fr: 'ReportSection937f9c72cc8f1062aa88'
+    menu:
+      documentationUrl: 'https://portal.cosmotech.com/resources/platform-resources/platform-help'
+      supportUrl: 'https://support.cosmotech.com'
+      organizationUrl: 'https://cosmotech.com'
+    instanceView:
+      dataSource: null
+      dataContent: null
 sendInputToDataWarehouse: null
 useDedicatedEventHubNamespace: true
 sendScenarioMetadataToEventHub: false

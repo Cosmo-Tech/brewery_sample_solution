@@ -1,0 +1,23 @@
+.create-or-alter function  GetOptimizationScenarios() {
+  ScenarioMetadata
+  | where RunTemplateName == 'Optimization with Comets'
+  | summarize max(UpdateTime) by ScenarioId, Name
+  | join kind = inner ScenarioRunMetadata on ScenarioId
+  | project ScenarioName = Name, ingestionTime = ScenarioRunStartTime, tostring(SimulationRun)  
+}
+
+.create-or-alter function  GetBasicScenarios() {
+  ScenarioMetadata
+  | where RunTemplateName == 'Basic run with Comets'
+  | summarize max(UpdateTime) by ScenarioId, Name
+  | join kind = inner ScenarioRunMetadata on ScenarioId
+  | project ScenarioName = Name, ingestionTime = ScenarioRunStartTime, tostring(SimulationRun)  
+}
+
+.create-or-alter function  GetUAScenarios() {
+  ScenarioMetadata
+  | where RunTemplateName == 'Uncertainty Analysis with Comets'
+  | summarize max(UpdateTime) by ScenarioId, Name
+  | join kind = inner ScenarioRunMetadata on ScenarioId
+  | project ScenarioName = Name, ingestionTime = ScenarioRunStartTime, tostring(SimulationRun)  
+}

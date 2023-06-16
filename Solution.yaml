@@ -54,6 +54,8 @@ parameters:
       tooltipText:
         fr: 'Choisissez un nom de monnaie'
         en: 'Choose a currency name'
+      minLength: 2
+      maxLength: 10
   - id: 'currency_value'
     labels:
       fr: 'Valeur'
@@ -133,6 +135,8 @@ parameters:
       en: 'Evaluation'
     varType: 'string'
     defaultValue: 'Good'
+    options:
+      minLength: 2
   - id: 'volume_unit'
     labels:
       en: 'Volume unit'
@@ -154,6 +158,8 @@ parameters:
       fr: 'Commentaire'
     varType: 'string'
     defaultValue: 'None'
+    options:
+      maxLength: 30
   - id: 'additional_date'
     labels:
       en: 'Additional date'

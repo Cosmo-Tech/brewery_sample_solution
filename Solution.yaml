@@ -236,6 +236,7 @@ parameters:
       en: 'Customers'
     varType: '%DATASETID%'
     options:
+      canChangeRowsNumber: true
       connectorId: 'c-d7e5p9o0kjn9'
       description: 'customers data'
       subType: 'TABLE'
@@ -243,7 +244,6 @@ parameters:
         - field: 'name'
           type:
             - 'nonResizable'
-            - 'nonEditable'
             - 'nonSortable'
         - field: 'age'
           type:

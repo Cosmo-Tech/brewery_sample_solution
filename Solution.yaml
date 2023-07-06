@@ -354,6 +354,7 @@ parameterGroups:
       - 'currency_value'
       - 'currency_used'
       - 'start_date'
+      - 'end_date'
       - 'average_consumption'
     options:
       authorizedRoles:

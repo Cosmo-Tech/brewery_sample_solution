@@ -95,6 +95,18 @@ parameters:
       tooltipText:
         fr: 'Choisissez une date de début'
         en: 'Choose a start date'
+      validation: '< end_date'
+  - id: 'end_date'
+    labels:
+      fr: 'Date de fin'
+      en: 'End date'
+    varType: 'date'
+    defaultValue: '2014-08-20T19:11:54.000Z'
+    options:
+      tooltipText:
+        fr: 'Choisissez une date de fin'
+        en: 'Choose an end date'
+      validation: '> start_date'
   - id: 'average_consumption'
     labels:
       fr: 'Consommation moyenne'

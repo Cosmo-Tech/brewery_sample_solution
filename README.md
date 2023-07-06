@@ -16,5 +16,5 @@ To create & publish a new simulator image, use:
 ```
 az login
 az acr login -n csmenginesdev
-csm twin-engine docker release <x.y.z> --registry csmenginesdev.azurecr.io/
+csm docker release --tag <x.y.z> --registry csmenginesdev.azurecr.io/
 ```

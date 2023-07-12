@@ -95,7 +95,6 @@ parameters:
       tooltipText:
         fr: 'Choisissez une date de début'
         en: 'Choose a start date'
-      validation: '< end_date'
   - id: 'end_date'
     labels:
       fr: 'Date de fin'

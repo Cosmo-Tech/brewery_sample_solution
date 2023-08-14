@@ -1,0 +1,11 @@
+id: 'd-gkw98g57o50'
+name: Brewery Storage default Events table data
+description: Default table content for parameter Event of the Brewery solution
+tags:
+  - Storage
+  - Brewery
+  - dataset_part
+connector:
+  id: 'c-ll43p5nll5xqx'
+  parametersValues:
+    AZURE_STORAGE_CONTAINER_BLOB_PREFIX: '%WORKSPACE_FILE%/default_events_table.csv'

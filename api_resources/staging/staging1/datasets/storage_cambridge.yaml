@@ -1,0 +1,12 @@
+id: 'd-d76k6lkjmn7'
+name: Brewery Storage instance - Cambridge
+description: Cambridge demo instance for the brewery solution
+tags:
+  - Storage
+  - Brewery
+  - Cambridge
+  - dataset
+connector:
+  id: 'c-ll43p5nll5xqx'
+  parametersValues:
+    AZURE_STORAGE_CONTAINER_BLOB_PREFIX: '%WORKSPACE_FILE%/brewery_instance_cambridge'

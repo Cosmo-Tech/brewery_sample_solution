@@ -1,0 +1,12 @@
+id: 'd-04mo0gd681g'
+name: Demo Brewery Storage reference
+description: Brewery reference model in Storage
+tags:
+  - Storage
+  - Brewery
+  - Reference
+  - dataset
+connector:
+  id: 'c-ll43p5nll5xqx'
+  parametersValues:
+    AZURE_STORAGE_CONTAINER_BLOB_PREFIX: '%WORKSPACE_FILE%/brewery_instance_reference'

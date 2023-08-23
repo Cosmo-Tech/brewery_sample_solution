@@ -308,21 +308,25 @@ parameters:
             - 'midday'
             - 'afternoon'
             - 'evening'
-        - field: 'eventType'
-          type:
-            - 'string'
-            - 'nonResizable'
-            - 'nonEditable'
-        - field: 'reservationsNumber'
-          type:
-            - 'int'
-          minValue: 0
-          maxValue: 300
-          acceptsEmptyFields: true
-        - field: 'online'
-          type:
-            - 'bool'
-            - 'nonSortable'
+        - headerName: 'Additional parameters'
+          children:
+            - field: 'eventType'
+              type:
+                - 'string'
+                - 'nonResizable'
+              columnGroupShow: 'open',
+            - field: 'reservationsNumber'
+              type:
+                - 'int'
+              minValue: 0
+              maxValue: 300
+              columnGroupShow: 'open'
+              acceptsEmptyFields: true
+            - field: 'online'
+              type:
+                - 'bool'
+                - 'nonSortable'
+              columnGroupShow: 'closed'
       dateFormat: 'dd/MM/yyyy'
   - id: 'training_start_date'
     labels:

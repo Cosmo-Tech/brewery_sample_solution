@@ -518,3 +518,33 @@ runTemplates:
       - 'custom high cpu'
     parameterGroups:
       - 'bar_parameters'
+  - id: 'consume_to_redis'
+    name: 'probe consumer to redis'
+    description: 'Run template with probe consumer to direct redis'
+    csmSimulation: 'BreweryDemoSimulationWithConnector'
+    fetchDatasets: true
+    fetchScenarioParameters: false
+    applyParameters: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
+    validateData: false
+    preRun: false
+    postRun: false
+    tags:
+      - 'consumer to redis'
+      - 'No param'
+  - id: 'consume_to_api'
+    name: 'probe consumer to api'
+    description: 'Run template with probe consumer to cosmotech api'
+    csmSimulation: 'BreweryDemoSimulationWithConnector'
+    fetchDatasets: true
+    fetchScenarioParameters: false
+    applyParameters: false
+    sendDatasetsToDataWarehouse: true
+    sendInputParametersToDataWarehouse: false
+    validateData: false
+    preRun: false
+    postRun: false
+    tags:
+      - 'consumer to api'
+      - 'No param'

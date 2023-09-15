@@ -1,0 +1,11 @@
+pip install jupyterlab_widgets # On base
+pip install ipywidgets ipympl # In environment
+
+# Should work as is with jupyter-lab recent versions e.g. >= 4.0
+
+# For older version try the following
+# On base, install:
+pip install widgetsnbextension
+
+# If this was not sufficient, look at more info for debugging here
+https://ipywidgets.readthedocs.io/en/stable/user_install.html

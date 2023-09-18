@@ -90,7 +90,7 @@ parameters:
       fr: 'Date de départ'
       en: 'Start date'
     varType: 'date'
-    defaultValue: '2014-08-18T19:11:54.000Z'
+    defaultValue: '2014-08-18T00:00:00.000Z'
     options:
       tooltipText:
         fr: 'Choisissez une date de début'
@@ -100,7 +100,7 @@ parameters:
       fr: 'Date de fin'
       en: 'End date'
     varType: 'date'
-    defaultValue: '2014-08-20T19:11:54.000Z'
+    defaultValue: '2014-08-20T00:00:00.000Z'
     options:
       tooltipText:
         fr: 'Choisissez une date de fin'

@@ -320,3 +320,98 @@ def grade_tuto2_ex2(get_outcomes_func):
     # Display score
     total = 1
     display_score_bar(points, total)  
+    
+    
+def grade_tuto4_ex1(simulator):
+    
+    points = 0
+    
+    if isinstance(simulator, comets.CosmoInterface):
+        if simulator.simulator_path == 'BreweryTutorialSimulation':
+            points += 1
+        
+    # Display score
+    total = 1
+    display_score_bar(points, total)
+
+
+def grade_tuto4_ex2(get_outcomes):
+    
+    points = 0
+    
+    if not callable(get_outcomes):
+        print("Hint: 'get_outcomes' should be a python function.")
+    else:
+        from pathlib import Path
+        cwd = Path().resolve()
+        simulator = comets.CosmoInterface(
+            simulator_path = 'BreweryTutorialSimulation',
+            project_path = cwd,
+        )
+        simulator.initialize()
+        try:
+            res = get_outcomes(simulator)
+        except Exception as e:
+            print("Executing the current get_outcomes function would return the following error:")
+            traceback.print_exc()
+        else:
+            if res == {'ObjectiveFunction': 900}:
+                points += 1
+            else:
+                print(f"The output of your get_outcomes function is incorrect.\n")
+        
+    # Display score
+    total = 1
+    display_score_bar(points, total)  
+
+
+def grade_tuto4_ex3(task):
+    
+    points = 0
+    
+    input_parameter_set = {'NbWaiters': 4, 'RestockQty': 12}
+    
+    if not isinstance(task, comets.ModelTask):
+        print("Hint: 'optimtask' should be a ModelTask.")
+    else:
+        if task.get_outcomes is not None:
+            try:
+                res = task.evaluate(input_parameter_set)
+            except Exception as e:
+                print("Something is wrong with your Task. Its evaluation raises the following error:")
+                traceback.print_exc()
+            else:
+                if list(res.keys() == ['ObjectiveFunction']) and isinstance(res['ObjectiveFunction'], int):
+                    points += 1
+        else:
+            print("Find the bug")
+    # Display score
+    total = 1
+    display_score_bar(points, total)
+    
+
+def grade_tuto4_ex4(space):
+    
+    points = 0
+    
+    solution = [
+        {
+            "name": "NbWaiters",
+            "type": "int",
+            "bounds": [1, 12],
+        },
+        {
+            "name": "RestockQty",
+            "type": "int",
+            "bounds": [1, 50],
+        },
+    ]
+    if not isinstance(space, list):
+        print("Variable 'space' should be a list.")
+    else:
+        if space == solution:
+            points += 1
+        
+    # Display score
+    total = 1
+    display_score_bar(points, total)

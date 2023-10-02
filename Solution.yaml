@@ -197,6 +197,7 @@ parameters:
       connectorId: 'c-d7e5p9o0kjn9'
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+      shouldRenameFileOnUpload: true
   - id: 'example_dataset_part_1'
     labels:
       fr: 'Exemple de sous-partie de dataset 1'

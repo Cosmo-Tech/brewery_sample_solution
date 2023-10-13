@@ -6,7 +6,7 @@
   $Revision$
   $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
 -->
-<csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/8.1">
+<csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/9.0">
   <csmSor:Name>Brewery</csmSor:Name>
   <csmSor:Version><![CDATA[0.0]]></csmSor:Version>
   <csmSor:Description><![CDATA[A project generated with CoSMo]]></csmSor:Description>

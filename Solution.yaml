@@ -438,7 +438,9 @@ runTemplates:
     sendInputParametersToDataWarehouse: true
     validateData: false
     preRun: false
+    run: true
     postRun: false
+    orchestratorType: argoWorkflow
     tags:
       - '1'
       - 'With params'
@@ -456,7 +458,9 @@ runTemplates:
     sendInputParametersToDataWarehouse: false
     validateData: false
     preRun: false
+    run: true
     postRun: false
+    orchestratorType: argoWorkflow
     tags:
       - '2'
       - 'No param'
@@ -471,7 +475,9 @@ runTemplates:
     sendInputParametersToDataWarehouse: false
     validateData: false
     preRun: false
+    run: true
     postRun: false
+    orchestratorType: argoWorkflow
     tags:
       - '3'
       - 'Example'
@@ -493,7 +499,9 @@ runTemplates:
     sendInputParametersToDataWarehouse: false
     validateData: false
     preRun: false
+    run: true
     postRun: false
+    orchestratorType: argoWorkflow
     tags:
       - '2'
       - 'No param'
@@ -516,7 +524,9 @@ runTemplates:
     sendInputParametersToDataWarehouse: true
     validateData: false
     preRun: false
+    run: true
     postRun: false
+    orchestratorType: argoWorkflow
     tags:
       - '1'
       - 'With params'
@@ -534,7 +544,9 @@ runTemplates:
     sendInputParametersToDataWarehouse: false
     validateData: false
     preRun: false
+    run: true
     postRun: false
+    orchestratorType: argoWorkflow
     tags:
       - 'consumer to redis'
       - 'No param'
@@ -549,7 +561,9 @@ runTemplates:
     sendInputParametersToDataWarehouse: false
     validateData: false
     preRun: false
+    run: true
     postRun: false
+    orchestratorType: argoWorkflow
     tags:
       - 'consumer to api'
       - 'No param'

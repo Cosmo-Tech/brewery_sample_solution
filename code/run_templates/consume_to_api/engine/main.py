@@ -28,7 +28,7 @@ class ApiConsumer(ce.Consumer):
             new_row.update(common_data)
             new_row.update(data)
 
-        self.resultsApi.send_scenario_run_result(os.getenv('CSM_ORGANIZATION_ID'), os.getenv('CSM_WORKSPACE_ID'), os.getenv('CSM_SCENARIO_ID'), self.simulation_id, probe_name, new_row)
+        self.resultsApi.send_scenario_run_result(os.getenv('CSM_ORGANIZATION_ID'), os.getenv('CSM_WORKSPACE_ID'), os.getenv('CSM_SCENARIO_ID'), os.getenv('CSM_SCENARIO_RUN_ID'), probe_name, new_row)
 
 
 def main():

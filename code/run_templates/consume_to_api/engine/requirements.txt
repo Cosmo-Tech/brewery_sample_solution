@@ -1,2 +1,2 @@
 azure-identity
-cosmotech-api-python~=3.0.0
+cosmotech-api==3.0.10rc0

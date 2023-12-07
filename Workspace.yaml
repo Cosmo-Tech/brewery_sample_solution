@@ -4,7 +4,7 @@ solution:
   solutionId: 'SOL-VkqXyNONQyB'
   runTemplateFilter: ['1', '2', '3', 'high cpu (DO NOT USE)']
   defaultRunTemplateDataset: null
-id: 'W-rXeBwRa0PM'
+id: 'w-70klgqeroooz'
 description: 'A workspace for Brewery Demo'
 version: null
 tags: null
@@ -28,3 +28,32 @@ webApp:
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true
 sendScenarioMetadataToEventHub: true
+security:
+  accessControlList:
+    - id: elena.sasova@cosmotech.com
+      role: admin
+    - id: nicolas.borde@cosmotech.com
+      role: admin
+    - id: tristan.huet@cosmotech.com
+      role: admin
+    - id: emma.michelet@cosmotech.com
+      role: user
+    - id: minh.mach@cosmotech.com
+      role: user
+    - id: jeremy.reynard@cosmotech.com
+      role: user
+    - id: diamantis.sellis@cosmotech.com
+      role: user
+    - id: hector.jacinto@cosmotech.com
+      role: user
+    - id: justine.bailly-bechet@cosmotech.com
+      role: user
+    - id: dev.sample.webapp@example.com
+      role: user
+    - id: nibaldo.donoso@cosmotech.com
+      role: user
+    - id: mathilde.emery-roch@cosmotech.com
+      role: user
+    - id: michel.guillon@cosmotech.com
+      role: user
+  default: none

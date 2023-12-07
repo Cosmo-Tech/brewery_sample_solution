@@ -6,7 +6,7 @@
   $Revision$
   $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
 -->
-<csm:Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doc="http://www.cosmotech.com/csm_doc/8.1" xmlns:dbk="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" xmlns:csm="http://www.cosmotech.com/csm/8.1">
+<csm:Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doc="http://www.cosmotech.com/csm_doc/10.0" xmlns:dbk="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" xmlns:csm="http://www.cosmotech.com/csm/10.0">
   <csm:ModelName>Brewery</csm:ModelName>
   <csm:Compound>
     <csm:Environment>ModelEnvironment</csm:Environment>
@@ -21,7 +21,7 @@
 int count = 0;
 csmForEachTypedNeighbor(BE_Customer, neighbor)
 {
-  satisfaction += neighbor->GetComState(this);
+  satisfaction += neighbor->GetCustomerToCustomer(this);
   count++;
 }
 
@@ -61,6 +61,11 @@ if (!GetThirsty() && test > 5)
         </csm:Attribute>
       </csm:Container>
     </csm:State>
+    <csm:Communicator name="CustomerToCustomer">
+      <csm:CPPCode><![CDATA[return GetSatisfaction();]]></csm:CPPCode>
+      <csm:CommunicatedReference>Integer</csm:CommunicatedReference>
+      <csm:Destination>Customer</csm:Destination>
+    </csm:Communicator>
   </csm:BasicEntity>
   <csm:CompoundEntity name="Bar">
     <csm:Process name="Serve">
@@ -133,23 +138,15 @@ csmForEachTypedSubEntity(BE_Customer, customer)
       <csm:Environment>CustomerGraph</csm:Environment>
       <csm:SubEntities>
         <csm:CanBeWithin>Customer</csm:CanBeWithin>
-        <csm:Name></csm:Name>
       </csm:SubEntities>
     </csm:Compound>
   </csm:CompoundEntity>
-  <csm:Environments>
-    <csm:Communicator name="CustomerToCustomer">
-      <csm:CPPCode><![CDATA[return GetSatisfaction();]]></csm:CPPCode>
-      <csm:CommunicatedReference>Integer</csm:CommunicatedReference>
-      <csm:Destination>Customer</csm:Destination>
+  <csm:Environment xsi:type="csm:NoEnvironment" name="NoEnvironment"/>
+  <csm:Environment xmlns:csmRoom="http://www.cosmotech.com/csm_room/10.0" xsi:type="csmRoom:Room" name="ModelEnvironment"/>
+  <csm:Environment xsi:type="csm:Graph" name="CustomerGraph">
+    <csm:Arc name="Satisfaction">
       <csm:Source>Customer</csm:Source>
-    </csm:Communicator>
-    <csm:Environment xsi:type="csm:NoEnvironment" name="NoEnvironment"/>
-    <csm:Environment xmlns:csmRoom="http://www.cosmotech.com/csm_room/8.1" xsi:type="csmRoom:Room" name="ModelEnvironment"/>
-    <csm:Environment xsi:type="csm:Graph" name="CustomerGraph">
-      <csm:Arc name="Satisfaction">
-        <csm:CommunicatorReference>CustomerToCustomer</csm:CommunicatorReference>
-      </csm:Arc>
-    </csm:Environment>
-  </csm:Environments>
+      <csm:Destination>Customer</csm:Destination>
+    </csm:Arc>
+  </csm:Environment>
 </csm:Model>

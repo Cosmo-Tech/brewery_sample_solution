@@ -428,6 +428,9 @@ parameterGroups:
       - 'training_end_date'
 runTemplates:
   - id: '1'
+    labels:
+      fr: 'Run template avec les paramètres de Brewery '
+      en: 'Run template with Brewery parameters'
     name: 'Run template with Brewery parameters'
     description: 'Run template with Brewery parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
@@ -448,6 +451,9 @@ runTemplates:
       - 'bar_parameters'
       - 'file_upload'
   - id: '2'
+    labels:
+      fr: 'Run template sans paramètres'
+      en: 'Run template without parameters'
     name: 'Run template without parameters'
     description: 'Run template without parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
@@ -465,6 +471,9 @@ runTemplates:
       - '2'
       - 'No param'
   - id: '3'
+    labels:
+      fr: 'Run template avec paramètres basiques fictifs'
+      en: 'Run template with mock basic types parameters'
     name: 'Run template with mock basic types parameters'
     description: 'Run template with mock basic types parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
@@ -489,6 +498,9 @@ runTemplates:
       - 'events'
       - 'additional_parameters'
   - id: 'hidden test run template'
+    labels:
+      fr: 'Run template masqué sans paramètres'
+      en: 'Hidden test run template without parameters'
     name: 'Hidden test run template without parameters'
     description: 'Run template without parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
@@ -506,6 +518,9 @@ runTemplates:
       - '2'
       - 'No param'
   - id: 'high cpu (DO NOT USE)'
+    labels:
+      fr: 'Surcharge processeur (ne pas utiliser)'
+      en: 'high cpu (DO NOT USE)'
     name: 'high cpu (DO NOT USE)'
     description: 'high cpu (DO NOT USE)'
     computeSize: 'highcpu'
@@ -534,8 +549,11 @@ runTemplates:
     parameterGroups:
       - 'bar_parameters'
   - id: 'consume_to_redis'
+    labels:
+      fr: 'Run template avec probe consumer pour redis'
+      en: 'Run template with probe consumer to direct Redis'
     name: 'probe consumer to redis'
-    description: 'Run template with probe consumer to direct redis'
+    description: 'Run template with probe consumer to direct Redis'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
     fetchDatasets: true
     fetchScenarioParameters: false
@@ -551,8 +569,12 @@ runTemplates:
       - 'consumer to redis'
       - 'No param'
   - id: 'consume_to_api'
+    labels:
+      fr: >
+        Run template avec probe consumer pour l'API Cosmotech
+      en: 'Run template with probe consumer to Cosmotech API'
     name: 'probe consumer to api'
-    description: 'Run template with probe consumer to cosmotech api'
+    description: 'Run template with probe consumer to Cosmotech API'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
     fetchDatasets: true
     fetchScenarioParameters: false

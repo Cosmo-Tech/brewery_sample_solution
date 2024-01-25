@@ -589,3 +589,38 @@ runTemplates:
     tags:
       - 'consumer to api'
       - 'No param'
+ETL:
+  - id: 'additional_command'
+    labels:
+      fr: 'Commande additionnelle'
+      en: 'Additional Command'
+    defaultValue: 'ls -la'
+    varType: 'string'
+  - id: 'additional_script'
+    labels:
+      fr: 'Script additionnel'
+      en: 'Additional script'
+    varType: '%DATASETID%'
+  - id: 'ETL_type'
+    labels:
+      en: 'ETL type'
+      fr: 'Type d'ETL'
+    varType: 'enum'
+    defaultValue: 'validation'
+    options:
+      enumValues:
+        - key: 'validation'
+          value:
+            en: 'Validation'
+            fr: 'Validation'
+          tooltipText:
+            fr: 'ETL de validation'
+            en: 'VAlidation ETL'
+        - key: 'results'
+          value:
+            en: 'Results'
+            fr: 'Résultats'
+          tooltipText:
+            fr: "ETL de résultats"
+            en: 'Results ETL'
+        

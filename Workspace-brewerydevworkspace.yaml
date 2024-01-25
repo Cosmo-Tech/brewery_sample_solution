@@ -19,6 +19,7 @@ sendScenarioMetadataToEventHub: true
 webApp:
   url: 'https://sample.app.cosmotech.com'
   options:
+    disableOutOfSyncWarningBanner: true
     datasetFilter:
       - 'D-4jwyQnmv7jx'
       - 'D-9rp3EMPO2P2'

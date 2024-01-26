@@ -5,6 +5,7 @@ solution:
   runTemplateFilter: ['1', '2', '3', 'high cpu (DO NOT USE)']
   defaultRunTemplateDataset: null
 id: 'w-70klgqeroooz'
+datasetCopy: false
 description: 'A workspace for Brewery Demo'
 version: null
 tags: null

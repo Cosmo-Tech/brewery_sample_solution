@@ -343,6 +343,65 @@ parameters:
       fr: 'Date de Fin'
       en: 'End date'
     varType: 'date'
+  - id: 'additional_command'
+    labels:
+      fr: 'Commande additionnelle'
+      en: 'Additional Command'
+    defaultValue: 'ls -la'
+    varType: 'string'
+    options:
+      tooltipText:
+        fr: 'Saisissez script additionnelle'
+        en: 'Set an additional command'
+  - id: 'additional_script_1'
+    labels:
+      fr: 'Script additionnel 1'
+      en: 'Additional script 1'
+    varType: '%DATASETID%'
+    options:
+      connectorId: 'c-d7e5p9o0kjn9'
+      description: '1st additional script'
+      defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+      tooltipText:
+        fr: 'Choisissez un script additionnel'
+        en: 'Set an additional script'
+  - id: 'additional_script_2'
+    labels:
+      fr: 'Script additionnel 2'
+      en: 'Additional script 2'
+    varType: '%DATASETID%'
+    options:
+      connectorId: 'c-d7e5p9o0kjn9'
+      description: '2nd additional script'
+      defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+      tooltipText:
+        fr: 'Choisissez un script additionnel'
+        en: 'Set an additional script'
+  - id: 'ETL_type'
+    labels:
+      fr: "Type de données en sortie"
+      en: 'Output data type '
+    varType: 'enum'
+    defaultValue: 'validation'
+    options:
+      enumValues:
+        - key: 'validation'
+          value:
+            en: 'Validation'
+            fr: 'Validation'
+          tooltipText:
+            fr: 'ETL de validation'
+            en: 'Validation ETL'
+        - key: 'results'
+          value:
+            en: 'Results'
+            fr: 'Résultats'
+          tooltipText:
+            fr: "ETL de résultats"
+            en: 'Results ETL'
+      tooltipText:
+        fr: "Choisissez un un type de données en sortie"
+        en: "Choose an output data type"
 parameterGroups:
   - id: 'bar_parameters'
     labels:
@@ -426,6 +485,15 @@ parameterGroups:
     parameters:
       - 'training_start_date'
       - 'training_end_date'
+  - id: 'ETL_A'
+    parameters:
+      - 'additional_command'
+      - 'additional_script_1'
+  - id: 'ETL_B'
+    parameters:
+      - 'additional_script_1'
+      - 'additional_script_2'
+      - 'ETL_type'
 runTemplates:
   - id: '1'
     labels:
@@ -589,38 +657,19 @@ runTemplates:
     tags:
       - 'consumer to api'
       - 'No param'
-ETL:
-  - id: 'additional_command'
+  - id: 'ETL_A'
     labels:
-      fr: 'Commande additionnelle'
-      en: 'Additional Command'
-    defaultValue: 'ls -la'
-    varType: 'string'
-  - id: 'additional_script'
+      fr: 'ETL de type A'
+      en: 'ETL type A'
+    tags:
+      - 'datasource'
+    parameterGroups:
+      - 'ETL_A'
+  - id: 'ETL B'
     labels:
-      fr: 'Script additionnel'
-      en: 'Additional script'
-    varType: '%DATASETID%'
-  - id: 'ETL_type'
-    labels:
-      en: 'ETL type'
-      fr: 'Type d'ETL'
-    varType: 'enum'
-    defaultValue: 'validation'
-    options:
-      enumValues:
-        - key: 'validation'
-          value:
-            en: 'Validation'
-            fr: 'Validation'
-          tooltipText:
-            fr: 'ETL de validation'
-            en: 'VAlidation ETL'
-        - key: 'results'
-          value:
-            en: 'Results'
-            fr: 'Résultats'
-          tooltipText:
-            fr: "ETL de résultats"
-            en: 'Results ETL'
-        
+      fr: 'ETL de type B'
+      en: 'ETL type B'
+    tags:
+      - 'datasource'
+    parameterGroups:
+      - 'ETL_B'

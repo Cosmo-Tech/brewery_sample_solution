@@ -8,7 +8,7 @@
 -->
 <csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/10.0">
   <csmSor:Name>Brewery</csmSor:Name>
-  <csmSor:Version><![CDATA[1.0.0]]></csmSor:Version>
+  <csmSor:Version><![CDATA[1.0.1]]></csmSor:Version>
   <csmSor:Description><![CDATA[A project generated with CoSMo]]></csmSor:Description>
   <csmSor:Vendor><![CDATA[Cosmo Tech]]></csmSor:Vendor>
   <csmSor:License><![CDATA[]]></csmSor:License>

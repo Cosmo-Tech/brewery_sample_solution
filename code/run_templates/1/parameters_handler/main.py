@@ -1,81 +1,90 @@
 import os
+import sys
 from pathlib import Path
-import logging
 import csv
 from tempfile import NamedTemporaryFile
 import shutil
 import glob
 
 
-def getValue(values, searchId):
-    for v in values:
-        if searchId == v.parameterId:
-            return v
-    logging.warning("Parameter not found")
+def main():
+    parametersFolder = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
+    parametersFile = parametersFolder / "parameters.csv"
+    if not parametersFile.exists():
+        print(f"No parameters file in {parametersFile}")
+        sys.exit(-1)
 
-
-dataPath = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
-files = glob.glob(str(dataPath / "**"), recursive=True)
-print(files)
-barPath = dataPath / "Bar.csv"
-parametersPath = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
-parametersFile = parametersPath / "parameters.csv"
-if parametersFile.exists():
-    stock = 0
-    restock = 0
-    nbWaiters = 0
-    initialStockDataset = ''
-    initialStockFileName = ''
+    values = {
+        'stock': 0,
+        'restock_qty': 0,
+        'nb_waiters': 0,
+        'initial_stock_dataset': ''
+    }
+    expectedParameters = list(values.keys())
     with open(parametersFile, 'r') as csvfile:
         parametersReader = csv.reader(csvfile)
         print('Start reading parameters.csv file')
         for row in parametersReader:
-            print(row)
-            if row[0] == 'stock':
-                print('stock read', row[1])
-                stock = row[1]
-            if row[0] == 'restock_qty':
-                print('restock_qty read', row[1])
-                restock = row[1]
-            if row[0] == 'nb_waiters':
-                print('nb_waiters read', row[1])
-                nbWaiters = row[1]
-            if row[0] == 'initial_stock_dataset':
-                print('initial_stock_dataset read', row[0])
-                initialStockDataset = row[0]
+            parameter_name = row[0]
+            parameterValue = row[1]
+            if parameter_name not in expectedParameters:
+                print(f'Unknown parameter {parameter_name}')
+            else:
+                print(f'Value for {parameter_name}: "{parameterValue}"')
+                values[parameter_name] = parameterValue
 
-    if initialStockDataset != '':
-        datasetFilePath = parametersPath / initialStockDataset
-        files = os.listdir(datasetFilePath)
-        if not files:
-            print('No files under', datasetFilePath, 'folder')
+    if values['initial_stock_dataset'] == '':
+        print('\nInitial stock file not uploaded, skipping this part...')
+    else:
+        datasetFolder = parametersFolder / 'initial_stock_dataset'
+        datasetFiles = os.listdir(datasetFolder)
+        if not datasetFiles:
+            print('\nNo files in folder: "{datasetFolder}"')
         else:
-            with open(datasetFilePath/files[0], 'r') as initialStockFile:
+            print(f'\nParsing rows of {datasetFiles[0]}')
+            with open(datasetFolder/datasetFiles[0], 'r') as initialStockFile:
                 datasetReader = csv.reader(initialStockFile)
                 for row in datasetReader:
                     print(row)
-                    stock = row[1]
+                    values['stock'] = row[1]
+                    break
+
+    dataFolder = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
+    files = '\n'.join([f' - {path}' for path in glob.glob(str(dataFolder / "**"), recursive=True)])
+    print(f'\nData files:\n{files}')
 
     tempfile = NamedTemporaryFile('w+t', newline='', delete=False)
-
+    barPath = dataFolder / "Bar.csv"
+    print('\nPatching dataset file Bar.csv with parameters values...')
     with open(barPath, newline='') as barFile:
-        barReader = csv.reader(barFile)
+        bar_reader = csv.reader(barFile)
         barWriter = csv.writer(tempfile)
-        line = 0
-        for row in barReader:
-            if line > 0:
-                oldNbWaitersValue = row[0]
-                row[0] = nbWaiters
-                print("Legacy value:", oldNbWaitersValue, "=> New value:", nbWaiters)
-                oldRestockValue = row[1]
-                row[1] = restock
-                print("Legacy value:", oldRestockValue, "=> New value:", restock)
-                oldStockValue = row[2]
-                row[2] = stock
-                print("Legacy value:", oldStockValue, "=> New value:", stock)
+
+        header = next(bar_reader)
+        barWriter.writerow(header)
+        column_indices = {'stock': -1, 'restock_qty': -1, 'nb_waiters': -1}
+        csv_column_mapping = {'Stock': 'stock', 'RestockQty': 'restock_qty', 'NbWaiters': 'nb_waiters'}
+        for index, column in enumerate(header):
+            if column in csv_column_mapping:
+                parameter_name = csv_column_mapping[column]
+                column_indices[parameter_name] = index
+
+        for row in bar_reader:
+            for parameter_name, columnIndex in column_indices.items():
+                if columnIndex == -1:
+                    print(f' - {parameter_name}: parameter never found in CSV header:')
+                    print(f'    - CSV header: "{header}"')
+                    print(f'    - column mapping: "{csv_column_mapping}"')
+                    continue
+                previous_value = row[columnIndex]
+                new_value = values[parameter_name]
+                row[columnIndex] = new_value
+                print(f' - {parameter_name}: {previous_value} => {new_value}')
             barWriter.writerow(row)
-            line = line + 1
+
     tempfile.close()
     shutil.move(tempfile.name, barPath)
-else:
-    print(f"No parameters file in {parametersFile}")
+
+
+if __name__ == "__main__":
+    main()

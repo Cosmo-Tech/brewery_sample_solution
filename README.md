@@ -9,9 +9,23 @@ csm clean
 csm flow --docker
 ```
 
+## Run simulation
+
+Once the docker image is built, you can use it to list the available simulations with:
+
+```
+csm docker run --rm brewery_simulator -- -l
+```
+
+and run a local simulation (using the predefined tutorial data) with:
+
+```
+csm docker run --rm brewery_simulator -- -i BreweryTutorialSimulation
+```
+
 ## Deploy
 
-To create & publish a new simulator image, use:
+To publish a new simulator image, use:
 
 ```
 az login

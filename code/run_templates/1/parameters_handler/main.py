@@ -8,10 +8,10 @@ import glob
 
 
 def main():
-    parametersFolder = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
-    parametersFile = parametersFolder / "parameters.csv"
-    if not parametersFile.exists():
-        print(f"No parameters file in {parametersFile}")
+    parameters_folder = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
+    parameters_file = parameters_folder / "parameters.csv"
+    if not parameters_file.exists():
+        print(f"No parameters file in {parameters_file}")
         sys.exit(-1)
 
     values = {
@@ -20,48 +20,48 @@ def main():
         'nb_waiters': 0,
         'initial_stock_dataset': ''
     }
-    expectedParameters = list(values.keys())
-    with open(parametersFile, 'r') as csvfile:
-        parametersReader = csv.reader(csvfile)
+    expected_parameters = list(values.keys())
+    with open(parameters_file, 'r') as csvfile:
+        parameters_reader = csv.reader(csvfile)
         print('Start reading parameters.csv file')
-        for row in parametersReader:
+        for row in parameters_reader:
             parameter_name = row[0]
-            parameterValue = row[1]
-            if parameter_name not in expectedParameters:
+            parameter_value = row[1]
+            if parameter_name not in expected_parameters:
                 print(f'Unknown parameter {parameter_name}')
             else:
-                print(f'Value for {parameter_name}: "{parameterValue}"')
-                values[parameter_name] = parameterValue
+                print(f'Value for {parameter_name}: "{parameter_value}"')
+                values[parameter_name] = parameter_value
 
     if values['initial_stock_dataset'] == '':
         print('\nInitial stock file not uploaded, skipping this part...')
     else:
-        datasetFolder = parametersFolder / 'initial_stock_dataset'
-        datasetFiles = os.listdir(datasetFolder)
-        if not datasetFiles:
-            print('\nNo files in folder: "{datasetFolder}"')
+        dataset_folder = parameters_folder / 'initial_stock_dataset'
+        dataset_files = os.listdir(dataset_folder)
+        if not dataset_files:
+            print(f'\nNo files in folder: "{dataset_folder}"')
         else:
-            print(f'\nParsing rows of {datasetFiles[0]}')
-            with open(datasetFolder/datasetFiles[0], 'r') as initialStockFile:
-                datasetReader = csv.reader(initialStockFile)
-                for row in datasetReader:
+            print(f'\nParsing rows of {dataset_files[0]}')
+            with open(dataset_folder/dataset_files[0], 'r') as initial_stock_file:
+                dataset_reader = csv.reader(initial_stock_file)
+                for row in dataset_reader:
                     print(row)
                     values['stock'] = row[1]
                     break
 
-    dataFolder = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
-    files = '\n'.join([f' - {path}' for path in glob.glob(str(dataFolder / "**"), recursive=True)])
+    data_folder = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
+    files = '\n'.join([f' - {path}' for path in glob.glob(str(data_folder / "**"), recursive=True)])
     print(f'\nData files:\n{files}')
 
-    tempfile = NamedTemporaryFile('w+t', newline='', delete=False)
-    barPath = dataFolder / "Bar.csv"
+    temp_file = NamedTemporaryFile('w+t', newline='', delete=False)
+    bar_file_path = data_folder / "Bar.csv"
     print('\nPatching dataset file Bar.csv with parameters values...')
-    with open(barPath, newline='') as barFile:
-        bar_reader = csv.reader(barFile)
-        barWriter = csv.writer(tempfile)
+    with open(bar_file_path, newline='') as bar_file:
+        bar_reader = csv.reader(bar_file)
+        bar_writer = csv.writer(temp_file)
 
         header = next(bar_reader)
-        barWriter.writerow(header)
+        bar_writer.writerow(header)
         column_indices = {'stock': -1, 'restock_qty': -1, 'nb_waiters': -1}
         csv_column_mapping = {'Stock': 'stock', 'RestockQty': 'restock_qty', 'NbWaiters': 'nb_waiters'}
         for index, column in enumerate(header):
@@ -70,20 +70,20 @@ def main():
                 column_indices[parameter_name] = index
 
         for row in bar_reader:
-            for parameter_name, columnIndex in column_indices.items():
-                if columnIndex == -1:
+            for parameter_name, column_index in column_indices.items():
+                if column_index == -1:
                     print(f' - {parameter_name}: parameter never found in CSV header:')
                     print(f'    - CSV header: "{header}"')
                     print(f'    - column mapping: "{csv_column_mapping}"')
                     continue
-                previous_value = row[columnIndex]
+                previous_value = row[column_index]
                 new_value = values[parameter_name]
-                row[columnIndex] = new_value
+                row[column_index] = new_value
                 print(f' - {parameter_name}: {previous_value} => {new_value}')
-            barWriter.writerow(row)
+            bar_writer.writerow(row)
 
-    tempfile.close()
-    shutil.move(tempfile.name, barPath)
+    temp_file.close()
+    shutil.move(temp_file.name, bar_file_path)
 
 
 if __name__ == "__main__":

@@ -23,6 +23,7 @@ def main():
     expected_parameters = list(values.keys())
     with open(parameters_file, 'r') as csvfile:
         parameters_reader = csv.reader(csvfile)
+        next(parameters_reader)  # Skip header row
         print('Start reading parameters.csv file')
         for row in parameters_reader:
             parameter_name = row[0]

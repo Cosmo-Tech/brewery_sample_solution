@@ -123,25 +123,25 @@ def generate_customers_to_customers_links(customer_groups):
 
 
 def generate_bar_csv_file_content(bar):
-    file_content = 'NbWaiters,RestockQty,Stock,id\n'
+    file_content = 'id,NbWaiters,RestockQty,Stock\n'
     cells = [
+        bar['id'],
         str(bar['waiters']),
         str(bar['restock']),
-        str(bar['stock']),
-        bar['id']
+        str(bar['stock'])
     ]
     file_content += ','.join(cells) + '\n'
     return file_content
 
 
 def generate_customers_csv_file_content(customers):
-    file_content = 'Satisfaction,SurroundingSatisfaction,Thirsty,id\n'
+    file_content = 'id,Satisfaction,SurroundingSatisfaction,Thirsty\n'
     for customer in customers:
         cells = [
+            customer['id'],
             str(customer['satisfaction']),
             str(customer['surrounding_satisfaction']),
-            str(customer['thirsty']).lower(),
-            customer['id']
+            str(customer['thirsty']).lower()
         ]
         file_content += ','.join(cells) + '\n'
     return file_content

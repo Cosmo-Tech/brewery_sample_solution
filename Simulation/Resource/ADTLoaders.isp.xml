@@ -32,4 +32,9 @@
     <csmSon:Property name="StringDelimiter">"</csmSon:Property>
     <csmSon:Property name="UseVertexScope">1</csmSon:Property>
   </csmSon:Loader>
+
+  <csmSon:Loader type="cexCSVGraphLoader" name="CustomersAsGraphVerticesLoader"  scopeEntityId="1">
+    <csmSon:Property name="File">/mnt/scenariorun-data/Customer.csv</csmSon:Property>
+    <csmSon:Property name="Query">id as @VertexName</csmSon:Property>
+  </csmSon:Loader>
 </csmSon:ModelPart>

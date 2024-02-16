@@ -1,14 +1,13 @@
 key: 'DemoBrewery'
-name: 'Demo Brewery Workspace'
+name: 'Brewery Workspace for azure sample webapp v5.2.2'
+description: 'Brewery Workspace for azure sample webapp v5.2.2'
+id: 'w-lj5r7k26g0p'
 solution:
-  solutionId: 'SOL-VkqXyNONQyB'
+  solutionId: 'sol-yjwl9wwjx9x'
   runTemplateFilter: ['1', '2', '3', 'high cpu (DO NOT USE)']
   defaultRunTemplateDataset: null
-id: 'W-rXeBwRa0PM'
-description: 'A workspace for Brewery Demo'
 version: null
 tags: null
-ownerId: '3a869905-e9f5-4851-a7a9-3079aad49dff'
 users: null
 webApp:
   url: https://sample.app.cosmotech.com

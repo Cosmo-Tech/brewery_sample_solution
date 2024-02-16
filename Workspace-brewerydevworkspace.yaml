@@ -1,14 +1,15 @@
 key: 'brewerydevworkspace'
-name: 'The Real Brewery Dev Workspace'
+name: 'The Real Brewery Dev Workspace - ASW v5.2.2'
+description: 'Dev Brewery Workspace for azure sample webapp v5.2.2'
+id: 'w-rwk2zq30xye'
 solution:
-  solutionId: 'SOL-VkqXyNONQyB'
+  solutionId: 'sol-yjwl9wwjx9x'
   runTemplateFilter:
     - '1'
     - '2'
     - '3'
     - 'high cpu (DO NOT USE)'
   defaultRunTemplateDataset: null
-description: 'A workspace for Brewery Dev'
 version: null
 tags: null
 ownerId: '3a869905-e9f5-4851-a7a9-3079aad49dff'
@@ -223,7 +224,7 @@ webApp:
       dataSource:
         type: 'adt'
         functionUrl: 'https://scenario-download-brewery-dev.azurewebsites.net/api/ScenarioDownload'
-        functionKey: 'sFGoW45A4TthGp9bunsKhzH7A8a4nR-JK82jjHQ6Ja-WAzFuFc-sOg=='
+        functionKey: 'o5Xlur_7s5c00KQKnl0QveXVEFC9DXeBiOkwQEdZGx9xAzFuLsPB5A=='
       dataContent:
         compounds:
           Bar_vertex: {}

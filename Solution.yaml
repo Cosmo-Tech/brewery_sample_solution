@@ -1,8 +1,9 @@
 key: 'Demo Brewery Solution'
-name: 'Demo Brewery Solution'
-description: 'One Day Brewery Solution'
+name: 'Brewery solution for azure sample webapp v5.2.2'
+description: 'Brewery solution for azure sample webapp v5.2.2'
 repository: 'brewery_simulator'
-version: '0.0.26'
+version: '0.0.34'
+id: 'sol-yjwl9wwjx9x'
 tags:
   - '1day'
   - 'Brewery'

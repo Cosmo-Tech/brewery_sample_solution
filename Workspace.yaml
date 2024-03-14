@@ -12,19 +12,6 @@ tags: null
 ownerId: '3a869905-e9f5-4851-a7a9-3079aad49dff'
 webApp:
   url: https://sample.app.cosmotech.com
-  options:
-    datasetFilter:
-      [
-        'D-4jwyQnmv7jx',
-        'D-9rp3EMPO2P2',
-        'd-kyr7pq98y1pn6',
-        'd-k6nk7zgl6174y',
-        'd-ypl26x3kgppwo',
-        'd-5y577r0m19262',
-        'd-8o291zn2ozm72',
-        'd-dr5xnn710mz4k',
-        'd-l6dl6em90ex29',
-      ]
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true
 sendScenarioMetadataToEventHub: true

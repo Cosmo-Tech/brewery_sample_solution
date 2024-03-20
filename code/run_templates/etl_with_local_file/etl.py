@@ -56,13 +56,13 @@ def main():
     bar = {
         "type": "Bar",
         "name": "MyBar",
-        "params": f"""NbWaiters: {int(parameters["num_waiters"])},""" +
-                  f"""RestockQty: {int(parameters["restock_quantity"])},""" +
-                  f"""Stock: {int(parameters["stock"])}""",
+        "params": f"""NbWaiters: {int(parameters["etl_param_num_waiters"])},""" +
+                  f"""RestockQty: {int(parameters["etl_param_restock_quantity"])},""" +
+                  f"""Stock: {int(parameters["etl_param_stock"])}""",
     }
     bars.append(bar)
 
-    base_path = parameters["bar_instance"]
+    base_path = parameters["etl_param_bar_instance"]
     file_name = glob.glob('*.zip', root_dir=base_path)[0]
     with ZipFile(base_path + "/" + file_name) as zip:
         zip.extractall(base_path)

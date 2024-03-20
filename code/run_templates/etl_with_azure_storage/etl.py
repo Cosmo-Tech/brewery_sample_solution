@@ -59,15 +59,15 @@ def main():
     bar = {
         "type": "Bar",
         "name": "MyBar",
-        "params": f"""NbWaiters: {int(parameters["num_waiters"])},""" +
-                  f"""RestockQty: {int(parameters["restock_quantity"])},""" +
-                  f"""Stock: {int(parameters["stock"])}""",
+        "params": f"""NbWaiters: {int(parameters["etl_param_num_waiters"])},""" +
+                  f"""RestockQty: {int(parameters["etl_param_restock_quantity"])},""" +
+                  f"""Stock: {int(parameters["etl_param_stock"])}""",
     }
     bars.append(bar)
 
     base_path = "."
 
-    blob = BlobClient.from_connection_string(conn_str=parameters["azure_storage_co_string"], container_name=parameters["az_storage_container"], blob_name=parameters["az_storage_path"])
+    blob = BlobClient.from_connection_string(conn_str=parameters["etl_param_azure_storage_co_string"], container_name=parameters["etl_param_az_storage_container"], blob_name=parameters["etl_param_az_storage_path"])
     with open(base_path + "/brewery_instance.zip", "wb") as my_blob:
         blob_data = blob.download_blob()
         blob_data.readinto(my_blob)

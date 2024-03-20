@@ -343,6 +343,54 @@ parameters:
       fr: 'Date de Fin'
       en: 'End date'
     varType: 'date'
+  - id: etl_param_stock
+    labels:
+      fr: Stock
+      en: Stock
+    varType: string
+    defaultValue: 100
+  - id: etl_param_restock_quantity
+    labels:
+      fr: Réapprovisionnement
+      en: Restock
+    varType: string
+    defaultValue: 25
+  - id: etl_param_num_waiters
+    labels:
+      fr: Serveurs
+      en: Waiters
+    varType: string
+    defaultValue: 5
+  - id: etl_param_bar_instance
+    labels:
+      fr: fichier d'instance
+      en: instance file
+    varType: '%DATASETID%'
+    options:
+      connectorId: 'c-d7e5p9o0kjn9'
+      description: 'Initial stock dataset part'
+      defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+      shouldRenameFileOnUpload: true
+  - id: etl_param_azure_storage_co_string
+    labels:
+      fr: azure storage connection string
+      en: azure storage connection string
+    varType: string
+  - id: etl_param_az_storage_account
+    labels:
+      fr: azure storage account name
+      en: azure storage account name
+    varType: string
+  - id: etl_param_az_storage_container
+    labels:
+      fr: azure storage container name
+      en: azure storage container name
+    varType: string
+  - id: etl_param_az_storage_path
+    labels:
+      fr: azure storage path
+      en: azure storage path
+    varType: string
 parameterGroups:
   - id: 'bar_parameters'
     labels:
@@ -426,6 +474,29 @@ parameterGroups:
     parameters:
       - 'training_start_date'
       - 'training_end_date'
+  - id: etl_param_group_bar_parameters
+    labels:
+      fr: Bar
+      en: Bar
+    parameters:
+      - etl_param_stock
+      - etl_param_restock_quantity
+      - etl_param_num_waiters
+  - id: etl_param_group_local_file
+    labels:
+      fr: local_file
+      en: local_file
+    parameters:
+      - etl_param_bar_instance
+  - id: etl_param_group_azure_storage
+    labels:
+      fr: azure_storage_connection
+      en: azure_storage connexion
+    parameters:
+      - etl_param_azure_storage_co_string
+      - etl_param_az_storage_account
+      - etl_param_az_storage_container
+      - etl_param_az_storage_path
 runTemplates:
   - id: '1'
     labels:
@@ -589,3 +660,21 @@ runTemplates:
     tags:
       - 'consumer to api'
       - 'No param'
+  - id: etl_with_local_file
+    labels:
+      fr: Brewery (.zip) depuis un fichier local
+      en: Brewery (.zip) from Local File
+    tags:
+      - datasource
+    parameterGroups:
+      - etl_param_group_bar_parameters
+      - etl_param_group_local_file
+  - id: etl_with_azure_storage
+    labels:
+      fr: Brewery (.zip) depuis Azure Storage
+      en: Brewery (.zip) from Azure Storage
+    tags:
+      - datasource
+    parameterGroups:
+      - etl_param_group_bar_parameters
+      - etl_param_group_azure_storage

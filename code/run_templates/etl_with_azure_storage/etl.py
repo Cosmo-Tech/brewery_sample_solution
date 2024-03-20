@@ -12,7 +12,6 @@ from azure.storage.blob import BlobClient
 from cosmotech_api.api.dataset_api import DatasetApi
 from cosmotech_api.model.dataset import Dataset
 from cosmotech_api.api.runner_api import RunnerApi
-from cosmotech_api.api.workspace_api import WorkspaceApi
 from rich.logging import RichHandler
 
 LOGGER = logging.getLogger("my_etl_logger")

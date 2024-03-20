@@ -11,7 +11,6 @@ from azure.identity import DefaultAzureCredential
 from cosmotech_api.api.dataset_api import DatasetApi
 from cosmotech_api.model.dataset import Dataset
 from cosmotech_api.api.runner_api import RunnerApi
-from cosmotech_api.api.workspace_api import WorkspaceApi
 from rich.logging import RichHandler
 
 LOGGER = logging.getLogger("my_etl_logger")
@@ -26,6 +25,13 @@ logging.basicConfig(
                           show_path=False,
                           markup=True)])
 LOGGER.setLevel(logging.INFO)
+
+
+def get_zip_file_name(dir):
+    for _, _, files in os.walk(dir):
+        for file in files:
+            if(file.endswith(".zip")):
+                return file
 
 
 def main():
@@ -63,7 +69,7 @@ def main():
     bars.append(bar)
 
     base_path = parameters["etl_param_bar_instance"]
-    file_name = glob.glob('*.zip', root_dir=base_path)[0]
+    file_name = get_zip_file_name(base_path)
     with ZipFile(base_path + "/" + file_name) as zip:
         zip.extractall(base_path)
 

@@ -1,0 +1,17 @@
+{
+  "steps": [
+    {
+        "id": "fetch-data",
+        "commandId": "csm-orc fetch-run-data"
+    },
+    {
+        "id": "ETL",
+        "command": "python",
+        "arguments": [
+            "run_templates/etl_with_azure_storage/etl.py"
+        ],
+        "precedents": ["fetch-data"],
+        "useSystemEnvironment": true
+    }
+  ]
+}

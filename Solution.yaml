@@ -678,3 +678,9 @@ runTemplates:
     parameterGroups:
       - etl_param_group_bar_parameters
       - etl_param_group_azure_storage
+  - id: etl_sub_dataset_by_filter
+    labels:
+      fr: Filtre de dataset
+      en: Dataset filter
+    tags:
+      - subdatasource

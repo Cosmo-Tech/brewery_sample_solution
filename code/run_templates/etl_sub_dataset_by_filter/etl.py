@@ -18,14 +18,13 @@ def main():
     api = common.get_api()
     runner = api['runner'].get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
     parent_dataset_id = runner['dataset_list'][0]
+    subdataset_details = {"name": runner['name'], "description": runner['description']}
 
     # LOGGER.info("Loading parameters")
     # with open(os.path.join(os.environ.get("CSM_PARAMETERS_ABSOLUTE_PATH"), "parameters.json")) as f:
     #     parameters = {d["parameterId"]: d["value"] for d in json.loads(f.read())}
 
-    create_subdataset(organization_id, parent_dataset_id)
-    # subdataset = create_subdataset(organization_id, parent_dataset_id, subdataset_details) # TODO
-
+    create_subdataset(organization_id, workspace_id, parent_dataset_id, subdataset_details)
     LOGGER.info("ETL Run finished")
 
 

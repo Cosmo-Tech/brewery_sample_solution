@@ -25,14 +25,15 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description='Create a subdataset from a parent dataset and a list of filter arguments.'
     )
-    parser.add_argument("-o", "--organization", help="Organization id")
-    parser.add_argument("-p", "--parent", help="Id of the parent dataset")
+    parser.add_argument("-o", "--organization", help="Organization id", required=True)
+    parser.add_argument("-w", "--workspace", help="Workspace id", required=True)
+    parser.add_argument("-p", "--parent", help="Id of the parent dataset", required=True)
     parser.add_argument("-n", "--name", help="Name of the created subdataset")
     parser.add_argument("-d", "--description", help="Description of the created subdataset")
     return parser.parse_args()
 
 
-def create_subdataset(organization_id, parent_dataset_id, subdataset_details):
+def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdataset_details):
     api = common.get_api()
 
     try:
@@ -58,6 +59,13 @@ def create_subdataset(organization_id, parent_dataset_id, subdataset_details):
         LOGGER.error("Failed to create subdataset: %s\n" % e)
         raise e
 
+    LOGGER.info("Linking subdataset to workspace...")
+    try:
+        api['dataset'].link_workspace(organization_id, subdataset['id'], workspace_id)
+    except cosmotech_api.ApiException as e:
+        LOGGER.error("Failed to create subdataset: %s\n" % e)
+        raise e
+
     LOGGER.info(f"Subdataset ready! ({subdataset['id']})")
     return subdataset
 
@@ -67,4 +75,4 @@ if __name__ == "__main__":
     load_env_variables()
     args = parse_arguments()
     subdataset_details = {"name": args.name, "description": args.description}
-    dataset = create_subdataset(args.organization, args.parent, subdataset_details)
+    dataset = create_subdataset(args.organization, args.workspace, args.parent, subdataset_details)

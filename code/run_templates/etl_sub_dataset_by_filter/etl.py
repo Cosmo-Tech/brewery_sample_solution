@@ -16,7 +16,7 @@ def main():
     runner_id = os.environ.get("CSM_RUNNER_ID")
 
     api = common.get_api()
-    runner = api.runner.get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
+    runner = api['runner'].get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
     parent_dataset_id = runner['dataset_list'][0]
 
     # LOGGER.info("Loading parameters")

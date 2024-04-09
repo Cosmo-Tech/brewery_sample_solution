@@ -105,9 +105,11 @@ def create_subdataset_into(
     # Note: this is a work-around for missing endpoint copyDataset in the API, or until a "target dataset id" can
     # be specified in the subdataset endpoint
     twingraph_dump_folder_path = os.path.join(".", "twingraph_dump")
-    dump_twingraph_dataset_to_csv_files(organization_id, parent_dataset, subdataset["id"], twingraph_dump_folder_path)
-    archive_path = compress_for_twingraph_upload(subdataset["id"], twingraph_dump_folder_path)
-    LOGGER.info(f"Twingraph dump archive created!! ({archive_path})")
+    dump_twingraph_dataset_to_csv_files(organization_id, parent_dataset, twingraph_dump_folder_path)
+    archive_path = compress_for_twingraph_upload(twingraph_dump_folder_path)
+    LOGGER.info(
+        f"Twingraph dump archive created: {archive_path}, trying to upload it to existing dataset {subdataset_id}"
+    )
 
 
 if __name__ == "__main__":

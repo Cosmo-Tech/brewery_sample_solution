@@ -71,20 +71,18 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
     )
 
     LOGGER.info("Creating subdataset...")
-    # try:
-    #     subdataset = api["dataset"].create_sub_dataset(organization_id, parent_dataset_id, subdataset_graph_query)
-    # except cosmotech_api.ApiException as e:
-    #     LOGGER.error("Failed to create subdataset: %s\n" % e)
-    #     raise e
-    #
-    # LOGGER.info("Linking subdataset to workspace...")
-    # try:
-    #     api["dataset"].link_workspace(organization_id, subdataset["id"], workspace_id)
-    # except cosmotech_api.ApiException as e:
-    #     LOGGER.error("Failed to create subdataset: %s\n" % e)
-    #     raise e
+    try:
+        subdataset = api["dataset"].create_sub_dataset(organization_id, parent_dataset_id, subdataset_graph_query)
+    except cosmotech_api.ApiException as e:
+        LOGGER.error("Failed to create subdataset: %s\n" % e)
+        raise e
 
-    subdataset = {"id": "d-oykoenqor9g"}
+    LOGGER.info("Linking subdataset to workspace...")
+    try:
+        api["dataset"].link_workspace(organization_id, subdataset["id"], workspace_id)
+    except cosmotech_api.ApiException as e:
+        LOGGER.error("Failed to create subdataset: %s\n" % e)
+        raise e
 
     LOGGER.info(f"Subdataset ready! ({subdataset['id']})")
     return (subdataset, parent_dataset)

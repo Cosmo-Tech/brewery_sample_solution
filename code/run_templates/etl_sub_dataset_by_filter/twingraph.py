@@ -115,6 +115,14 @@ def dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, folde
 
 
 def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
+    api = common.get_api()
+    try:
+        api["dataset"].update_dataset(
+            organization_id, dataset_id, {"ingestionStatus": "PENDING", "sourceType": "File"}
+        )
+    except cosmotech_api.ApiException as e:
+        print("Exception when changing twingraph type & status: %s\n" % e)
+
     with open(zip_archive_path, "rb") as file:
         api_url = os.environ.get("CSM_API_URL")
         token = common.get_api_token()
@@ -126,6 +134,12 @@ def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
                 data=file,
                 headers={"Content-Type": "application/octet-stream", "Authorization": auth},
             )
-            print(response.json())
+            imported_data = response.json()
+            LOGGER.info(f"Imported data: {imported_data}")
         except cosmotech_api.ApiException as e:
             print("Exception when uploading twingraph archive: %s\n" % e)
+
+    try:
+        api["dataset"].update_dataset(organization_id, dataset_id, {"ingestionStatus": "SUCCESS", "sourceType": "ETL"})
+    except cosmotech_api.ApiException as e:
+        print("Exception when changing twingraph type & status: %s\n" % e)

@@ -34,3 +34,8 @@ def get_api():
         runner_api_instance = RunnerApi(api_client)
 
     return {"dataset": dataset_api_instance, "runner": runner_api_instance}
+
+
+def get_api_token():
+    credentials = DefaultAzureCredential()
+    return credentials.get_token(os.environ.get("CSM_API_SCOPE")).token

@@ -2,6 +2,7 @@ import os
 import csv
 import time
 import shutil
+import requests
 from functools import reduce
 import cosmotech_api
 import common
@@ -89,7 +90,7 @@ def create_csv_files_from_graph_content(graph_content, folder_path):
                 writer.writerow(values)
 
 
-def dump_twingraph_dataset_to_csv_files(organization_id, parent_dataset, folder_path):
+def dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, folder_path):
     api = common.get_api()
     parent_dataset_id = parent_dataset["id"]
     try:
@@ -109,7 +110,22 @@ def dump_twingraph_dataset_to_csv_files(organization_id, parent_dataset, folder_
     graph_content = parse_twingraph_json(res_nodes, res_edges, "n", "edge", "src", "dst")
     create_csv_files_from_graph_content(graph_content, folder_path)
 
-
-def compress_for_twingraph_upload(folder_path):
     shutil.make_archive("twingraph_dump", "zip", folder_path)
-    return os.path.join(folder_path, "twingraph_dump.zip")
+    return os.path.join(".", "twingraph_dump.zip")
+
+
+def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
+    with open(zip_archive_path, "rb") as file:
+        api_url = os.environ.get("CSM_API_URL")
+        token = common.get_api_token()
+        auth = f"Bearer {token}"
+
+        try:
+            response = requests.post(
+                f"{api_url}/organizations/{organization_id}/datasets/{dataset_id}",
+                data=file,
+                headers={"Content-Type": "application/octet-stream", "Authorization": auth},
+            )
+            print(response.json())
+        except cosmotech_api.ApiException as e:
+            print("Exception when uploading twingraph archive: %s\n" % e)

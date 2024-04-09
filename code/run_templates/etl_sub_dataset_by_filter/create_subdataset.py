@@ -3,7 +3,7 @@ import cosmotech_api
 from cosmotech_api.model.sub_dataset_graph_query import SubDatasetGraphQuery
 
 import common
-from twingraph import compress_for_twingraph_upload, dump_twingraph_dataset_to_csv_files
+from twingraph import dump_twingraph_dataset_to_zip_archive, upload_twingraph_zip_archive
 
 
 LOGGER = common.get_logger()
@@ -60,17 +60,17 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
         LOGGER.error(f"Failed to retrieve parent dataset with id {parent_dataset_id}: %s\n" % e)
         raise e
 
-    # LOGGER.info("Preparing creation of the subdataset...")
-    # parent_dataset_name = parent_dataset["name"] or ""
-    # parent_dataset_description = parent_dataset["description"] or parent_dataset_name  # Description filler
-    # subdataset_graph_query = SubDatasetGraphQuery(
-    #     name=subdataset_details["name"] or f"Subdataset of {parent_dataset_name}",
-    #     description=subdataset_details["description"] or f"(Subdataset) {parent_dataset_description}",
-    #     queries=queries,
-    #     main=True,
-    # )
-    #
-    # LOGGER.info("Creating subdataset...")
+    LOGGER.info("Preparing creation of the subdataset...")
+    parent_dataset_name = parent_dataset["name"] or ""
+    parent_dataset_description = parent_dataset["description"] or parent_dataset_name  # Description filler
+    subdataset_graph_query = SubDatasetGraphQuery(
+        name=subdataset_details["name"] or f"Subdataset of {parent_dataset_name}",
+        description=subdataset_details["description"] or f"(Subdataset) {parent_dataset_description}",
+        queries=queries,
+        main=True,
+    )
+
+    LOGGER.info("Creating subdataset...")
     # try:
     #     subdataset = api["dataset"].create_sub_dataset(organization_id, parent_dataset_id, subdataset_graph_query)
     # except cosmotech_api.ApiException as e:
@@ -105,11 +105,11 @@ def create_subdataset_into(
     # Note: this is a work-around for missing endpoint copyDataset in the API, or until a "target dataset id" can
     # be specified in the subdataset endpoint
     twingraph_dump_folder_path = os.path.join(".", "twingraph_dump")
-    dump_twingraph_dataset_to_csv_files(organization_id, parent_dataset, twingraph_dump_folder_path)
-    archive_path = compress_for_twingraph_upload(twingraph_dump_folder_path)
+    archive_path = dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, twingraph_dump_folder_path)
     LOGGER.info(
         f"Twingraph dump archive created: {archive_path}, trying to upload it to existing dataset {subdataset_id}"
     )
+    upload_twingraph_zip_archive(organization_id, subdataset_id, archive_path)
 
 
 if __name__ == "__main__":

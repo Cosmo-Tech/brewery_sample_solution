@@ -3,7 +3,7 @@ import os
 import sys
 
 import common
-from create_subdataset import create_subdataset
+from create_subdataset import create_subdataset_into
 
 
 LOGGER = common.get_logger()
@@ -27,7 +27,9 @@ def main():
     #     parameters = {d["parameterId"]: d["value"] for d in json.loads(f.read())}
     queries = None
 
-    create_subdataset(organization_id, workspace_id, parent_dataset_id, subdataset_id, subdataset_details, queries)
+    create_subdataset_into(
+        organization_id, workspace_id, parent_dataset_id, subdataset_id, subdataset_details, queries
+    )
     LOGGER.info("ETL Run finished")
 
 

@@ -7,3 +7,4 @@ __pycache__
 .vscode
 terraform_cloud.yaml
 terraform_workspace.yaml
+.env

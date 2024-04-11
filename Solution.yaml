@@ -391,6 +391,24 @@ parameters:
       fr: azure storage path
       en: azure storage path
     varType: string
+  - id: etl_param_subdataset_filter_is_thirsty
+    labels:
+      fr: Filtrer par
+      en: Filter by
+    varType: enum
+    options:
+      enumValues:
+        - key: 'THIRSTY'
+          value:
+            en: 'Thirsty'
+            fr: 'A soif'
+        - key: 'NOT_THIRSTY'
+          value:
+            en: 'Not thirsty'
+            fr: "N'a pas soif"
+      tooltipText:
+        fr: "Conserver uniquement les clients en fonction de leur soif initiale"
+        en: "Keep only customers defined by their initial thirst level"
 parameterGroups:
   - id: 'bar_parameters'
     labels:
@@ -497,6 +515,9 @@ parameterGroups:
       - etl_param_az_storage_account
       - etl_param_az_storage_container
       - etl_param_az_storage_path
+  - id: etl_param_group_sub_dataset_by_filter
+    parameters:
+      - etl_param_subdataset_filter_is_thirsty
 runTemplates:
   - id: '1'
     labels:
@@ -678,3 +699,11 @@ runTemplates:
     parameterGroups:
       - etl_param_group_bar_parameters
       - etl_param_group_azure_storage
+  - id: etl_sub_dataset_by_filter
+    labels:
+      fr: Filtre de dataset
+      en: Dataset filter
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_filter

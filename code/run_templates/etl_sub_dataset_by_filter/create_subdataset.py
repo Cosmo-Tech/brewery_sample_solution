@@ -53,7 +53,7 @@ def get_dataset(organization_id, dataset_id):
 
 def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdataset_details, queries=None):
     api = common.get_api()
-    queries = queries or ["MATCH(n) OPTIONAL MATCH ()-[r]-() RETURN n, r"]
+    queries = queries or ["OPTIONAL MATCH(n) RETURN n", "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst"]
     try:
         parent_dataset = get_dataset(organization_id, parent_dataset_id)
     except cosmotech_api.ApiException as e:

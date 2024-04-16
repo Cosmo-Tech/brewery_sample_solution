@@ -369,7 +369,7 @@ parameters:
     options:
       connectorId: 'c-d7e5p9o0kjn9'
       description: 'Initial stock dataset part'
-      defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+      defaultFileTypeFilter: '.zip'
       shouldRenameFileOnUpload: true
   - id: etl_param_azure_storage_co_string
     labels:

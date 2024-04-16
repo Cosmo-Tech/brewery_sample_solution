@@ -1,4 +1,5 @@
 import os
+import time
 import cosmotech_api
 from cosmotech_api.model.sub_dataset_graph_query import SubDatasetGraphQuery
 
@@ -76,10 +77,33 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
     except cosmotech_api.ApiException as e:
         LOGGER.error("Failed to create subdataset: %s\n" % e)
         raise e
+    subdataset_id = subdataset["id"]
+    LOGGER.info(f'Sub dataset created, its id is "{subdataset_id}"')
+
+    time.sleep(2)  # Delay first status query to make sure back-end had time to init (see #SDCOSMO-1768 for example)
+    LOGGER.info("Starting status polling...")
+    ingestion_status = "PENDING"
+    max_polling_count = 20
+    polling_count = 0
+    while polling_count < max_polling_count:
+        polling_count += 1
+
+        ingestion_status = api["dataset"].get_dataset_twingraph_status(organization_id, subdataset_id)
+        LOGGER.info(ingestion_status)
+        if ingestion_status != "PENDING":
+            break
+        time.sleep(5)
+
+    if ingestion_status != "SUCCESS":
+        LOGGER.error(
+            f'Status of created subdataset is "{ingestion_status}". Please check dataset "{subdataset_id}"for details'
+        )
+        raise Exception("Subdataset creation failed")
+    LOGGER.info("Subdataset content is ready")
 
     LOGGER.info("Linking subdataset to workspace...")
     try:
-        api["dataset"].link_workspace(organization_id, subdataset["id"], workspace_id)
+        api["dataset"].link_workspace(organization_id, subdataset_id, workspace_id)
     except cosmotech_api.ApiException as e:
         LOGGER.error("Failed to create subdataset: %s\n" % e)
         raise e

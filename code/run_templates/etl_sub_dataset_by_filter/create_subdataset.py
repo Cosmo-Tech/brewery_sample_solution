@@ -133,6 +133,17 @@ def create_subdataset_into(
     )
     upload_twingraph_zip_archive(organization_id, subdataset_id, archive_path)
 
+    # Delete temporary dataset only now that its content has been reuploaded
+    tmp_subdataset_id = tmp_subdataset["id"]
+    LOGGER.info(f'Deleting temporary dataset "{tmp_subdataset_id}"...')
+    api = common.get_api()
+    try:
+        api["dataset"].delete_dataset(organization_id, tmp_subdataset_id)
+    except cosmotech_api.ApiException as e:
+        LOGGER.error(f'Failed to delete temporary dataset with id "{tmp_subdataset_id}": %s\n' % e)
+        raise e
+    LOGGER.info("Temporary dataset removed")
+
 
 if __name__ == "__main__":
     # Only when running locally: load .env file & parse script parameters

@@ -409,6 +409,16 @@ parameters:
       tooltipText:
         fr: "Conserver uniquement les clients en fonction de leur soif initiale"
         en: "Keep only customers defined by their initial thirst level"
+  - id: etl_param_subdataset_filter_dynamic_customer_name
+    labels:
+      fr: Filtrer par client
+      en: Filter by customer
+    varType: enum
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(n:Customer) RETURN n.id as id'
+        resultKey: id
 parameterGroups:
   - id: 'bar_parameters'
     labels:
@@ -518,6 +528,9 @@ parameterGroups:
   - id: etl_param_group_sub_dataset_by_filter
     parameters:
       - etl_param_subdataset_filter_is_thirsty
+  - id: etl_param_group_sub_dataset_by_dynamic_filter
+    parameters:
+      - etl_param_subdataset_filter_dynamic_customer_name
 runTemplates:
   - id: '1'
     labels:
@@ -707,3 +720,11 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_by_filter
+  - id: './etl_sub_dataset_by_filter'
+    labels:
+      fr: Filtre dynamique de dataset
+      en: Dataset dynamic filter
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_dynamic_filter

@@ -2,7 +2,7 @@ key: 'Demo Brewery Solution'
 name: 'Demo Brewery Solution'
 description: 'One Day Brewery Solution'
 repository: 'brewery_simulator'
-version: '1.2.1'
+version: '1.3.0-dev.41'
 tags:
   - '1day'
   - 'Brewery'
@@ -808,3 +808,11 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection
+  - id: filter1
+    labels:
+      fr: Filtre de dataset (functional) ❤️
+      en: Dataset filter that actually filters 🦄
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_filter

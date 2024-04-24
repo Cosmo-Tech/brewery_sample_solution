@@ -349,6 +349,35 @@ parameters:
       en: Stock
     varType: string
     defaultValue: 100
+  - id: 'countries'
+    labels:
+      fr: 'Pays'
+      en: 'Countries'
+    varType: 'list'
+    defaultValue: '["FRANCE","INDIA"]'
+    options:
+      enumValues:
+        - key: 'FRANCE'
+          value: 'France'
+        - key: 'GERMANY'
+          value:
+            en: 'Germany'
+            fr: 'Allemagne'
+        - key: 'GREECE'
+          value:
+            en: 'Greece'
+            fr: 'Grèce'
+        - key: 'INDIA'
+          value:
+            en: 'India'
+            fr: 'Inde'
+        - key: 'JAPAN'
+          value:
+            en: 'Japan'
+            fr: 'Japon'
+      tooltipText:
+        fr: "Choisissez un ensemble de pays parmi la liste proposée"
+        en: "Select countries among the list"
   - id: etl_param_restock_quantity
     labels:
       fr: Réapprovisionnement
@@ -513,6 +542,7 @@ parameterGroups:
       - 'additional_tables'
       - 'comment'
       - 'additional_date'
+      - 'countries'
   - id: 'training_dates'
     labels:
       fr: 'Dates de simulation'

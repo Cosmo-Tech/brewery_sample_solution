@@ -409,6 +409,24 @@ parameters:
       tooltipText:
         fr: "Conserver uniquement les clients en fonction de leur soif initiale"
         en: "Keep only customers defined by their initial thirst level"
+  - id: etl_param_subdataset_filter_thirsty_multiselect
+    labels:
+      fr: Filtrer par
+      en: Filter by
+    varType: list
+    options:
+      enumValues:
+        - key: 'THIRSTY'
+          value:
+            en: 'Thirsty'
+            fr: 'A soif'
+        - key: 'NOT_THIRSTY'
+          value:
+            en: 'Not thirsty'
+            fr: "N'a pas soif"
+      tooltipText:
+        fr: "Conserver uniquement les clients en fonction de leur soif initiale"
+        en: "Keep only customers defined by their initial thirst level"
   - id: etl_param_subdataset_filter_dynamic_customer_name
     labels:
       fr: Filtrer par client
@@ -531,6 +549,9 @@ parameterGroups:
   - id: etl_param_group_sub_dataset_by_dynamic_filter
     parameters:
       - etl_param_subdataset_filter_dynamic_customer_name
+  - id: etl_param_group_sub_dataset_by_filter_with_multiple_selection
+    parameters:
+      - etl_param_subdataset_filter_thirsty_multiselect
 runTemplates:
   - id: '1'
     labels:
@@ -728,3 +749,11 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_by_dynamic_filter
+  - id: './/etl_sub_dataset_by_filter'
+    labels:
+      fr: Filtre par sélection multiple
+      en: Multi-selection filter
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_filter_with_multiple_selection

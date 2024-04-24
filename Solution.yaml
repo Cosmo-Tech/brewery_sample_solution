@@ -466,6 +466,16 @@ parameters:
         type: cypher
         query: 'MATCH(n:Customer) RETURN n.id as id'
         resultKey: id
+  - id: etl_param_subdataset_filter_dynamic_customers_list
+    labels:
+      fr: Filtrer par clients
+      en: Filter by customers
+    varType: list
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(n:Customer) RETURN n.id as id'
+        resultKey: id
 parameterGroups:
   - id: 'bar_parameters'
     labels:
@@ -579,6 +589,9 @@ parameterGroups:
   - id: etl_param_group_sub_dataset_by_dynamic_filter
     parameters:
       - etl_param_subdataset_filter_dynamic_customer_name
+  - id: etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection
+    parameters:
+      - etl_param_subdataset_filter_dynamic_customers_list
   - id: etl_param_group_sub_dataset_by_filter_with_multiple_selection
     parameters:
       - etl_param_subdataset_filter_thirsty_multiselect
@@ -787,3 +800,11 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_by_filter_with_multiple_selection
+  - id: './//etl_sub_dataset_by_filter'
+    labels:
+      fr: Filtre dynamique avec sélection multiple
+      en: Dynamic filter with multi-selection
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection

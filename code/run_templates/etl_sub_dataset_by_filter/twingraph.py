@@ -122,6 +122,7 @@ def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
         )
     except cosmotech_api.ApiException as e:
         LOGGER.error("Exception when changing twingraph type & status: %s\n" % e)
+        raise e
 
     with open(zip_archive_path, "rb") as file:
         api_url = os.environ.get("CSM_API_URL")
@@ -138,8 +139,13 @@ def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
             LOGGER.info(f"Imported data: {imported_data}")
         except cosmotech_api.ApiException as e:
             LOGGER.error("Exception when uploading twingraph archive: %s\n" % e)
+            raise e
 
+    LOGGER.info("Resetting sourceType & status of subdataset...")
     try:
+        # Required delay to prevent some race condition, leading sometimes to the sourceType update being ignored
+        time.sleep(2)
         api["dataset"].update_dataset(organization_id, dataset_id, {"ingestionStatus": "SUCCESS", "sourceType": "ETL"})
     except cosmotech_api.ApiException as e:
         LOGGER.error("Exception when changing twingraph type & status: %s\n" % e)
+        raise e

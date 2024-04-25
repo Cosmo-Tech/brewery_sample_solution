@@ -4,7 +4,7 @@
         "id": "ETL",
         "command": "python",
         "arguments": [
-            "run_templates/filter1/etl.py"
+            "run_templates/etl_sub_dataset_by_filter_boolean/etl.py"
         ],
         "useSystemEnvironment": true
     }

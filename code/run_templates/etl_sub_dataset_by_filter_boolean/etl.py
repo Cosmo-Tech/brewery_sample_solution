@@ -23,17 +23,23 @@ def main():
     workspace_id = os.environ.get("CSM_WORKSPACE_ID")
     runner_id = os.environ.get("CSM_RUNNER_ID")
     api = get_api()
-
     runner = api["runner"].get_runner(
         organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id
     )
+    # A webapp convention is that the first dataset is always the subdataset and
+    # the second the parent dataset, see doc at:
+    # https://github.com/Cosmo-Tech/azure-sample-webapp/blob/main/doc/datasetManager.md#subdataset-creation-scripts
     subdataset_id = runner["dataset_list"][0]
     parent_dataset_id = runner["dataset_list"][1]
-    graph_filter = {
-        "key": "Thirsty",
-        "value": (runner["parameters_values"][0]["value"] == "THIRSTY"),
-    }
-    filter1(
+    graph_filter = {}
+    for element in runner["parameters_values"]:
+        if element.get("parameter_id") == "etl_param_subdataset_filter_is_thirsty":
+            graph_filter = {
+                "key": "Thirsty",
+                "value": (element["value"] == "THIRSTY"),
+            }
+            break
+    etl_sub_dataset_by_filter_boolean(
         api,
         organization_id,
         parent_dataset_id,
@@ -44,14 +50,14 @@ def main():
     LOGGER.info("ETL Run finished")
 
 
-def filter1(
+def etl_sub_dataset_by_filter_boolean(
     api, organization_id, parent_dataset_id, subdataset_id, workspace_id, graph_filter
 ):
     LOGGER.info("Linking subdataset to workspace...")
     try:
         api["dataset"].link_workspace(organization_id, subdataset_id, workspace_id)
     except cosmotech_api.ApiException as e:
-        LOGGER.error("Failed to create subdataset: {e}")
+        LOGGER.error("Failed to link subdataset with workspace: {e}")
         raise e
     LOGGER.info("Subdataset linked and ready!")
     LOGGER.info("Query and filter dataset")
@@ -76,7 +82,6 @@ def filter1(
         organization_id, parent_dataset_id, edge_query
     )
     LOGGER.info("Transform JSON to csv")
-
     graph_content = parse_twingraph_json(nodes, edges, "n", "edge", "src", "dst")
     create_csv_files_from_graph_content(graph_content, "twingraph_dump")
     shutil.make_archive("twingraph_dump", "zip", "twingraph_dump")
@@ -88,5 +93,5 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        LOGGER.error(f"An error ocurred during the creation of the sub-dataset: {e}")
+        LOGGER.error(f"An error occurred during the creation of the sub-dataset: {e}")
         sys.exit(-1)

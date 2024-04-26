@@ -816,3 +816,11 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_by_filter
+  - id: etl_sub_dataset_by_filter_multi
+    labels:
+      fr: Filtre dynamique avec sélection multiple
+      en: Dataset filter on a multi-selection dynamic values
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection

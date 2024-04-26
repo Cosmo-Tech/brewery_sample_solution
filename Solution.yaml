@@ -187,7 +187,7 @@ parameters:
   - id: 'additional_date'
     labels:
       en: 'Additional date'
-      fr: 'Date additionelle'
+      fr: 'Date additionnelle'
     varType: 'date'
     defaultValue: '2022-06-22T00:00:00.000Z'
     minValue: '2021-01-01T00:00:00.000Z'
@@ -525,7 +525,7 @@ parameterGroups:
   - id: 'extra_dataset_part'
     labels:
       en: 'Additional dataset part'
-      fr: 'Fragment additionel'
+      fr: 'Fragment additionnel'
     parameters:
       - 'example_dataset_part_3'
   - id: 'customers'

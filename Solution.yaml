@@ -2,7 +2,7 @@ key: 'Demo Brewery Solution'
 name: 'Demo Brewery Solution'
 description: 'One Day Brewery Solution'
 repository: 'brewery_simulator'
-version: '1.3.0'
+version: '1.4.0'
 tags:
   - '1day'
   - 'Brewery'

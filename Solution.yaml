@@ -378,23 +378,23 @@ parameters:
       tooltipText:
         fr: "Choisissez un ensemble de pays parmi la liste proposée"
         en: "Select countries among the list"
-  - id: dynamic_values_customers_thirst_enum
+  - id: dynamic_values_customers_enum
     labels:
-      fr: Niveau de soif des clients
-      en: Customer thirst
+      fr: Client (enum)
+      en: Customer (enum)
     tooltipText:
-      fr: Sélectionnez un niveau de soif parmi la liste
-      en: Pick a customer thirst level from the list
+      fr: Sélectionnez un client parmi la liste
+      en: Pick a customer from the list
     varType: enum
     options:
       dynamicEnumValues:
         type: cypher
-        query: 'MATCH(n:Customer) RETURN n.Thirsty as thirsty'
-        resultKey: thirsty
+        query: 'MATCH(n:Customer) RETURN n.id as customer_id'
+        resultKey: customer_id
   - id: dynamic_values_customers_list
     labels:
-      fr: List de clients
-      en: Customers lsit
+      fr: Liste de clients (list)
+      en: Customers list (list)
     tooltipText:
       fr: Sélectionnez des clients parmi la liste
       en: Pick customers from the list

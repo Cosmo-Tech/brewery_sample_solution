@@ -96,7 +96,7 @@ def main():
         csv_r = csv.DictReader(_f)
         for row in csv_r:
             satisfaction = {
-                "type": "satisfaction",
+                "type": "arc_Satisfaction",
                 "source": row['source'],
                 "target": row['target'],
                 "name": row['name'],

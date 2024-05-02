@@ -378,6 +378,32 @@ parameters:
       tooltipText:
         fr: "Choisissez un ensemble de pays parmi la liste proposée"
         en: "Select countries among the list"
+  - id: dynamic_values_customers_thirst_enum
+    labels:
+      fr: Niveau de soif des clients
+      en: Customer thirst
+    tooltipText:
+      fr: Sélectionnez un niveau de soif parmi la liste
+      en: Pick a customer thirst level from the list
+    varType: enum
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(n:Customer) RETURN n.Thirsty as thirsty'
+        resultKey: thirsty
+  - id: dynamic_values_customers_list
+    labels:
+      fr: List de clients
+      en: Customers lsit
+    tooltipText:
+      fr: Sélectionnez des clients parmi la liste
+      en: Pick customers from the list
+    varType: list
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(n:Customer) RETURN n.id as customer_id'
+        resultKey: customer_id
   - id: etl_param_restock_quantity
     labels:
       fr: Réapprovisionnement
@@ -560,6 +586,13 @@ parameterGroups:
     parameters:
       - 'training_start_date'
       - 'training_end_date'
+  - id: dynamic_values_customers_group
+    labels:
+      fr: Clients
+      en: Customers
+    parameters:
+      - dynamic_values_customers_enum
+      - dynamic_values_customers_list
   - id: etl_param_group_bar_parameters
     labels:
       fr: Bar
@@ -666,6 +699,12 @@ runTemplates:
       - 'customers'
       - 'events'
       - 'additional_parameters'
+  - id: dynamic_values_customers
+    labels:
+      fr: Valeurs dynamiques (requiert un dataset Twingraph)
+      en: Dynamic values (requires a Twingraph dataset)
+    parameterGroups:
+      - dynamic_values_customers_group
   - id: 'hidden test run template'
     labels:
       fr: 'Run template masqué sans paramètres'

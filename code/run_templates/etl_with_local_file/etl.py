@@ -70,11 +70,11 @@ def main():
     bars.append(bar)
 
     base_path = Path(parameters["etl_param_bar_instance"])
-    file_name = base_path.rglob("**/*.zip")[0]  # get the first zip file
+    file_name = list(base_path.rglob("**/*.zip"))[0]  # get the first zip file
     with ZipFile(base_path / file_name) as zip:
         zip.extractall(base_path)
 
-    base_path = base_path / file_name
+    base_path = base_path / Path(file_name).stem
     customers = list()
     with open(base_path / "Nodes" / "Customer.csv") as _f:
         LOGGER.info("Found 'Customer' list")

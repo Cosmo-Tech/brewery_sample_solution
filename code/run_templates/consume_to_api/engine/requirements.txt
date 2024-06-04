@@ -1,2 +1,0 @@
-azure-identity
-cosmotech-api==3.0.10rc0

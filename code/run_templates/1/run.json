@@ -13,8 +13,8 @@
         "CSM_WORKSPACE_ID": {
           "description": "The id of a workspace in the cosmotech api"
         },
-        "CSM_SCENARIO_ID": {
-          "description": "The id of a scenario in the cosmotech api"
+        "CSM_RUNNER_ID": {
+          "description": "The id of a runner in the cosmotech api"
         },
         "CSM_API_URL": {
           "description": "The url to a Cosmotech API"

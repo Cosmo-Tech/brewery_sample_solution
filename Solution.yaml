@@ -502,6 +502,14 @@ parameters:
         type: cypher
         query: 'MATCH(n:Customer) RETURN n.id as id'
         resultKey: id
+  - id: 'scenario_to_compare_1'
+    labels:
+      fr: 'Scénario #1'
+      en: 'Scenario #1'
+    varType: 'enum'
+    options:
+      subType: 'SCENARIOS'
+      runTemplateFilter: ['1', '3']
 parameterGroups:
   - id: 'bar_parameters'
     labels:

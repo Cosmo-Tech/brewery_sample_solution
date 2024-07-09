@@ -333,6 +333,41 @@ parameters:
             - 'bool'
             - 'nonSortable'
       dateFormat: 'dd/MM/yyyy'
+  - id: 'initial_state'
+    labels:
+      fr: 'Etat initial'
+      en: 'Initial state'
+    varType: '%DATASETID%'
+    options:
+      connectorId: 'c-d7e5p9o0kjn9'
+      subType: 'TABLE'
+      dynamicValues:
+        query: 'MATCH(customer: Customer) WITH {name: customer.id, satisfaction: customer.Satisfaction, surroundingSatisfaction: customer.SurroundingSatisfaction, thirsty: customer.Thirsty} as fields RETURN fields'
+        resultKey: 'fields'
+      columns:
+        - field: 'name'
+          headerName: 'Name'
+          type:
+            - 'string'
+        - field: 'satisfaction'
+          headerName: 'Satisfaction'
+          type:
+            - 'int'
+          minValue: 0
+          maxValue: 10
+          acceptsEmptyFields: true
+        - field: 'surroundingSatisfaction'
+          headerName: 'Surrounding satisfaction'
+          type:
+            - 'int'
+          minValue: 0
+          maxValue: 10
+          acceptsEmptyFields: true
+        - field: 'thirsty'
+          headerName: 'Thirsty'
+          type:
+            - 'bool'
+          acceptsEmptyFields: true
   - id: 'training_start_date'
     labels:
       fr: 'Date de départ'
@@ -569,6 +604,12 @@ parameterGroups:
       - 'additional_seats'
       - 'activated'
       - 'evaluation'
+  - id: 'initial_state'
+    labels:
+      en: 'Initial state'
+      fr: 'Etat initial'
+    parameters:
+      - 'initial_state'
   - id: 'additional_parameters'
     labels:
       en: 'Additional parameters'
@@ -699,6 +740,7 @@ runTemplates:
       - 'customers'
       - 'events'
       - 'additional_parameters'
+      - 'initial_state'
   - id: dynamic_values_customers
     labels:
       fr: Valeurs dynamiques (requiert un dataset Twingraph)

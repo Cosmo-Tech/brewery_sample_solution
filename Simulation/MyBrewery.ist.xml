@@ -6,7 +6,7 @@
   $Revision$
   $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
 -->
-<csm:Model xmlns:doc="http://www.cosmotech.com/csm_doc/9.0" xmlns:dbk="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" xmlns:csm="http://www.cosmotech.com/csm/9.0">
+<csm:Model xmlns:doc="http://www.cosmotech.com/csm_doc/10.0" xmlns:dbk="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" xmlns:csm="http://www.cosmotech.com/csm/10.0">
   <csm:Scheduler>
     <csm:RunTask>
       <csm:Entity>1</csm:Entity>

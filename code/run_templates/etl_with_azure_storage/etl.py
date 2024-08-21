@@ -130,9 +130,6 @@ def main():
     except e:
         pass
 
-    not_pending_dataset = Dataset(ingestion_status="PENDING")
-    dataset_api_instance.update_dataset(os.environ.get("CSM_ORGANIZATION_ID"), runner_data['dataset_list'][0], not_pending_dataset)
-
     LOGGER.info("Writing entities into target Dataset")
     dataset_api_instance.create_twingraph_entities(
         organization_id=os.environ.get("CSM_ORGANIZATION_ID"),

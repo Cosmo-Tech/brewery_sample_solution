@@ -1,3 +1,4 @@
-cosmotech-run-orchestrator~=1.2.3
-cosmotech-api~=3.1.0
+cosmotech-run-orchestrator~=1.2.4
+cosmotech-api~=3.2
 azure-storage-blob
+CosmoTech-Acceleration-Library==0.7.*

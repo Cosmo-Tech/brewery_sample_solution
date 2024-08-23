@@ -1,17 +1,20 @@
 {
   "steps": [
+    { "id": "csm_data_version", "command": "csm-data", "arguments": ["--version"] },
+    { "id": "csm_orc_version", "command": "csm-orc", "arguments": ["--version"] },
     {
-        "id": "fetch-data",
-        "commandId": "csm-orc fetch-run-data"
+      "id": "fetch_parameters",
+      "command": "csm-data",
+      "arguments": ["api", "run-load-data"],
+      "precedents": ["csm_data_version", "csm_orc_version"],
+      "useSystemEnvironment": true
     },
     {
-        "id": "ETL",
-        "command": "python",
-        "arguments": [
-            "run_templates/etl_with_azure_storage/etl.py"
-        ],
-        "precedents": ["fetch-data"],
-        "useSystemEnvironment": true
+      "id": "ETL",
+      "command": "python",
+      "arguments": ["run_templates/etl_with_azure_storage/etl.py"],
+      "precedents": ["fetch_parameters"],
+      "useSystemEnvironment": true
     }
   ]
 }

@@ -1,12 +1,13 @@
 {
   "steps": [
+    { "id": "csm_data_version", "command": "csm-data", "arguments": ["--version"] },
+    { "id": "csm_orc_version", "command": "csm-orc", "arguments": ["--version"] },
     {
-        "id": "ETL",
-        "command": "python",
-        "arguments": [
-            "run_templates/etl_sub_dataset_by_filter_boolean/etl.py"
-        ],
-        "useSystemEnvironment": true
+      "id": "ETL",
+      "command": "python",
+      "arguments": ["run_templates/etl_sub_dataset_by_filter_boolean/etl.py"],
+      "precedents": ["csm_data_version", "csm_orc_version"],
+      "useSystemEnvironment": true
     }
   ]
 }

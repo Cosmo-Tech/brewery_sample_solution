@@ -126,14 +126,13 @@ def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
 
     with open(zip_archive_path, "rb") as file:
         api_url = os.environ.get("CSM_API_URL")
-        token = common.get_api_token()
-        auth = f"Bearer {token}"
+        auth_headers = common.get_authentication_header()
 
         try:
             response = requests.post(
                 f"{api_url}/organizations/{organization_id}/datasets/{dataset_id}",
                 data=file,
-                headers={"Content-Type": "application/octet-stream", "Authorization": auth},
+                headers={"Content-Type": "application/octet-stream", **auth_headers},
             )
             imported_data = response.json()
             LOGGER.info(f"Imported data: {imported_data}")

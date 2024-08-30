@@ -110,8 +110,10 @@ def dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, folde
     graph_content = parse_twingraph_json(res_nodes, res_edges, "n", "edge", "src", "dst")
     create_csv_files_from_graph_content(graph_content, folder_path)
 
-    shutil.make_archive("twingraph_dump", "zip", folder_path)
-    return os.path.join(".", "twingraph_dump.zip")
+    output_file_path = os.path.join(folder_path, "twingraph_dump")
+    output_file_path_with_format = os.path.join(folder_path, "twingraph_dump.zip")
+    shutil.make_archive(output_file_path, "zip", folder_path)
+    return output_file_path_with_format
 
 
 def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):

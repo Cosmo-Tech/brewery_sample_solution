@@ -31,12 +31,12 @@ def main():
     # A webapp convention is that the first dataset is always the subdataset and
     # the second the parent dataset, see doc at:
     # https://github.com/Cosmo-Tech/azure-sample-webapp/blob/main/doc/datasetManager.md#subdataset-creation-scripts
-    subdataset_id = runner["dataset_list"][0]
-    parent_dataset_id = runner["dataset_list"][1]
+    subdataset_id = runner.dataset_list[0]
+    parent_dataset_id = runner.dataset_list[1]
     graph_filter_list = {}
-    for element in runner["parameters_values"]:
+    for element in runner.parameters_values:
         if element.get("parameter_id") == "etl_param_subdataset_filter_dynamic_customers_list":
-            graph_filter_list =  json.loads(element["value"])
+            graph_filter_list = json.loads(element["value"])
             break
     etl_sub_dataset_by_filter_multi(
         api,

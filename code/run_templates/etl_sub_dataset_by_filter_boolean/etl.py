@@ -29,10 +29,10 @@ def main():
     # A webapp convention is that the first dataset is always the subdataset and
     # the second the parent dataset, see doc at:
     # https://github.com/Cosmo-Tech/azure-sample-webapp/blob/main/doc/datasetManager.md#subdataset-creation-scripts
-    subdataset_id = runner["dataset_list"][0]
-    parent_dataset_id = runner["dataset_list"][1]
+    subdataset_id = runner.dataset_list[0]
+    parent_dataset_id = runner.dataset_list[1]
     graph_filter = {}
-    for element in runner["parameters_values"]:
+    for element in runner.parameters_values:
         if element.get("parameter_id") == "etl_param_subdataset_filter_is_thirsty":
             graph_filter = {
                 "key": "Thirsty",
@@ -62,16 +62,18 @@ def etl_sub_dataset_by_filter_boolean(
     LOGGER.info("Subdataset linked and ready!")
     LOGGER.info("Query and filter dataset")
 
+    filter_key = graph_filter['key']
+    filter_value = graph_filter['value']
     node_query = [
         'OPTIONAL MATCH (n)'
-        f"WHERE ( NOT EXISTS(n.{graph_filter['key']}) OR n.{graph_filter['key']} = {graph_filter['value']} ) "
+        f"WHERE ( NOT EXISTS(n.{filter_key}) OR n.{filter_key} = {filter_value} ) "
         'RETURN n'
     ]
     # WARNING: the query can easily break the JSON to CSV conversion!
     edge_query = [
         "OPTIONAL MATCH (src)-[edge]->(dst) "
-        f"WHERE ( NOT EXISTS(src.{graph_filter['key']}) OR src.{graph_filter['key']} = {graph_filter['value']} ) "
-        f"       AND (NOT EXISTS(dst.{graph_filter['key']}) OR dst.{graph_filter['key']} = {graph_filter['value']} ) "
+        f"WHERE ( NOT EXISTS(src.{filter_key}) OR src.{filter_key} = {filter_value} ) "
+        f"       AND (NOT EXISTS(dst.{filter_key}) OR dst.{filter_key} = {filter_value} ) "
         f"RETURN edge, src, dst"
     ]
 

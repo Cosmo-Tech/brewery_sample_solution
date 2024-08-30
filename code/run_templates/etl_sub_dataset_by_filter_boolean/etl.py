@@ -2,17 +2,13 @@ import shutil
 import os
 import sys
 import cosmotech_api
-from cosmotech_api.model.dataset import Dataset
-from pathlib import Path
 
-sys.path.append(str(Path(__file__).parents[1] / "etl_sub_dataset_by_filter"))
-
-from twingraph import (
+from common.common import get_logger, get_api
+from common.twingraph import (
     parse_twingraph_json,
     create_csv_files_from_graph_content,
     upload_twingraph_zip_archive,
 )
-from common import get_logger, get_api
 
 LOGGER = get_logger()
 
@@ -23,9 +19,7 @@ def main():
     workspace_id = os.environ.get("CSM_WORKSPACE_ID")
     runner_id = os.environ.get("CSM_RUNNER_ID")
     api = get_api()
-    runner = api["runner"].get_runner(
-        organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id
-    )
+    runner = api["runner"].get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
     # A webapp convention is that the first dataset is always the subdataset and
     # the second the parent dataset, see doc at:
     # https://github.com/Cosmo-Tech/azure-sample-webapp/blob/main/doc/datasetManager.md#subdataset-creation-scripts
@@ -62,12 +56,10 @@ def etl_sub_dataset_by_filter_boolean(
     LOGGER.info("Subdataset linked and ready!")
     LOGGER.info("Query and filter dataset")
 
-    filter_key = graph_filter['key']
-    filter_value = graph_filter['value']
+    filter_key = graph_filter["key"]
+    filter_value = graph_filter["value"]
     node_query = [
-        'OPTIONAL MATCH (n)'
-        f"WHERE ( NOT EXISTS(n.{filter_key}) OR n.{filter_key} = {filter_value} ) "
-        'RETURN n'
+        "OPTIONAL MATCH (n)" f"WHERE ( NOT EXISTS(n.{filter_key}) OR n.{filter_key} = {filter_value} ) " "RETURN n"
     ]
     # WARNING: the query can easily break the JSON to CSV conversion!
     edge_query = [
@@ -77,12 +69,8 @@ def etl_sub_dataset_by_filter_boolean(
         f"RETURN edge, src, dst"
     ]
 
-    nodes = api["dataset"].twingraph_query(
-        organization_id, parent_dataset_id, node_query
-    )
-    edges = api["dataset"].twingraph_query(
-        organization_id, parent_dataset_id, edge_query
-    )
+    nodes = api["dataset"].twingraph_query(organization_id, parent_dataset_id, node_query)
+    edges = api["dataset"].twingraph_query(organization_id, parent_dataset_id, edge_query)
     LOGGER.info("Transform JSON to csv")
     graph_content = parse_twingraph_json(nodes, edges, "n", "edge", "src", "dst")
     create_csv_files_from_graph_content(graph_content, "twingraph_dump")

@@ -1,50 +1,26 @@
-import json
-import logging
-import os
-
-from zipfile import ZipFile
 import csv
-
-import cosmotech_api
-from azure.identity import DefaultAzureCredential
+import json
+import os
+from zipfile import ZipFile
 from azure.storage.blob import BlobClient
 
-from cosmotech_api.api.dataset_api import DatasetApi
 from cosmotech_api.model.dataset import Dataset
-from cosmotech_api.api.runner_api import RunnerApi
-from rich.logging import RichHandler
+from common.common import get_logger, get_api
 
-LOGGER = logging.getLogger("my_etl_logger")
-
-_format = "[ETL] %(message)s"
-
-logging.basicConfig(
-    format=_format,
-    datefmt="[%Y/%m/%d-%X]",
-    handlers=[RichHandler(rich_tracebacks=True,
-                          omit_repeated_times=False,
-                          show_path=False,
-                          markup=True)])
-LOGGER.setLevel(logging.INFO)
+LOGGER = get_logger()
 
 
 def main():
     LOGGER.info("Starting the ETL Run")
-    credentials = DefaultAzureCredential()
-    scope = os.environ.get("CSM_API_SCOPE")
-    access_token = credentials.get_token(scope).token
-    configuration = cosmotech_api.Configuration(
-        host=os.environ.get("CSM_API_URL"),
-        discard_unknown_keys=True,
-        access_token=access_token
-    )
+    api = get_api()
+    runner_api_instance = api["runner"]
+    dataset_api_instance = api["dataset"]
 
-    with cosmotech_api.ApiClient(configuration) as api_client:
-        runner_api_instance = RunnerApi(api_client)
-        dataset_api_instance = DatasetApi(api_client)
-        runner_data = runner_api_instance.get_runner(organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
-                                                     workspace_id=os.environ.get("CSM_WORKSPACE_ID"),
-                                                     runner_id=os.environ.get("CSM_RUNNER_ID"))
+    runner_data = runner_api_instance.get_runner(
+        organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
+        workspace_id=os.environ.get("CSM_WORKSPACE_ID"),
+        runner_id=os.environ.get("CSM_RUNNER_ID"),
+    )
 
     with open(os.path.join(os.environ.get("CSM_PARAMETERS_ABSOLUTE_PATH"), "parameters.json")) as f:
         parameters = {d["parameterId"]: d["value"] for d in json.loads(f.read())}
@@ -58,15 +34,19 @@ def main():
     bar = {
         "type": "Bar",
         "name": "MyBar",
-        "params": f"""NbWaiters: {int(parameters["etl_param_num_waiters"])},""" +
-                  f"""RestockQty: {int(parameters["etl_param_restock_quantity"])},""" +
-                  f"""Stock: {int(parameters["etl_param_stock"])}""",
+        "params": f"""NbWaiters: {int(parameters["etl_param_num_waiters"])},"""
+        + f"""RestockQty: {int(parameters["etl_param_restock_quantity"])},"""
+        + f"""Stock: {int(parameters["etl_param_stock"])}""",
     }
     bars.append(bar)
 
     base_path = "."
 
-    blob = BlobClient.from_connection_string(conn_str=parameters["etl_param_azure_storage_co_string"], container_name=parameters["etl_param_az_storage_container"], blob_name=parameters["etl_param_az_storage_path"])
+    blob = BlobClient.from_connection_string(
+        conn_str=parameters["etl_param_azure_storage_co_string"],
+        container_name=parameters["etl_param_az_storage_container"],
+        blob_name=parameters["etl_param_az_storage_path"],
+    )
     with open(base_path + "/brewery_instance.zip", "wb") as my_blob:
         blob_data = blob.download_blob()
         blob_data.readinto(my_blob)
@@ -82,11 +62,11 @@ def main():
         for row in csv_r:
             customer = {
                 "type": "Customer",
-                "name": row['id'],
+                "name": row["id"],
                 "params": f"Name: '{row['id']}',"
-                          f"Satisfaction: {row['Satisfaction']},"
-                          f"SurroundingSatisfaction: {row['SurroundingSatisfaction']},"
-                          f"Thirsty: {row['Thirsty']}",
+                f"Satisfaction: {row['Satisfaction']},"
+                f"SurroundingSatisfaction: {row['SurroundingSatisfaction']},"
+                f"Thirsty: {row['Thirsty']}",
             }
             customers.append(customer)
 
@@ -97,10 +77,10 @@ def main():
         for row in csv_r:
             satisfaction = {
                 "type": "arc_Satisfaction",
-                "source": row['source'],
-                "target": row['target'],
-                "name": row['name'],
-                "params": f"a: 'a'"
+                "source": row["source"],
+                "target": row["target"],
+                "name": row["name"],
+                "params": "a: 'a'",
             }
             satisfactions.append(satisfaction)
 
@@ -111,10 +91,10 @@ def main():
         for row in csv_r:
             link = {
                 "type": "bar_vertex",
-                "source": row['source'],
-                "target": row['target'],
-                "name": row['name'],
-                "params": f"a: 'a'"
+                "source": row["source"],
+                "target": row["target"],
+                "name": row["name"],
+                "params": "a: 'a'",
             }
             links.append(link)
 
@@ -126,8 +106,9 @@ def main():
         dataset_api_instance.twingraph_query(
             organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
             dataset_id=runner_data.dataset_list[0],
-            dataset_twin_graph_query={"query": "MATCH (n) DETACH DELETE n"})
-    except e:
+            dataset_twin_graph_query={"query": "MATCH (n) DETACH DELETE n"},
+        )
+    except Exception:
         pass
 
     LOGGER.info("Writing entities into target Dataset")
@@ -135,14 +116,16 @@ def main():
         organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
         dataset_id=runner_data.dataset_list[0],
         type="node",
-        graph_properties=bars + customers)
+        graph_properties=bars + customers,
+    )
 
     LOGGER.info("Writing relationshipss into target Dataset")
     dataset_api_instance.create_twingraph_entities(
         organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
         dataset_id=runner_data.dataset_list[0],
         type="relationship",
-        graph_properties=satisfactions + links)
+        graph_properties=satisfactions + links,
+    )
 
     LOGGER.info("ETL Run finished")
 

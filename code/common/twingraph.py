@@ -5,10 +5,9 @@ import shutil
 import requests
 from functools import reduce
 import cosmotech_api
-import common
+from common.common import get_logger, get_api, get_authentication_header
 
-
-LOGGER = common.get_logger()
+LOGGER = get_logger()
 
 
 def parse_twingraph_json(nodes, edges, node_key, edge_key, src_key, dst_key):
@@ -91,7 +90,7 @@ def create_csv_files_from_graph_content(graph_content, folder_path):
 
 
 def dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, folder_path):
-    api = common.get_api()
+    api = get_api()
     parent_dataset_id = parent_dataset.id
     try:
         query_nodes = {"query": "OPTIONAL MATCH(n) RETURN n"}
@@ -117,7 +116,7 @@ def dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, folde
 
 
 def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
-    api = common.get_api()
+    api = get_api()
     try:
         api["dataset"].update_dataset(organization_id, dataset_id, {"ingestionStatus": "NONE", "sourceType": "File"})
     except cosmotech_api.ApiException as e:
@@ -126,7 +125,7 @@ def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
 
     with open(zip_archive_path, "rb") as file:
         api_url = os.environ.get("CSM_API_URL")
-        auth_headers = common.get_authentication_header()
+        auth_headers = get_authentication_header()
 
         try:
             response = requests.post(

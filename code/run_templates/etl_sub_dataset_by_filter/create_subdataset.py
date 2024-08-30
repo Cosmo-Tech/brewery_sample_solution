@@ -3,11 +3,13 @@ import tempfile
 import time
 import cosmotech_api
 
-import common
-from twingraph import dump_twingraph_dataset_to_zip_archive, upload_twingraph_zip_archive
+from common.common import get_logger, get_api
+from common.twingraph import (
+    dump_twingraph_dataset_to_zip_archive,
+    upload_twingraph_zip_archive,
+)
 
-
-LOGGER = common.get_logger()
+LOGGER = get_logger()
 
 
 def load_env_variables():
@@ -44,7 +46,7 @@ def parse_arguments():
 
 
 def get_dataset(organization_id, dataset_id):
-    api = common.get_api()
+    api = get_api()
     try:
         return api["dataset"].find_dataset_by_id(organization_id, dataset_id)
     except cosmotech_api.ApiException as e:
@@ -53,8 +55,11 @@ def get_dataset(organization_id, dataset_id):
 
 
 def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdataset_details, queries=None):
-    api = common.get_api()
-    queries = queries or ["OPTIONAL MATCH(n) RETURN n", "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst"]
+    api = get_api()
+    queries = queries or [
+        "OPTIONAL MATCH(n) RETURN n",
+        "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst",
+    ]
     try:
         parent_dataset = get_dataset(organization_id, parent_dataset_id)
     except cosmotech_api.ApiException as e:
@@ -74,7 +79,8 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
     LOGGER.info("Creating subdataset...")
     try:
         subdataset = api["dataset"].create_sub_dataset(
-            organization_id, parent_dataset_id, subdataset_graph_query_as_dict)
+            organization_id, parent_dataset_id, subdataset_graph_query_as_dict
+        )
     except cosmotech_api.ApiException as e:
         LOGGER.error("Failed to create subdataset: %s\n" % e)
         raise e
@@ -140,7 +146,7 @@ def create_subdataset_into(
     # Delete temporary dataset only now that its content has been reuploaded
     tmp_subdataset_id = tmp_subdataset.id
     LOGGER.info(f'Deleting temporary dataset "{tmp_subdataset_id}"...')
-    api = common.get_api()
+    api = get_api()
     try:
         api["dataset"].delete_dataset(organization_id, tmp_subdataset_id)
     except cosmotech_api.ApiException as e:

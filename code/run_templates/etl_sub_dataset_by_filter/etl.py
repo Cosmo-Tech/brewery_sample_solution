@@ -1,12 +1,11 @@
-# import json
 import os
 import sys
 
-import common
+from common.common import get_logger, get_api
 from create_subdataset import create_subdataset_into
 
 
-LOGGER = common.get_logger()
+LOGGER = get_logger()
 
 
 def main():
@@ -15,7 +14,7 @@ def main():
     workspace_id = os.environ.get("CSM_WORKSPACE_ID")
     runner_id = os.environ.get("CSM_RUNNER_ID")
 
-    api = common.get_api()
+    api = get_api()
     runner = api["runner"].get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
     subdataset_id = runner.dataset_list[0]
     parent_dataset_id = runner.dataset_list[1]
@@ -28,7 +27,12 @@ def main():
     queries = None
 
     create_subdataset_into(
-        organization_id, workspace_id, parent_dataset_id, subdataset_id, subdataset_details, queries
+        organization_id,
+        workspace_id,
+        parent_dataset_id,
+        subdataset_id,
+        subdataset_details,
+        queries,
     )
     LOGGER.info("ETL Run finished")
 

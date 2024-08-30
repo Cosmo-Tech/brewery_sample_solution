@@ -1,7 +1,6 @@
 import os
 import time
 import cosmotech_api
-from cosmotech_api.model.sub_dataset_graph_query import SubDatasetGraphQuery
 
 import common
 from twingraph import dump_twingraph_dataset_to_zip_archive, upload_twingraph_zip_archive
@@ -62,22 +61,23 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
         raise e
 
     LOGGER.info("Preparing creation of the subdataset...")
-    parent_dataset_name = parent_dataset["name"] or ""
-    parent_dataset_description = parent_dataset["description"] or parent_dataset_name  # Description filler
-    subdataset_graph_query = SubDatasetGraphQuery(
-        name=subdataset_details["name"] or f"Subdataset of {parent_dataset_name}",
-        description=subdataset_details["description"] or f"(Subdataset) {parent_dataset_description}",
-        queries=queries,
-        main=True,
-    )
+    parent_dataset_name = parent_dataset.name or ""
+    parent_dataset_description = parent_dataset.description or parent_dataset_name  # Description filler
+    subdataset_graph_query_as_dict = {
+        "name": subdataset_details["name"] or f"Subdataset of {parent_dataset_name}",
+        "description": subdataset_details["description"] or f"(Subdataset) {parent_dataset_description}",
+        "queries": queries,
+        "main": True,
+    }
 
     LOGGER.info("Creating subdataset...")
     try:
-        subdataset = api["dataset"].create_sub_dataset(organization_id, parent_dataset_id, subdataset_graph_query)
+        subdataset = api["dataset"].create_sub_dataset(
+            organization_id, parent_dataset_id, subdataset_graph_query_as_dict)
     except cosmotech_api.ApiException as e:
         LOGGER.error("Failed to create subdataset: %s\n" % e)
         raise e
-    subdataset_id = subdataset["id"]
+    subdataset_id = subdataset.id
     LOGGER.info(f'Sub dataset created, its id is "{subdataset_id}"')
 
     time.sleep(2)  # Delay first status query to make sure back-end had time to init (see #SDCOSMO-1768 for example)
@@ -108,7 +108,8 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
         LOGGER.error("Failed to create subdataset: %s\n" % e)
         raise e
 
-    LOGGER.info(f"Subdataset ready! ({subdataset['id']})")
+    subdataset_id = subdataset.id
+    LOGGER.info(f"Subdataset ready! ({subdataset_id})")
     return (subdataset, parent_dataset)
 
 
@@ -134,7 +135,7 @@ def create_subdataset_into(
     upload_twingraph_zip_archive(organization_id, subdataset_id, archive_path)
 
     # Delete temporary dataset only now that its content has been reuploaded
-    tmp_subdataset_id = tmp_subdataset["id"]
+    tmp_subdataset_id = tmp_subdataset.id
     LOGGER.info(f'Deleting temporary dataset "{tmp_subdataset_id}"...')
     api = common.get_api()
     try:

@@ -119,9 +119,7 @@ def dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, folde
 def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
     api = common.get_api()
     try:
-        api["dataset"].update_dataset(
-            organization_id, dataset_id, {"ingestionStatus": "PENDING", "sourceType": "File"}
-        )
+        api["dataset"].update_dataset(organization_id, dataset_id, {"ingestionStatus": "NONE", "sourceType": "File"})
     except cosmotech_api.ApiException as e:
         LOGGER.error("Exception when changing twingraph type & status: %s\n" % e)
         raise e

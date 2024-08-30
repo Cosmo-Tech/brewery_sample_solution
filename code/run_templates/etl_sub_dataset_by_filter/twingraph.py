@@ -92,7 +92,7 @@ def create_csv_files_from_graph_content(graph_content, folder_path):
 
 def dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, folder_path):
     api = common.get_api()
-    parent_dataset_id = parent_dataset["id"]
+    parent_dataset_id = parent_dataset.id
     try:
         query_nodes = {"query": "OPTIONAL MATCH(n) RETURN n"}
         query_edges = {"query": "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst"}

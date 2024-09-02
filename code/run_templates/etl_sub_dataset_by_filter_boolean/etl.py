@@ -1,14 +1,9 @@
-import shutil
 import os
 import sys
 import cosmotech_api
 
 from common.common import get_logger, get_api
-from common.twingraph import (
-    parse_twingraph_json,
-    create_csv_files_from_graph_content,
-    upload_twingraph_zip_archive,
-)
+from common.twingraph import copy_dataset_twingraph
 
 LOGGER = get_logger()
 
@@ -58,25 +53,16 @@ def etl_sub_dataset_by_filter_boolean(
 
     filter_key = graph_filter["key"]
     filter_value = graph_filter["value"]
-    node_query = [
-        "OPTIONAL MATCH (n)" f"WHERE ( NOT EXISTS(n.{filter_key}) OR n.{filter_key} = {filter_value} ) " "RETURN n"
-    ]
+    node_query = f"OPTIONAL MATCH (n) WHERE ( NOT EXISTS(n.{filter_key}) OR n.{filter_key} = {filter_value} ) RETURN n"
     # WARNING: the query can easily break the JSON to CSV conversion!
-    edge_query = [
+    edge_query = (
         "OPTIONAL MATCH (src)-[edge]->(dst) "
         f"WHERE ( NOT EXISTS(src.{filter_key}) OR src.{filter_key} = {filter_value} ) "
         f"       AND (NOT EXISTS(dst.{filter_key}) OR dst.{filter_key} = {filter_value} ) "
-        f"RETURN edge, src, dst"
-    ]
+        "RETURN edge, src, dst"
+    )
 
-    nodes = api["dataset"].twingraph_query(organization_id, parent_dataset_id, node_query)
-    edges = api["dataset"].twingraph_query(organization_id, parent_dataset_id, edge_query)
-    LOGGER.info("Transform JSON to csv")
-    graph_content = parse_twingraph_json(nodes, edges, "n", "edge", "src", "dst")
-    create_csv_files_from_graph_content(graph_content, "twingraph_dump")
-    shutil.make_archive("twingraph_dump", "zip", "twingraph_dump")
-    LOGGER.info("Upload filtered csv to sub-dataset")
-    upload_twingraph_zip_archive(organization_id, subdataset_id, "twingraph_dump.zip")
+    copy_dataset_twingraph(organization_id, parent_dataset_id, subdataset_id, node_query, edge_query)
 
 
 if __name__ == "__main__":

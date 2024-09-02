@@ -1,13 +1,8 @@
-import os
-import tempfile
 import time
 import cosmotech_api
 
 from common.common import get_logger, get_api
-from common.twingraph import (
-    dump_twingraph_dataset_to_zip_archive,
-    upload_twingraph_zip_archive,
-)
+from common.twingraph import copy_dataset_twingraph
 
 LOGGER = get_logger()
 
@@ -134,14 +129,7 @@ def create_subdataset_into(
 
     # Note: this is a work-around for missing endpoint copyDataset in the API, or until a "target dataset id" can
     # be specified in the subdataset endpoint
-
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        twingraph_dump_dir_path = os.path.join(tmp_dir, "twingraph_dump")
-        archive_path = dump_twingraph_dataset_to_zip_archive(organization_id, tmp_subdataset, twingraph_dump_dir_path)
-        LOGGER.info(
-            f"Twingraph dump archive created: {archive_path}, trying to upload it to existing dataset {subdataset_id}"
-        )
-        upload_twingraph_zip_archive(organization_id, subdataset_id, archive_path)
+    copy_dataset_twingraph(organization_id, tmp_subdataset.id, subdataset_id)
 
     # Delete temporary dataset only now that its content has been reuploaded
     tmp_subdataset_id = tmp_subdataset.id

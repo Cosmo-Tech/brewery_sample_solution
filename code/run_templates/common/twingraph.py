@@ -3,6 +3,7 @@ import csv
 import time
 import shutil
 import requests
+import tempfile
 from functools import reduce
 import cosmotech_api
 from common.common import get_logger, get_api, get_authentication_header
@@ -98,20 +99,27 @@ def create_csv_files_from_graph_content(graph_content, folder_path):
                 writer.writerow(values)
 
 
-def dump_twingraph_dataset_to_zip_archive(organization_id, parent_dataset, folder_path):
+def dump_twingraph_dataset_to_zip_archive(
+    organization_id, dataset_id, folder_path, node_query_str=None, edge_query_str=None
+):
     api = get_api()
-    parent_dataset_id = parent_dataset.id
     try:
-        query_nodes = {"query": "OPTIONAL MATCH(n) RETURN n"}
-        query_edges = {"query": "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst"}
-        LOGGER.info("Querying all nodes & edges from the twingraph...")
+        if node_query_str is None and edge_query_str is None:
+            LOGGER.info("Querying all nodes & edges from the twingraph...")
+        else:
+            LOGGER.info("Sending custom queries to extract twingraph data...")
+        if node_query_str is None:
+            node_query_str = "OPTIONAL MATCH(n) RETURN n"
+        if edge_query_str is None:
+            edge_query_str = "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst"
+
         fetch_start_time = time.time()
-        res_nodes = api["dataset"].twingraph_query(organization_id, parent_dataset_id, query_nodes)
-        res_edges = api["dataset"].twingraph_query(organization_id, parent_dataset_id, query_edges)
+        res_nodes = api["dataset"].twingraph_query(organization_id, dataset_id, {"query": node_query_str})
+        res_edges = api["dataset"].twingraph_query(organization_id, dataset_id, {"query": edge_query_str})
         fetch_duration_in_seconds = time.time() - fetch_start_time
         LOGGER.info(f"Results received, queries took {fetch_duration_in_seconds} seconds")
     except cosmotech_api.ApiException as e:
-        LOGGER.error(f"Failed to retrieve content of parent dataset with id {parent_dataset_id}: %s\n" % e)
+        LOGGER.error(f"Failed to retrieve content of target dataset '{dataset_id}': %s\n" % e)
         raise e
 
     # Note: the keys are defined in the cypher queries above
@@ -156,3 +164,24 @@ def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
     except cosmotech_api.ApiException as e:
         LOGGER.error("Exception when changing twingraph type & status: %s\n" % e)
         raise e
+
+
+def copy_dataset_twingraph(org_id, src_dataset_id, dst_dataset_id, node_query=None, edge_query=None):
+    '''
+    Parameters:
+      - org_id is the id of the organization containing the source and target datasets
+      - src_dataset_id is the id of the dataset to copy
+      - dst_dataset_id is the id of the dataset where the data will be copied
+      - node_query (optional) is a string containing the cypher query to select the nodes to copy; nodes must be
+        returned with the alias 'n' (default query: "OPTIONAL MATCH(n) RETURN n")
+      - edge_query (optional) is a string containing the cypher query to select the edges to copy; edge data must be
+        returned with the aliasas 'src, edge, dst' (default query:
+        "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst")
+    '''
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        twingraph_dump_dir_path = os.path.join(tmp_dir, "twingraph_dump")
+        zip_archive_path = dump_twingraph_dataset_to_zip_archive(
+            org_id, src_dataset_id, twingraph_dump_dir_path, node_query, edge_query)
+        LOGGER.info(f"Twingraph extracted to {zip_archive_path}")
+        LOGGER.info(f"Starting zip upload to existing dataset '{dst_dataset_id}'...")
+        upload_twingraph_zip_archive(org_id, dst_dataset_id, zip_archive_path)

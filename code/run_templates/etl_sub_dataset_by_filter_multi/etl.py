@@ -29,8 +29,8 @@ def main():
     parent_dataset_id = runner.dataset_list[1]
     graph_filter_list = {}
     for element in runner.parameters_values:
-        if element.get("parameter_id") == "etl_param_subdataset_filter_dynamic_customers_list":
-            graph_filter_list = json.loads(element["value"])
+        if element.parameter_id == "etl_param_subdataset_filter_dynamic_customers_list":
+            graph_filter_list = json.loads(element.value)
             break
     etl_sub_dataset_by_filter_multi(
         api,

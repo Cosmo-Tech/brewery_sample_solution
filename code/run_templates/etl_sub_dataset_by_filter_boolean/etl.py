@@ -27,10 +27,10 @@ def main():
     parent_dataset_id = runner.dataset_list[1]
     graph_filter = {}
     for element in runner.parameters_values:
-        if element.get("parameter_id") == "etl_param_subdataset_filter_is_thirsty":
+        if element.parameter_id == "etl_param_subdataset_filter_is_thirsty":
             graph_filter = {
                 "key": "Thirsty",
-                "value": (element["value"] == "THIRSTY"),
+                "value": (element.value == "THIRSTY"),
             }
             break
     etl_sub_dataset_by_filter_boolean(

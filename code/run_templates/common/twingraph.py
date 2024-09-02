@@ -12,7 +12,9 @@ LOGGER = get_logger()
 
 def parse_twingraph_json(nodes, edges, node_key, edge_key, src_key, dst_key):
     def parse_item(content, data, item_key):
-        item = data[item_key]
+        item = data.get(item_key)
+        if item is None:
+            return content
         item_id = item["id"]
         item_label = item["label"]
         item_type = item["type"]
@@ -31,8 +33,12 @@ def parse_twingraph_json(nodes, edges, node_key, edge_key, src_key, dst_key):
     def parse_edge(content, data):
         return parse_item(content, data, edge_key)
 
-    graph_content = reduce(parse_node, nodes, {})
-    graph_content = reduce(parse_edge, edges, graph_content)
+    try:
+        graph_content = reduce(parse_node, nodes, {})
+        graph_content = reduce(parse_edge, edges, graph_content)
+    except Exception as e:
+        LOGGER.error(f"An error occurred while parsing the twingraph JSON representation: {e}")
+        raise(e)
     return graph_content
 
 
@@ -60,7 +66,10 @@ def create_csv_files_from_graph_content(graph_content, folder_path):
 
     edges_folder_path = os.path.join(folder_path, "Edges")
     os.makedirs(edges_folder_path, exist_ok=True)
-    all_edges = graph_content["RELATION"]
+    all_edges = {}
+    if "RELATION" in graph_content:
+        all_edges = graph_content["RELATION"]
+
     for edge_type, wrapped_edges in all_edges.items():
         edges = list(wrapped_edges.values())
         if len(edges) == 0:

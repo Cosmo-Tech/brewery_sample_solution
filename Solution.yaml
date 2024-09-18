@@ -439,6 +439,16 @@ parameters:
         type: cypher
         query: 'MATCH(n:Customer) RETURN n.id as customer_id'
         resultKey: customer_id
+  - id: dynamic_values_customers_max
+    labels:
+      fr: Nombre maximal de clients
+      en: Maximum number of customers
+    varType: int
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(c:Customer) RETURN count(c) as customers_max'
+        resultKey: customers_max
   - id: etl_param_restock_quantity
     labels:
       fr: Réapprovisionnement
@@ -646,6 +656,7 @@ parameterGroups:
     parameters:
       - dynamic_values_customers_enum
       - dynamic_values_customers_list
+      - dynamic_values_customers_max
   - id: etl_param_group_bar_parameters
     labels:
       fr: Bar

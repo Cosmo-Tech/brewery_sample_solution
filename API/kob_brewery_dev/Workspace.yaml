@@ -121,6 +121,10 @@ webApp:
             satisfaction_links_count
         - id: relationships
           query: 'OPTIONAL MATCH ()-[r]->() RETURN COUNT(r) AS relationships_count'
+      datasourceFilter:
+        - File
+        - None
+        - etl_with_local_file
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true
 sendScenarioMetadataToEventHub: true

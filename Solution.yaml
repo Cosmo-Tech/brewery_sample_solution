@@ -445,7 +445,7 @@ parameters:
       en: Maximum number of customers
     varType: int
     options:
-      dynamicEnumValues:
+      dynamicValues:
         type: cypher
         query: 'MATCH(c:Customer) RETURN count(c) as customers_max'
         resultKey: customers_max

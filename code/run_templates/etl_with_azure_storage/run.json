@@ -2,7 +2,7 @@
   "steps": [
     {
         "id": "fetch-data",
-        "commandId": "csm-orc fetch-run-data"
+        "commandId": "csm-data api scenariorun-load-data"
     },
     {
         "id": "ETL",

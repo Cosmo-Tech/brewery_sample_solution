@@ -2,9 +2,9 @@
   "steps": [
     {
       "id": "fetch_scenario_parameters",
-      "command": "csm-orc",
+      "command": "csm-data",
       "arguments": [
-        "fetch-scenariorun-data"
+        "api scenariorun-load-data"
       ],
       "environment": {
         "CSM_ORGANIZATION_ID": {

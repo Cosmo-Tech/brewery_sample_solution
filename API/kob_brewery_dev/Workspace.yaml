@@ -4,7 +4,7 @@ name: 'KoB brewery dev'
 description: 'Dev brewery workspace for Kubernetes On Bare metal. This workspace has no PowerBI dashboards, and uses v4 of Cosmo Tech API. Created resources may be removed regularly: ye be warned!'
 solution:
   solutionId: 'sol-dpn1rvov1394p'
-  runTemplateFilter: ['1', '2', '3', 'high cpu (DO NOT USE)', 'dynamic_values_customers']
+  runTemplateFilter: ['1', '2', '3', 'high cpu (DO NOT USE)']
   defaultRunTemplateDataset: null
 datasetCopy: false
 version: null
@@ -17,27 +17,6 @@ webApp:
       organizationUrl: 'https://cosmotech.com'
       documentationUrl: 'https://portal.cosmotech.com/resources/platform-resources/web-app-user-guide'
     datasetManager:
-      graphIndicators:
-        - id: bars_count
-          name:
-            en: Bars
-            fr: Bars
-          queryId: bars
-        - id: customers_count
-          name:
-            en: Customers
-            fr: Clients
-          queryId: customers
-        - id: satisfaction_links_count
-          name:
-            en: Customers interactions
-            fr: Interactions clients
-          queryId: satisfaction_graph
-        - id: relationships_count
-          name:
-            en: All relationships
-            fr: Tous les liens
-          queryId: relationships
       categories:
         - id: bars
           name:
@@ -55,27 +34,6 @@ webApp:
 
               Une entité de type Bar est l'entité parente des entités Customer
               présentes dans ce bar.
-          kpis:
-            - id: average_stock
-              name:
-                en: Average stock
-                fr: Moyenne stock
-              queryId: bars
-            - id: average_waiters
-              name:
-                en: Average waiters
-                fr: Moyenne serveurs
-              queryId: bars
-            - id: min_waiters
-              name:
-                en: Min. waiters
-                fr: Min. serveurs
-              queryId: bars
-            - id: max_waiters
-              name:
-                en: Max. waiters
-                fr: Max. serveurs
-              queryId: bars
           attributes:
             - NbWaiters
             - RestockQty
@@ -95,32 +53,10 @@ webApp:
             en: Customers
             fr: Clients
           type: entity
-          kpis:
-            - id: avg_satisfaction
-              name:
-                en: Average satisfaction
-                fr: Satisfaction moyenne
-              queryId: customers
           attributes:
             - Satisfaction
             - SurroundingSatisfaction
             - Thirsty
-      queries:
-        - id: bars
-          query: >-
-            OPTIONAL MATCH (b:Bar) RETURN COUNT(b) AS bars_count, AVG(b.Stock) AS
-            average_stock, MIN(b.NbWaiters) AS min_waiters, MAX(b.NbWaiters) AS
-            max_waiters, AVG(b.NbWaiters) AS average_waiters
-        - id: customers
-          query: >-
-            OPTIONAL MATCH (c:Customer) RETURN COUNT(c) AS customers_count,
-            AVG(c.Satisfaction) AS avg_satisfaction
-        - id: satisfaction_graph
-          query: >-
-            OPTIONAL MATCH (:Customer)-[r]->(:Customer) RETURN COUNT(r) AS
-            satisfaction_links_count
-        - id: relationships
-          query: 'OPTIONAL MATCH ()-[r]->() RETURN COUNT(r) AS relationships_count'
       datasourceFilter:
         - File
         - None

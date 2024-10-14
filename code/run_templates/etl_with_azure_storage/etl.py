@@ -144,6 +144,10 @@ def main():
         type="relationship",
         graph_properties=satisfactions + links)
 
+    dataset_api_instance.update_dataset(
+        os.environ.get("CSM_ORGANIZATION_ID"), runner_data['dataset_list'][0], Dataset(twincacheStatus="FULL")
+    )
+
     LOGGER.info("ETL Run finished")
 
 

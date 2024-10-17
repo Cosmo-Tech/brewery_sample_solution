@@ -2,13 +2,23 @@ import os
 import sys
 from pathlib import Path
 import csv
-from tempfile import NamedTemporaryFile
+from tempfile import NamedTemporaryFile, TemporaryDirectory
 import shutil
 import glob
 import json
+from common.common import get_api, get_logger
+from cosmotech.coal.cosmotech_api.connection import get_api_client
+from cosmotech.coal.cosmotech_api.workspace import download_workspace_file
+
+LOGGER = get_logger()
+api = get_api()
 
 
 def main():
+    organization_id = os.environ.get("CSM_ORGANIZATION_ID")
+    workspace_id = os.environ.get("CSM_WORKSPACE_ID")
+    data_folder = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
+
     parameters_folder = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
     json_parameters_file = parameters_folder / "parameters.json"
     if not json_parameters_file.exists():
@@ -50,9 +60,33 @@ def main():
                     values["stock"] = row[1]
                     break
 
-    data_folder = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
     print('------------------')
-    print(data_folder)
+    print('------------------')
+
+    runner_data = api.runner.get_runner(
+        organization_id=organization_id,
+        workspace_id=workspace_id,
+        runner_id=os.environ.get("CSM_RUNNER_ID"),
+    )
+    instance_dataset_id = runner_data.dataset_list[0]
+    ws_file_path = f'datasets/{instance_dataset_id}/generated_brewery_instance.zip'
+
+    LOGGER.info("Downloading instance dataset...")
+    _file_content = api.workspace.download_workspace_file(organization_id, workspace_id, ws_file_path)
+
+    with TemporaryDirectory() as tmp_dir:
+        archive_path = os.path.join(tmp_dir, 'dataset.zip')
+        with open(archive_path, "wb") as _file:
+            _file.write(_file_content)
+
+        LOGGER.info("Extracting instance dataset...")
+        if not os.path.exists(data_folder):
+            os.mkdir(data_folder)
+        shutil.unpack_archive(archive_path, data_folder)
+
+    # download_workspace_file(get_api_client(), organization_id, workspace_id, ws_file_path, data_folder)
+
+    print('------------------')
     files = "\n".join([f" - {path}" for path in glob.glob(str(data_folder / "**"), recursive=True)])
     print(f"\nData files:\n{files}")
 

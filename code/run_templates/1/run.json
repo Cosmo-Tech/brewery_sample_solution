@@ -11,9 +11,9 @@
     },
     {
       "id": "parameters_handler",
-      "commandId": "csm-orc run-step",
+      "command": "python",
+      "arguments": ["code/run_templates/1/parameters_handler.py"],
       "precedents": ["fetch_parameters"],
-      "environment": {"CSM_CONTAINER_MODE": {"value": "parameters_handler"}},
       "useSystemEnvironment": true
     },
     {

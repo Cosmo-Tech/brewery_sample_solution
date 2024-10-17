@@ -1,20 +1,13 @@
 import os
-import logging
-from rich.logging import RichHandler
 
 from azure.identity import DefaultAzureCredential
 from cosmotech_api.api.dataset_api import DatasetApi
 from cosmotech_api.api.runner_api import RunnerApi
 from cosmotech.coal.cosmotech_api.connection import get_api_client
+from cosmotech.coal.utils.logger import get_logger as _get_logger
 
 
-LOGGER = logging.getLogger("my_etl_logger")
-logging.basicConfig(
-    format="[ETL] %(message)s",
-    datefmt="[%Y/%m/%d-%X]",
-    handlers=[RichHandler(rich_tracebacks=True, omit_repeated_times=False, show_path=False, markup=True)],
-)
-LOGGER.setLevel(logging.INFO)
+LOGGER = _get_logger("my_etl_logger")
 
 
 def get_logger():

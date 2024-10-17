@@ -11,17 +11,17 @@
     },
     {
       "id": "parameters_handler",
-      "commandId": "csm-orc run-step",
+      "command": "python",
+      "arguments": ["code/run_templates/1/parameters_handler.py"],
       "precedents": ["fetch_parameters"],
-      "environment": {"CSM_CONTAINER_MODE": {"value": "parameters_handler"}},
       "useSystemEnvironment": true
     },
     {
-      "id": "engine",
-      "commandId": "csm-orc run-step",
-      "precedents": ["parameters_handler"],
-      "environment": {"CSM_CONTAINER_MODE": {"value": "engine"}},
-      "useSystemEnvironment": true
+      "id":"engine",
+      "command":"main",
+      "arguments": ["-i","BreweryDemoSimulationWithConnector"],
+      "useSystemEnvironment":false,
+      "precedents": ["parameters_handler"]
     },
     {
       "id":"send-results",

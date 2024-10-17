@@ -76,5 +76,43 @@
       </csmSon:ProbeInstance>
       <csmSon:ProbeInstance name="CustomerSatisfactionProbe" tag="2.1" active="1"/>
     </csmSon:ProbeInstances>
+    <csmSon:ConsumerInstances>
+      <csmSon:ConsumerInstance name="StockProbeCSV" type="CSVFileGenericConsumer">
+        <csmSon:Properties>
+          <csmSon:Property name="ColumnType">attribute</csmSon:Property>
+          <csmSon:Property name="DesignateEntityByName">1</csmSon:Property>
+          <csmSon:Property name="DeterministicOutput">0</csmSon:Property>
+          <csmSon:Property name="FileName">Stock</csmSon:Property>
+          <csmSon:Property name="FileType">all</csmSon:Property>
+          <csmSon:Property name="HideLinkedValues">0</csmSon:Property>
+          <csmSon:Property name="LinkedValueSeparator">_</csmSon:Property>
+          <csmSon:Property name="OutputDirectory"/>
+          <csmSon:Property name="RowType">iteration</csmSon:Property>
+          <csmSon:Property name="Separator">,</csmSon:Property>
+          <csmSon:Property name="SerializeAtEachIteration">0</csmSon:Property>
+        </csmSon:Properties>
+        <csmSon:ProbeReferences>
+          <csmSon:ProbeReference>StockProbe</csmSon:ProbeReference>
+        </csmSon:ProbeReferences>
+      </csmSon:ConsumerInstance>
+      <csmSon:ConsumerInstance name="CustomerSatisfactionProbeCSV" type="CSVFileGenericConsumer">
+        <csmSon:Properties>
+          <csmSon:Property name="ColumnType">attribute</csmSon:Property>
+          <csmSon:Property name="DesignateEntityByName">1</csmSon:Property>
+          <csmSon:Property name="DeterministicOutput">0</csmSon:Property>
+          <csmSon:Property name="FileName">Satisfaction</csmSon:Property>
+          <csmSon:Property name="FileType">all</csmSon:Property>
+          <csmSon:Property name="HideLinkedValues">0</csmSon:Property>
+          <csmSon:Property name="LinkedValueSeparator">_</csmSon:Property>
+          <csmSon:Property name="OutputDirectory"/>
+          <csmSon:Property name="RowType">iteration</csmSon:Property>
+          <csmSon:Property name="Separator">,</csmSon:Property>
+          <csmSon:Property name="SerializeAtEachIteration">0</csmSon:Property>
+        </csmSon:Properties>
+        <csmSon:ProbeReferences>
+          <csmSon:ProbeReference>CustomerSatisfactionProbe</csmSon:ProbeReference>
+        </csmSon:ProbeReferences>
+      </csmSon:ConsumerInstance>
+    </csmSon:ConsumerInstances>
   </csmSon:SimulatorInstance>
 </csmSon:Simulation>

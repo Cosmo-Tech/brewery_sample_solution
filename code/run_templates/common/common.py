@@ -1,13 +1,23 @@
 import os
+from dataclasses import dataclass
+from typing import Any
 
 from azure.identity import DefaultAzureCredential
 from cosmotech_api.api.dataset_api import DatasetApi
 from cosmotech_api.api.runner_api import RunnerApi
+from cosmotech_api.api.workspace_api import WorkspaceApi
 from cosmotech.coal.cosmotech_api.connection import get_api_client
 from cosmotech.coal.utils.logger import get_logger as _get_logger
 
 
 LOGGER = _get_logger("my_etl_logger")
+
+
+@dataclass
+class Api:
+    dataset: Any
+    runner: Any
+    workspace: Any
 
 
 def get_logger():
@@ -17,11 +27,7 @@ def get_logger():
 def get_api():
     api_client, api_client_name = get_api_client()
     LOGGER.info(f"Using API client '{api_client_name}'")
-
-    dataset_api_instance = DatasetApi(api_client)
-    runner_api_instance = RunnerApi(api_client)
-
-    return {"dataset": dataset_api_instance, "runner": runner_api_instance}
+    return Api(DatasetApi(api_client), RunnerApi(api_client), WorkspaceApi(api_client))
 
 
 def get_api_token():

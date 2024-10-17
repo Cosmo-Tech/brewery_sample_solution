@@ -58,9 +58,8 @@ webApp:
             - SurroundingSatisfaction
             - Thirsty
       datasourceFilter:
-        - File
+        - etl_instance_generator
         - None
-        - etl_with_local_file
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true
 sendScenarioMetadataToEventHub: true

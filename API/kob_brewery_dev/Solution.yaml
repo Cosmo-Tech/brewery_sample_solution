@@ -3,7 +3,7 @@ key: 'Dev Brewery Solution'
 name: 'Dev Brewery Solution'
 description: 'Dev Brewery Solution'
 repository: 'brewery_simulator'
-version: '2.0.0-dev.26'
+version: '2.0.0-thu.3'
 tags:
   - 'dev'
   - 'brewery'
@@ -445,6 +445,51 @@ parameters:
       en: Waiters
     varType: string
     defaultValue: 5
+  - id: etl_param_tables_count
+    labels:
+      fr: Nombre de tables
+      en: Number of tables
+    varType: string
+    defaultValue: 10
+  - id: etl_param_customers_count
+    labels:
+      fr: Nombre de clients
+      en: Number of customers
+    varType: string
+    defaultValue: 50
+  - id: etl_param_locale
+    labels:
+      fr: Localisation des noms générés
+      en: Locale of generated names
+    varType: 'string'
+    defaultValue: 'en'
+  - id: etl_param_satisfaction
+    labels:
+      fr: Satisfaction
+      en: Satisfaction
+    varType: string
+    defaultValue: 0
+  - id: etl_param_surrounding_satisfaction
+    labels:
+      fr: Satisfaction de l'entourage
+      en: Surrounding satisfaction
+    varType: string
+    defaultValue: 0
+  - id: etl_param_thirsty
+    labels:
+      fr: Soif initiale
+      en: Initial thirst
+    varType: enum
+    options:
+      enumValues:
+        - key: 'THIRSTY'
+          value:
+            en: 'Thirsty'
+            fr: 'A soif'
+        - key: 'NOT_THIRSTY'
+          value:
+            en: 'Not thirsty'
+            fr: "N'a pas soif"
   - id: etl_param_bar_instance
     labels:
       fr: fichier d'instance
@@ -647,6 +692,22 @@ parameterGroups:
       - etl_param_stock
       - etl_param_restock_quantity
       - etl_param_num_waiters
+  - id: etl_param_group_customer_parameters
+    labels:
+      fr: Clients
+      en: Customers
+    parameters:
+      - etl_param_satisfaction
+      - etl_param_surrounding_satisfaction
+      - etl_param_thirsty
+  - id: etl_param_group_instance_parameters
+    labels:
+      fr: Instance
+      en: Instance
+    parameters:
+      - etl_param_tables_count
+      - etl_param_customers_count
+      - etl_param_locale
   - id: etl_param_group_local_file
     labels:
       fr: local_file
@@ -846,6 +907,16 @@ runTemplates:
     parameterGroups:
       - etl_param_group_bar_parameters
       - etl_param_group_local_file
+  - id: etl_instance_generator
+    labels:
+      fr: Générateur d'instance
+      en: Instance generator
+    tags:
+      - datasource
+    parameterGroups:
+      - etl_param_group_instance_parameters
+      - etl_param_group_bar_parameters
+      - etl_param_group_customer_parameters
   - id: etl_with_azure_storage
     labels:
       fr: Brewery (.zip) depuis Azure Storage

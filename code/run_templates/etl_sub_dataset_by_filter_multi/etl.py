@@ -16,7 +16,7 @@ def main():
     runner_id = os.environ.get("CSM_RUNNER_ID")
     api = get_api()
 
-    runner = api["runner"].get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
+    runner = api.runner.get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
     # A webapp convention is that the first dataset is always the subdataset and
     # the second the parent dataset, see doc at:
     # https://github.com/Cosmo-Tech/azure-sample-webapp/blob/main/doc/datasetManager.md#subdataset-creation-scripts
@@ -43,7 +43,7 @@ def etl_sub_dataset_by_filter_multi(
 ):
     LOGGER.info("Linking subdataset to workspace...")
     try:
-        api["dataset"].link_workspace(organization_id, subdataset_id, workspace_id)
+        api.dataset.link_workspace(organization_id, subdataset_id, workspace_id)
     except cosmotech_api.ApiException as e:
         LOGGER.error("Failed to link subdataset with workspace: {e}")
         raise e

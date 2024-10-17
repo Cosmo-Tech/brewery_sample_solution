@@ -5,12 +5,13 @@ import csv
 from tempfile import NamedTemporaryFile
 import shutil
 import glob
+import json
 
 
 def main():
     parameters_folder = Path(os.environ["CSM_PARAMETERS_ABSOLUTE_PATH"])
-    parameters_file = parameters_folder / "parameters.csv"
-    if not parameters_file.exists():
+    json_parameters_file = parameters_folder / "parameters.json"
+    if not json_parameters_file.exists():
         print(f"No parameters file in {parameters_file}")
         sys.exit(-1)
 
@@ -21,13 +22,12 @@ def main():
         "initial_stock_dataset": "",
     }
     expected_parameters = list(values.keys())
-    with open(parameters_file, "r") as csvfile:
-        parameters_reader = csv.reader(csvfile)
-        next(parameters_reader)  # Skip header row
-        print("Start reading parameters.csv file")
-        for row in parameters_reader:
-            parameter_name = row[0]
-            parameter_value = row[1]
+    print("Start parsing JSON parameters file")
+    with open(json_parameters_file) as json_file:
+        parameters = json.load(json_file)
+        for parameter in parameters:
+            parameter_name = parameter["parameterId"]
+            parameter_value = parameter["value"]
             if parameter_name not in expected_parameters:
                 print(f"Unknown parameter {parameter_name}")
             else:
@@ -51,6 +51,8 @@ def main():
                     break
 
     data_folder = Path(os.environ["CSM_DATASET_ABSOLUTE_PATH"])
+    print('------------------')
+    print(data_folder)
     files = "\n".join([f" - {path}" for path in glob.glob(str(data_folder / "**"), recursive=True)])
     print(f"\nData files:\n{files}")
 

@@ -14,8 +14,7 @@ def main():
     workspace_id = os.environ.get("CSM_WORKSPACE_ID")
     runner_id = os.environ.get("CSM_RUNNER_ID")
 
-    api = get_api()
-    runner = api["runner"].get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
+    runner = api.runner.get_runner(organization_id=organization_id, workspace_id=workspace_id, runner_id=runner_id)
     subdataset_id = runner.dataset_list[0]
     parent_dataset_id = runner.dataset_list[1]
     subdataset_details = {"name": runner.name, "description": runner.description}

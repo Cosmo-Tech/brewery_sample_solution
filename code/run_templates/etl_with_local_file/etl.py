@@ -19,10 +19,7 @@ def get_zip_file_name(dir):
 def main():
     LOGGER.info("Starting the ETL Run")
     api = get_api()
-    runner_api_instance = api["runner"]
-    dataset_api_instance = api["dataset"]
-
-    runner_data = runner_api_instance.get_runner(
+    runner_data = api.runner.get_runner(
         organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
         workspace_id=os.environ.get("CSM_WORKSPACE_ID"),
         runner_id=os.environ.get("CSM_RUNNER_ID"),
@@ -94,11 +91,11 @@ def main():
             links.append(link)
 
     dataset = Dataset(ingestion_status="SUCCESS")
-    dataset_api_instance.update_dataset(os.environ.get("CSM_ORGANIZATION_ID"), runner_data.dataset_list[0], dataset)
+    api.dataset.update_dataset(os.environ.get("CSM_ORGANIZATION_ID"), runner_data.dataset_list[0], dataset)
 
     try:
         LOGGER.info("Erasing data from target Dataset")
-        dataset_api_instance.twingraph_query(
+        api.dataset.twingraph_query(
             organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
             dataset_id=runner_data.dataset_list[0],
             dataset_twin_graph_query={"query": "MATCH (n) DETACH DELETE n"},
@@ -107,7 +104,7 @@ def main():
         pass
 
     LOGGER.info("Writing entities into target Dataset")
-    dataset_api_instance.create_twingraph_entities(
+    api.dataset.create_twingraph_entities(
         organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
         dataset_id=runner_data.dataset_list[0],
         type="node",
@@ -115,14 +112,14 @@ def main():
     )
 
     LOGGER.info("Writing relationshipss into target Dataset")
-    dataset_api_instance.create_twingraph_entities(
+    api.dataset.create_twingraph_entities(
         organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
         dataset_id=runner_data.dataset_list[0],
         type="relationship",
         graph_properties=satisfactions + links,
     )
 
-    dataset_api_instance.update_dataset(
+    api.dataset.update_dataset(
         os.environ.get("CSM_ORGANIZATION_ID"), runner_data['dataset_list'][0], Dataset(twincacheStatus="FULL")
     )
 

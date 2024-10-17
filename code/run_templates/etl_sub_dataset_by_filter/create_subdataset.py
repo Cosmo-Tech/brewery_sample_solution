@@ -5,6 +5,7 @@ from common.common import get_logger, get_api
 from common.twingraph import copy_dataset_twingraph
 
 LOGGER = get_logger()
+api = get_api()
 
 
 def load_env_variables():
@@ -41,16 +42,14 @@ def parse_arguments():
 
 
 def get_dataset(organization_id, dataset_id):
-    api = get_api()
     try:
-        return api["dataset"].find_dataset_by_id(organization_id, dataset_id)
+        return api.dataset.find_dataset_by_id(organization_id, dataset_id)
     except cosmotech_api.ApiException as e:
         LOGGER.error(f"Failed to retrieve dataset with id {dataset_id}: %s\n" % e)
         raise e
 
 
 def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdataset_details, queries=None):
-    api = get_api()
     queries = queries or [
         "OPTIONAL MATCH(n) RETURN n",
         "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst",
@@ -73,7 +72,7 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
 
     LOGGER.info("Creating subdataset...")
     try:
-        subdataset = api["dataset"].create_sub_dataset(
+        subdataset = api.dataset.create_sub_dataset(
             organization_id, parent_dataset_id, subdataset_graph_query_as_dict
         )
     except cosmotech_api.ApiException as e:
@@ -90,7 +89,7 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
     while polling_count < max_polling_count:
         polling_count += 1
 
-        ingestion_status = api["dataset"].get_dataset_twingraph_status(organization_id, subdataset_id)
+        ingestion_status = api.dataset.get_dataset_twingraph_status(organization_id, subdataset_id)
         LOGGER.info(ingestion_status)
         if ingestion_status != "PENDING":
             break
@@ -105,7 +104,7 @@ def create_subdataset(organization_id, workspace_id, parent_dataset_id, subdatas
 
     LOGGER.info("Linking subdataset to workspace...")
     try:
-        api["dataset"].link_workspace(organization_id, subdataset_id, workspace_id)
+        api.dataset.link_workspace(organization_id, subdataset_id, workspace_id)
     except cosmotech_api.ApiException as e:
         LOGGER.error("Failed to create subdataset: %s\n" % e)
         raise e
@@ -134,9 +133,9 @@ def create_subdataset_into(
     # Delete temporary dataset only now that its content has been reuploaded
     tmp_subdataset_id = tmp_subdataset.id
     LOGGER.info(f'Deleting temporary dataset "{tmp_subdataset_id}"...')
-    api = get_api()
+    api =
     try:
-        api["dataset"].delete_dataset(organization_id, tmp_subdataset_id)
+        api.dataset.delete_dataset(organization_id, tmp_subdataset_id)
     except cosmotech_api.ApiException as e:
         LOGGER.error(f'Failed to delete temporary dataset with id "{tmp_subdataset_id}": %s\n' % e)
         raise e

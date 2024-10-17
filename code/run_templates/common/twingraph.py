@@ -9,6 +9,7 @@ import cosmotech_api
 from common.common import get_logger, get_api, get_authentication_header
 
 LOGGER = get_logger()
+api = get_api()
 
 
 def parse_twingraph_json(nodes, edges, node_key, edge_key, src_key, dst_key):
@@ -102,7 +103,6 @@ def create_csv_files_from_graph_content(graph_content, folder_path):
 def dump_twingraph_dataset_to_zip_archive(
     organization_id, dataset_id, folder_path, node_query_str=None, edge_query_str=None
 ):
-    api = get_api()
     try:
         if node_query_str is None and edge_query_str is None:
             LOGGER.info("Querying all nodes & edges from the twingraph...")
@@ -114,8 +114,8 @@ def dump_twingraph_dataset_to_zip_archive(
             edge_query_str = "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst"
 
         fetch_start_time = time.time()
-        res_nodes = api["dataset"].twingraph_query(organization_id, dataset_id, {"query": node_query_str})
-        res_edges = api["dataset"].twingraph_query(organization_id, dataset_id, {"query": edge_query_str})
+        res_nodes = api.dataset.twingraph_query(organization_id, dataset_id, {"query": node_query_str})
+        res_edges = api.dataset.twingraph_query(organization_id, dataset_id, {"query": edge_query_str})
         fetch_duration_in_seconds = time.time() - fetch_start_time
         LOGGER.info(f"Results received, queries took {fetch_duration_in_seconds} seconds")
     except cosmotech_api.ApiException as e:
@@ -133,9 +133,8 @@ def dump_twingraph_dataset_to_zip_archive(
 
 
 def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
-    api = get_api()
     try:
-        api["dataset"].update_dataset(organization_id, dataset_id, {"ingestionStatus": "NONE", "sourceType": "File"})
+        api.dataset.update_dataset(organization_id, dataset_id, {"ingestionStatus": "NONE", "sourceType": "File"})
     except cosmotech_api.ApiException as e:
         LOGGER.error("Exception when changing twingraph type & status: %s\n" % e)
         raise e
@@ -160,7 +159,7 @@ def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
     try:
         # Required delay to prevent some race condition, leading sometimes to the sourceType update being ignored
         time.sleep(2)
-        api["dataset"].update_dataset(organization_id, dataset_id, {"ingestionStatus": "SUCCESS", "sourceType": "ETL"})
+        api.dataset.update_dataset(organization_id, dataset_id, {"ingestionStatus": "SUCCESS", "sourceType": "ETL"})
     except cosmotech_api.ApiException as e:
         LOGGER.error("Exception when changing twingraph type & status: %s\n" % e)
         raise e

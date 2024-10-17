@@ -11,24 +11,37 @@
     },
     {
       "id": "parameters_handler",
-      "command": "csm-orc",
-      "arguments": ["run-step"],
+      "command": "python",
+      "arguments": ["code/run_templates/1/parameters_handler.py"],
       "precedents": ["fetch_parameters"],
       "useSystemEnvironment": true
     },
     {
-      "id": "send_to_adx",
-      "command": "csm-orc",
-      "arguments": ["send-to-adx"],
-      "precedents": ["parameters_handler"],
-      "useSystemEnvironment": true
+      "id":"engine",
+      "command":"main",
+      "arguments": ["-i","BreweryDemoSimulationWithConnector"],
+      "useSystemEnvironment":false,
+      "precedents": ["parameters_handler"]
     },
     {
-      "id": "engine",
-      "command": "csm-orc",
-      "arguments": ["run-step"],
-      "precedents": ["send_to_adx"],
-      "useSystemEnvironment": true
+      "id":"send-results",
+      "command":"python",
+      "arguments":[
+        "code/run_templates/common/send_postgres_data.py",
+        "--source-folder", "${CSM_OUTPUT_ABSOLUTE_PATH}",
+        "--postgres-host", "${CSM_POSTGRES_HOST}",
+        "--postgres-port", "${CSM_POSTGRES_PORT}",
+        "--postgres-db", "${CSM_POSTGRES_DB}",
+        "--postgres-schema", "${CSM_POSTGRES_SCHEMA}",
+        "--postgres-user", "${CSM_POSTGRES_USER}",
+        "--postgres-password", "${CSM_POSTGRES_PASSWORD}",
+        "--csm-organization-id", "${CSM_ORGANIZATION_ID}",
+        "--csm-workspace-id", "${CSM_WORKSPACE_ID}",
+        "--csm-runner-id", "${CSM_RUNNER_ID}",
+        "--csm-run-id", "${CSM_RUN_ID}"
+      ],
+      "useSystemEnvironment":true,
+      "precedents":["engine"]
     }
   ]
 }

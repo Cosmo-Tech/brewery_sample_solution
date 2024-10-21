@@ -585,7 +585,7 @@ parameters:
     varType: 'enum'
     options:
       subType: 'SCENARIOS'
-      runTemplateFilter: ['1', '3']
+      runTemplateFilter: ['sim_brewery_parameters', 'sim_mock_parameters']
       tooltipText:
         fr: "Scénario auquel on va comparer les données"
         en: "Scenario against which to compare data"
@@ -739,7 +739,7 @@ parameterGroups:
     parameters:
       - etl_param_subdataset_filter_thirsty_multiselect
 runTemplates:
-  - id: '1'
+  - id: 'sim_brewery_parameters'
     labels:
       fr: 'Run template avec les paramètres de Brewery '
       en: 'Run template with Brewery parameters'
@@ -747,12 +747,12 @@ runTemplates:
     description: 'Run template with Brewery parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
     tags:
-      - '1'
+      - 'sim_brewery_parameters'
       - 'With params'
     parameterGroups:
       - 'bar_parameters'
       - 'file_upload'
-  - id: '2'
+  - id: 'sim_no_parameters'
     labels:
       fr: 'Run template sans paramètres'
       en: 'Run template without parameters'
@@ -760,9 +760,9 @@ runTemplates:
     description: 'Run template without parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
     tags:
-      - '2'
+      - 'sim_no_parameters'
       - 'No param'
-  - id: '3'
+  - id: 'sim_mock_parameters'
     labels:
       fr: 'Run template avec paramètres basiques fictifs'
       en: 'Run template with mock basic types parameters'
@@ -770,7 +770,7 @@ runTemplates:
     description: 'Run template with mock basic types parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
     tags:
-      - '3'
+      - 'sim_mock_parameters'
       - 'Example'
     parameterGroups:
       - 'basic_types'
@@ -793,50 +793,6 @@ runTemplates:
     name: 'Hidden test run template without parameters'
     description: 'Run template without parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
-    tags:
-      - '2'
-      - 'No param'
-  - id: 'high cpu (DO NOT USE)'
-    labels:
-      fr: 'Surcharge processeur (ne pas utiliser)'
-      en: 'high cpu (DO NOT USE)'
-    name: 'high cpu (DO NOT USE)'
-    description: 'high cpu (DO NOT USE)'
-    computeSize: 'highcpu'
-    runSizing:
-      requests:
-        cpu: '0.5'
-        memory: '128Mi'
-      limits:
-        cpu: '1'
-        memory: '256Mi'
-    csmSimulation: 'BreweryDemoSimulationWithConnector'
-    tags:
-      - '1'
-      - 'With params'
-      - 'custom high cpu'
-    parameterGroups:
-      - 'bar_parameters'
-  - id: 'consume_to_redis'
-    labels:
-      fr: 'Run template avec probe consumer pour redis'
-      en: 'Run template with probe consumer to direct Redis'
-    name: 'probe consumer to redis'
-    description: 'Run template with probe consumer to direct Redis'
-    csmSimulation: 'BreweryDemoSimulationWithConnector'
-    tags:
-      - 'consumer to redis'
-      - 'No param'
-  - id: 'consume_to_api'
-    labels:
-      fr: "Run template avec probe consumer pour l'API Cosmotech"
-      en: 'Run template with probe consumer to Cosmotech API'
-    name: 'probe consumer to api'
-    description: 'Run template with probe consumer to Cosmotech API'
-    csmSimulation: 'BreweryDemoSimulationWithConnector'
-    tags:
-      - 'consumer to api'
-      - 'No param'
   - id: etl_with_local_file
     labels:
       fr: Brewery (.zip) depuis un fichier local

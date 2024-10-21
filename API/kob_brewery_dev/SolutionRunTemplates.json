@@ -1,23 +1,23 @@
 [
   {
-    "id": "1",
+    "id": "sim_brewery_parameters",
     "labels": { "fr": "Run template avec les paramètres de Brewery ", "en": "Run template with Brewery parameters" },
     "name": "Run template with Brewery parameters",
     "description": "Run template with Brewery parameters",
     "csmSimulation": "BreweryDemoSimulationWithConnector",
-    "tags": [ "1", "With params" ],
+    "tags": [ "sim_brewery_parameters", "With params" ],
     "parameterGroups": [ "bar_parameters", "file_upload" ]
   },
   {
-    "id": "2",
+    "id": "sim_no_parameters",
     "labels": { "fr": "Run template sans paramètres", "en": "Run template without parameters" },
     "name": "Run template without parameters",
     "description": "Run template without parameters",
     "csmSimulation": "BreweryDemoSimulationWithConnector",
-    "tags": [ "2", "No param" ]
+    "tags": [ "sim_no_parameters", "No param" ]
   },
   {
-    "id": "3",
+    "id": "sim_mock_parameters",
     "labels": {
       "fr": "Run template avec paramètres basiques fictifs",
       "en": "Run template with mock basic types parameters"
@@ -25,7 +25,7 @@
     "name": "Run template with mock basic types parameters",
     "description": "Run template with mock basic types parameters",
     "csmSimulation": "BreweryDemoSimulationWithConnector",
-    "tags": [ "3", "Example" ],
+    "tags": [ "sim_mock_parameters", "Example" ],
     "parameterGroups": [
       "basic_types",
       "dataset_parts",

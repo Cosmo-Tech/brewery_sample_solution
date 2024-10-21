@@ -4,7 +4,7 @@ name: 'KoB brewery dev'
 description: 'Dev brewery workspace for Kubernetes On Bare metal. This workspace has no PowerBI dashboards, and uses v4 of Cosmo Tech API.'
 solution:
   solutionId: 'sol-dpn1rvov1394p'
-  runTemplateFilter: ['1', '2', '3', 'high cpu (DO NOT USE)']
+  runTemplateFilter: ['sim_brewery_parameters', 'sim_no_parameters', 'sim_mock_parameters']
   defaultRunTemplateDataset: null
 datasetCopy: false
 version: null

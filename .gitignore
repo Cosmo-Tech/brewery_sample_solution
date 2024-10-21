@@ -1,6 +1,7 @@
 /Generated/
 /.idea/
 /Studio/
+Simulation/Output
 tutorials/.ipynb_checkpoints/
 .venv
 __pycache__

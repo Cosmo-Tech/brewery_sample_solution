@@ -12,6 +12,55 @@ tags: null
 webApp:
   url: https://sample.app.cosmotech.com
   options:
+    charts:
+      workspaceId: 290de699-9026-42c0-8c83-e4e87c3f22dd
+      logInWithUserCredentials: false
+      scenarioViewIframeDisplayRatio: 4.514285714
+      dashboardsViewIframeDisplayRatio: 1.610062893
+      dashboardsView:
+        - title:
+            en: Scenario comparison
+            fr: Comparaison de scénarios
+          reportId: 5a28099a-6dfc-4542-ba6f-f8db2d5a9587
+          settings:
+            navContentPaneEnabled: false
+            panes:
+              filters:
+                expanded: false
+                visible: true
+          staticFilters: []
+          dynamicFilters:
+            - table: bar_stock
+              column: simulation_run
+              values: lastRunId
+            - table: customer_satisfaction
+              column: simulation_run
+              values: lastRunId
+          pageName:
+            en: ReportSection99fca3e46d5107c9ddea
+            fr: ReportSection99fca3e46d5107c9ddea
+      scenarioView:
+        - title:
+            en: Scenario dashboard
+            fr: Rapport du scénario
+          reportId: 5a28099a-6dfc-4542-ba6f-f8db2d5a9587
+          settings:
+            navContentPaneEnabled: false
+            panes:
+              filters:
+                expanded: false
+                visible: true
+          staticFilters: []
+          dynamicFilters:
+            - table: bar_stock
+              column: simulation_run
+              values: lastRunId
+            - table: customer_satisfaction
+              column: simulation_run
+              values: lastRunId
+          pageName:
+            en: ReportSection
+            fr: ReportSection
     menu:
       supportUrl: 'https://support.cosmotech.com'
       organizationUrl: 'https://cosmotech.com'

@@ -3,10 +3,20 @@
     { "id": "csm_data_version", "command": "csm-data", "arguments": ["--version"] },
     { "id": "csm_orc_version", "command": "csm-orc", "arguments": ["--version"] },
     {
+      "id": "reset_data_store",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "reset"
+      ],
+      "precedents": ["csm_data_version", "csm_orc_version"],
+      "useSystemEnvironment": true
+    },
+    {
       "id": "fetch_parameters",
       "command": "csm-data",
       "arguments": ["api", "run-load-data"],
-      "precedents": ["csm_data_version", "csm_orc_version"],
+      "precedents": ["reset_data_store"],
       "useSystemEnvironment": true
     },
     {
@@ -20,28 +30,33 @@
       "id":"engine",
       "command":"main",
       "arguments": ["-i","BreweryDemoSimulationWithConnector"],
-      "useSystemEnvironment":false,
-      "precedents": ["parameters_handler"]
+      "precedents": ["parameters_handler"],
+      "useSystemEnvironment": true
     },
     {
-      "id":"send-results",
-      "command":"python",
-      "arguments":[
-        "code/run_templates/common/send_postgres_data.py",
-        "--source-folder", "${CSM_OUTPUT_ABSOLUTE_PATH}",
-        "--postgres-host", "${CSM_POSTGRES_HOST}",
-        "--postgres-port", "${CSM_POSTGRES_PORT}",
-        "--postgres-db", "${CSM_POSTGRES_DB}",
-        "--postgres-schema", "${CSM_POSTGRES_SCHEMA}",
-        "--postgres-user", "${CSM_POSTGRES_USER}",
-        "--postgres-password", "${CSM_POSTGRES_PASSWORD}",
-        "--csm-organization-id", "${CSM_ORGANIZATION_ID}",
-        "--csm-workspace-id", "${CSM_WORKSPACE_ID}",
-        "--csm-runner-id", "${CSM_RUNNER_ID}",
-        "--csm-run-id", "${CSM_RUN_ID}"
+      "id": "load_results_to_store",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "load-csv-folder",
+        "--csv-folder",
+        "$CSM_OUTPUT_ABSOLUTE_PATH"
       ],
-      "useSystemEnvironment":true,
-      "precedents":["engine"]
+      "precedents": ["engine"],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "send_results_to_psql",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "dump-to-postgresql",
+        "--table-prefix",
+        "brewery",
+        "--append"
+      ],
+      "precedents": ["load_results_to_store"],
+      "useSystemEnvironment": true
     }
   ]
 }

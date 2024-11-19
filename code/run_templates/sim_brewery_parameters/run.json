@@ -57,6 +57,13 @@
       ],
       "precedents": ["load_results_to_store"],
       "useSystemEnvironment": true
+    },
+    {
+      "id":"update_runner_metadata",
+      "command":"python",
+      "arguments":["code/run_templates/common/update_runner_metadata.py"],
+      "useSystemEnvironment":true,
+      "precedents":["load_results_to_store"]
     }
   ]
 }

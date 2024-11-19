@@ -30,12 +30,12 @@ webApp:
                 visible: true
           staticFilters: []
           dynamicFilters:
-            - table: bar_stock
-              column: simulation_run
-              values: lastRunId
-            - table: customer_satisfaction
-              column: simulation_run
-              values: lastRunId
+            - table: 'public breweryStock'
+              column: Simulation_run
+              values: visibleScenariosSimulationRunsIds
+            - table: 'public brewerySatisfaction'
+              column: Simulation_run
+              values: visibleScenariosSimulationRunsIds
           pageName:
             en: ReportSection99fca3e46d5107c9ddea
             fr: ReportSection99fca3e46d5107c9ddea
@@ -52,11 +52,11 @@ webApp:
                 visible: true
           staticFilters: []
           dynamicFilters:
-            - table: bar_stock
-              column: simulation_run
+            - table: 'public breweryStock'
+              column: Simulation_run
               values: lastRunId
-            - table: customer_satisfaction
-              column: simulation_run
+            - table: 'public brewerySatisfaction'
+              column: Simulation_run
               values: lastRunId
           pageName:
             en: ReportSection

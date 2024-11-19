@@ -21,7 +21,7 @@ webApp:
         - title:
             en: Scenario comparison
             fr: Comparaison de scénarios
-          reportId: 5a28099a-6dfc-4542-ba6f-f8db2d5a9587
+          reportId: 0911cc1d-ea4f-4152-a7ea-bcd743a795eb
           settings:
             navContentPaneEnabled: false
             panes:
@@ -43,7 +43,7 @@ webApp:
         - title:
             en: Scenario dashboard
             fr: Rapport du scénario
-          reportId: 5a28099a-6dfc-4542-ba6f-f8db2d5a9587
+          reportId: 0911cc1d-ea4f-4152-a7ea-bcd743a795eb
           settings:
             navContentPaneEnabled: false
             panes:

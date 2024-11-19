@@ -3,7 +3,7 @@ key: 'Dev Brewery Solution'
 name: 'Dev Brewery Solution'
 description: 'Dev Brewery Solution'
 repository: 'brewery_simulator'
-version: '2.0.0-beta.0'
+version: '2.0.0-beta.1'
 sdkVersion: '10.2.0'
 alwaysPull: true
 url: 'https://kubernetes.cosmotech.com/cosmotech-webapp/brewery'

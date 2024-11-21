@@ -1,0 +1,68 @@
+{
+  "key": "Brewery Sample Solution",
+  "name": "Brewery Sample Solution",
+  "description": "Brewery Sample Solution",
+  "repository": "brewerysamplesolution_simulator",
+  "version": "2.0.0-beta.4",
+  "sdkVersion": "10.2.0",
+  "alwaysPull": true,
+  "url": null,
+  "parameters": [
+    {
+      "id": "stock",
+      "labels": {
+        "fr": "Stock",
+        "en": "Stock"
+      },
+      "varType": "int",
+      "defaultValue": 100
+    },
+    {
+      "id": "restock_qty",
+      "labels": {
+        "fr": "Restock",
+        "en": "Restock"
+      },
+      "varType": "int",
+      "defaultValue": 25
+    },
+    {
+      "id": "nb_waiters",
+      "labels": {
+        "fr": "Serveurs",
+        "en": "Waiters"
+      },
+      "varType": "int",
+      "defaultValue": 5
+    }
+  ],
+  "parameterGroups": [
+    {
+      "id": "bar_parameters",
+      "labels": {
+        "fr": "Bar",
+        "en": "Pub"
+      },
+      "parameters": [
+        "stock",
+        "restock_qty",
+        "nb_waiters"
+      ]
+    }
+  ],
+  "runTemplates": [
+    {
+      "id": "sim_brewery_parameters",
+      "labels": {
+        "fr": "Run template avec les paramètres de Brewery ",
+        "en": "Run template with Brewery parameters"
+      },
+      "name": "Run template with Brewery parameters",
+      "description": "Run template with Brewery parameters",
+      "csmSimulation": "BreweryDemoSimulationWithConnector",
+      "parameterGroups": [
+        "bar_parameters"
+      ]
+    }
+  ]
+}

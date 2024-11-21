@@ -1,0 +1,10 @@
+[
+  {
+    "id": "sim_brewery_parameters",
+    "labels": { "fr": "Run template avec les paramètres de Brewery ", "en": "Run template with Brewery parameters" },
+    "name": "Run template with Brewery parameters",
+    "description": "Run template with Brewery parameters",
+    "csmSimulation": "BreweryDemoSimulationWithConnector",
+    "parameterGroups": ["bar_parameters"]
+  }
+]

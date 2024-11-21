@@ -1,0 +1,10 @@
+{
+  "name": "Dataset 2",
+  "main": true,
+  "sourceType": null,
+  "source": {
+    "location": "datasets/dataset2.zip"
+  },
+  "ingestionStatus": "SUCCESS",
+  "twincacheStatus": "FULL"
+}

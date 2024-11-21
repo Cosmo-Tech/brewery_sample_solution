@@ -2,7 +2,7 @@ id: 'sol-dpn1rvov1394p'
 key: 'Dev Brewery Solution'
 name: 'Dev Brewery Solution'
 description: 'Dev Brewery Solution'
-repository: 'brewery_simulator'
+repository: 'brewerysamplesolution_simulator'
 version: '2.0.0-beta.3'
 sdkVersion: '10.2.0'
 alwaysPull: true

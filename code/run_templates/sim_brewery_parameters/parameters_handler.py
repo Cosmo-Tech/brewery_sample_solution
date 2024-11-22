@@ -64,7 +64,18 @@ def main():
         runner_id=os.environ.get("CSM_RUNNER_ID"),
     )
     instance_dataset_id = runner_data.dataset_list[0]
+    dataset = api.dataset.find_dataset_by_id(
+        organization_id=organization_id,
+        dataset_id=instance_dataset_id,
+    )
+
+    # Default path for ETL-generated datasets
     ws_file_path = f'datasets/{instance_dataset_id}/generated_brewery_instance.zip'
+    if dataset.source_type == "None":
+        try:
+            ws_file_path = dataset.source.location
+        except e:
+            LOGGER.warning(f"Failed to get source.location from dataset {instance_dataset_id}, using default file path")
 
     LOGGER.info("Downloading instance dataset...")
     _file_content = api.workspace.download_workspace_file(organization_id, workspace_id, ws_file_path)

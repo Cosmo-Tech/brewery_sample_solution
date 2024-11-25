@@ -1,11 +1,9 @@
-key: 'Demo Brewery Solution'
-name: 'Demo Brewery Solution'
-description: 'One Day Brewery Solution'
+id: sol-pwr9v9vgq2g
+name: 'Brewery Dev Solution'
+description: 'Dev solution for the brewery web application'
 repository: 'brewery_simulator'
 version: '1.4.2'
-tags:
-  - '1day'
-  - 'Brewery'
+tags: ['brewery', 'dev']
 parameters:
   - id: 'stock'
     labels:
@@ -198,7 +196,7 @@ parameters:
       en: 'Initial stock'
     varType: '%DATASETID%'
     options:
-      connectorId: 'c-d7e5p9o0kjn9'
+      connectorId: 'c-oe7ejz57789'
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
       shouldRenameFileOnUpload: true
@@ -208,7 +206,7 @@ parameters:
       en: 'Example dataset part 1'
     varType: '%DATASETID%'
     options:
-      connectorId: 'c-d7e5p9o0kjn9'
+      connectorId: 'c-oe7ejz57789'
       description: '1st example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
       tooltipText:
@@ -220,7 +218,7 @@ parameters:
       en: 'Example dataset part 2'
     varType: '%DATASETID%'
     options:
-      connectorId: 'c-d7e5p9o0kjn9'
+      connectorId: 'c-oe7ejz57789'
       description: '2nd example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
   - id: 'example_dataset_part_3'
@@ -229,7 +227,7 @@ parameters:
       en: 'Example dataset part 3'
     varType: '%DATASETID%'
     options:
-      connectorId: 'c-d7e5p9o0kjn9'
+      connectorId: 'c-oe7ejz57789'
       description: '3rd example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
       tooltipText:
@@ -242,7 +240,7 @@ parameters:
     varType: '%DATASETID%'
     options:
       canChangeRowsNumber: true
-      connectorId: 'c-d7e5p9o0kjn9'
+      connectorId: 'c-oe7ejz57789'
       description: 'customers data'
       subType: 'TABLE'
       columns:
@@ -297,7 +295,7 @@ parameters:
       tooltipText:
         fr: "Importez ou exportez un fichier d'événements"
         en: 'Import or export an events file'
-      connectorId: 'c-d7e5p9o0kjn9'
+      connectorId: 'c-oe7ejz57789'
       description: 'events data'
       subType: 'TABLE'
       columns:
@@ -339,7 +337,7 @@ parameters:
       en: 'Initial state'
     varType: '%DATASETID%'
     options:
-      connectorId: 'c-d7e5p9o0kjn9'
+      connectorId: 'c-oe7ejz57789'
       subType: 'TABLE'
       dynamicValues:
         query: 'MATCH(customer: Customer) WITH {name: customer.id, satisfaction: customer.Satisfaction, surroundingSatisfaction: customer.SurroundingSatisfaction, thirsty: customer.Thirsty} as fields RETURN fields'
@@ -467,7 +465,7 @@ parameters:
       en: instance file
     varType: '%DATASETID%'
     options:
-      connectorId: 'c-d7e5p9o0kjn9'
+      connectorId: 'c-oe7ejz57789'
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip'
       shouldRenameFileOnUpload: true
@@ -950,3 +948,12 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_filter_by_dates
+security:
+  default: viewer
+  accessControlList:
+    - id: elena.sasova@cosmotech.com
+      role: admin
+    - id: nicolas.borde@cosmotech.com
+      role: admin
+    - id: tristan.huet@cosmotech.com
+      role: admin

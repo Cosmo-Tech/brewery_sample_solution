@@ -1,0 +1,11 @@
+id: o-pwdmnk8dw0n
+name: Cosmo Tech
+security:
+  default: user
+  accessControlList:
+    - id: elena.sasova@cosmotech.com
+      role: admin
+    - id: nicolas.borde@cosmotech.com
+      role: admin
+    - id: tristan.huet@cosmotech.com
+      role: admin

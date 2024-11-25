@@ -1,10 +1,14 @@
+id: "d-8nel90742mr"
 name: Demo Brewery Storage reference
 description: Brewery reference model in Storage
+main: false
+ingestionStatus: NONE
+twincacheStatus: EMPTY
 tags:
   - Storage
   - Brewery
   - Reference
 connector:
-  id: 'C-XPv4LBVGAL'
+  id: 'c-oe7ejz57789'
   parametersValues:
     AZURE_STORAGE_CONTAINER_BLOB_PREFIX: '%WORKSPACE_FILE%/demobrewery'

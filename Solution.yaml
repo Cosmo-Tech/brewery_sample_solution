@@ -274,8 +274,8 @@ parameters:
             - field: 'birthday'
               type:
                 - 'date'
-              minValue: '1900-01-01'
-              maxValue: '2022-12-19T13:46:15.223Z'
+              minValue: '01/01/1900'
+              maxValue: '01/01/2030'
               acceptsEmptyFields: true
             - field: 'height'
               type:

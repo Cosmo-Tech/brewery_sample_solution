@@ -740,8 +740,8 @@ runTemplates:
     fetchScenarioParameters: true
     applyParameters: true
     validateData: false
-    sendDatasetsToDataWarehouse: true
-    sendInputParametersToDataWarehouse: true
+    sendDatasetsToDataWarehouse: false
+    sendInputParametersToDataWarehouse: false
     preRun: false
     run: true
     postRun: false

@@ -1,0 +1,16 @@
+# restish post -H Content-Type:application/yaml <api_url>/organizations/<org_id>/datasets < Dataset-default_events-AzureStorage.yaml
+# echo '{"role":"admin"}' | restish post -H Content-type:application/yaml <api_url>/organizations/<org_id>/datasets/<dataset_id>/security/default
+id: d-pd4q6j4k9zy
+name: Brewery Storage default Events table data
+description: Brewery Storage default Events table data
+main: false
+ingestionStatus: NONE
+twincacheStatus: EMPTY
+tags:
+  - Storage
+  - Brewery
+  - Reference
+connector:
+  id: 'c-oe7ejz57789'
+  parametersValues:
+    AZURE_STORAGE_CONTAINER_BLOB_PREFIX: '%WORKSPACE_FILE%/default_events_table.csv'

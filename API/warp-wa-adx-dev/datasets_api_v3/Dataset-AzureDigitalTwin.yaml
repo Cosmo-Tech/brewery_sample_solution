@@ -1,0 +1,15 @@
+id: "d-onzokpzw95r"
+name: Demo Brewery ADT reference
+description: Brewery reference model in ADT
+main: false
+ingestionStatus: NONE
+twincacheStatus: EMPTY
+tags:
+  - ADT
+  - Brewery
+  - Reference
+  - dataset
+connector:
+  id: 'c-dr3n68vlwjy'
+  parametersValues:
+    AZURE_DIGITAL_TWINS_URL: https://o-gzypnd27g7-demobrewery.api.weu.digitaltwins.azure.net

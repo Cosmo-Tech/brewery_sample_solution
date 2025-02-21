@@ -1,0 +1,16 @@
+# restish post -H Content-Type:application/yaml <api_url>/organizations/<org_id>/datasets < Dataset-AzureStorage.yaml
+# echo '{"role":"admin"}' | restish post -H Content-type:application/yaml <api_url>/organizations/<org_id>/datasets/<dataset_id>/security/default
+id: d-myn2xn0pp10
+name: Demo Brewery Storage reference
+description: Brewery reference model in Storage
+main: false
+ingestionStatus: NONE
+twincacheStatus: EMPTY
+tags:
+  - Storage
+  - Brewery
+  - Reference
+connector:
+  id: 'c-oe7ejz57789'
+  parametersValues:
+    AZURE_STORAGE_CONTAINER_BLOB_PREFIX: '%WORKSPACE_FILE%/brewery_reference'

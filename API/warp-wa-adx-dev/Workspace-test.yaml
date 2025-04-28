@@ -368,8 +368,8 @@ webApp:
           type: entity
       queries:
         - query: >-
-            MATCH("bar": Bar) WITH {"name": bar.id, "nbWaiters":
-            bar.NbWaiters, "stock": bar.Stock, "restockQty": bar.RestockQty}
+            MATCH(bar: Bar) WITH {name: bar.id, nbWaiters:
+            bar.NbWaiters, stock: bar.Stock, restockQty: bar.RestockQty}
             as fields RETURN fields
           id: bars_attributes
         - query: >-
@@ -387,9 +387,9 @@ webApp:
             satisfaction_links_count
           id: satisfaction_graph
         - query: >-
-            MATCH("customer": Customer) WITH {"name": customer.id,
-            "satisfaction": customer.Satisfaction, "surroundingSatisfaction":
-            customer.SurroundingSatisfaction, "thirsty": customer.Thirsty} as
+            MATCH(customer: Customer) WITH {name: customer.id,
+            satisfaction: customer.Satisfaction, surroundingSatisfaction:
+            customer.SurroundingSatisfaction, thirsty: customer.Thirsty} as
             fields RETURN fields
           id: customers_attributes
         - query: 'OPTIONAL MATCH ()-[r]->() RETURN COUNT(r) AS relationships_count'

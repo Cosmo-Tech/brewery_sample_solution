@@ -6,7 +6,7 @@
   $Revision$
   $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
 -->
-<csmIni:Model xmlns:csmIni="http://www.cosmotech.com/csm_initialization/10.0">
+<csmIni:Model xmlns:csmIni="http://www.cosmotech.com/csm_initialization/11.2">
  <csmIni:Entity id="1">
   <csmIni:State>
    <csmIni:Attribute name="NbWaiters">

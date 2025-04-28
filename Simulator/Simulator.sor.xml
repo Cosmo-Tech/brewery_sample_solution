@@ -6,7 +6,7 @@
   $Revision$
   $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
 -->
-<csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/10.0">
+<csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/11.2">
   <csmSor:Name>BrewerySampleSolution</csmSor:Name>
   <csmSor:Version><![CDATA[3.0.0-dev]]></csmSor:Version>
   <csmSor:Description><![CDATA[A project generated with CoSMo]]></csmSor:Description>
@@ -25,11 +25,15 @@
         </csmSor:Observables>
         <csmSor:Measure xsi:type="csmSor:DataType" name="CustomerSatisfactionMeasure" updateRate="OncePerObservablesValue" owned="1">
           <csmSor:DataTypeReference>{Model}Brewery::{DataType}Integer</csmSor:DataTypeReference>
-          <csmSor:CPPCode>GetCustomerSatisfactionMeasure() = GetCustomerSatisfactionObs()-&gt;GetSatisfaction();</csmSor:CPPCode>
+          <csmSor:Implementation language="cpp">
+            <csmSor:Code>GetCustomerSatisfactionMeasure() = GetCustomerSatisfactionObs()-&gt;GetSatisfaction();</csmSor:Code>
+          </csmSor:Implementation>
         </csmSor:Measure>
         <csmSor:Dimension xsi:type="csmSor:DataType" name="CustomerNameDimension" updateRate="OncePerObservablesValue" owned="1">
           <csmSor:DataTypeReference>{Model}Brewery::{DataType}String</csmSor:DataTypeReference>
-          <csmSor:CPPCode>GetCustomerNameDimension() = GetCustomerSatisfactionObs()-&gt;GetName();</csmSor:CPPCode>
+          <csmSor:Implementation language="cpp">
+            <csmSor:Code>GetCustomerNameDimension() = GetCustomerSatisfactionObs()-&gt;GetName();</csmSor:Code>
+          </csmSor:Implementation>
         </csmSor:Dimension>
       </csmSor:Probe>
       <csmSor:Probe xsi:type="csmSor:StarProbe" name="StockProbe">
@@ -38,7 +42,9 @@
         </csmSor:Observables>
         <csmSor:Measure xsi:type="csmSor:DataType" name="StockMeasure" updateRate="OncePerObservablesValue" owned="1">
           <csmSor:DataTypeReference>{Model}Brewery::{DataType}Integer</csmSor:DataTypeReference>
-          <csmSor:CPPCode>GetStockMeasure() = GetBarObs()-&gt;GetStock();</csmSor:CPPCode>
+          <csmSor:Implementation language="cpp">
+            <csmSor:Code>GetStockMeasure() = GetBarObs()-&gt;GetStock();</csmSor:Code>
+          </csmSor:Implementation>
         </csmSor:Measure>
       </csmSor:Probe>
     </csmSor:Probes>

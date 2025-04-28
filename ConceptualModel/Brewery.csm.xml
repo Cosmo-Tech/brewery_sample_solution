@@ -25,7 +25,7 @@ csmForEachTypedNeighbor(BE_Customer, neighbor)
   count++;
 }
 
-int avrg = int(float(satisfaction) / float(csm::Math::Max(satisfaction, 1)));
+int avrg = int(float(satisfaction) / float(csm::Math::Max(count, 1)));
 SetSurroundingSatisfaction(avrg);]]></csm:CPPCode>
       <csm:EnvironmentReference>CustomerGraph</csm:EnvironmentReference>
     </csm:Rule>

@@ -29,6 +29,6 @@ To publish a new simulator image, use:
 
 ```
 az login
-az acr login -n csmenginesdev
-csm docker release --tag <x.y.z> --registry csmenginesdev.azurecr.io/
+az acr login -n acrwarpwaadxdevdlrivo
+csm docker release --tag <x.y.z> --registry acrwarpwaadxdevdlrivo.azurecr.io/
 ```

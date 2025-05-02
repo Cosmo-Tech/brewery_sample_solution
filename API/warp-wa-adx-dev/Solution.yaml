@@ -3,7 +3,7 @@ id: sol-nj77g03x4px
 name: 'Brewery Dev Solution'
 description: Dev solution for the brewery web application
 repository: brewery_simulator
-version: 1.4.3
+version: 1.4.4-dev.0
 tags:
   - brewery
   - dev

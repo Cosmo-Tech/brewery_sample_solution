@@ -58,7 +58,6 @@ def main():
     LOGGER.info("All parameters are loaded")
 
     bars = list()
-
     bar = {
         "type": "Bar",
         "name": "MyBar",
@@ -107,7 +106,7 @@ def main():
                 "source": row['source'],
                 "target": row['target'],
                 "name": row['name'],
-                "params": f"a: 'a'"
+                "params": f"a: 'a'"  # API endpoint does not allow undefined or empty params
             }
             satisfactions.append(satisfaction)
 
@@ -121,7 +120,7 @@ def main():
                 "source": row['source'],
                 "target": row['target'],
                 "name": row['name'],
-                "params": f"a: 'a'"
+                "params": f"a: 'a'"  # API endpoint does not allow undefined or empty params
             }
             links.append(link)
 
@@ -144,7 +143,7 @@ def main():
         type="node",
         graph_properties=bars + customers)
 
-    LOGGER.info("Writing relationshipss into target Dataset")
+    LOGGER.info("Writing relationships into target Dataset")
     dataset_api_instance.create_twingraph_entities(
         organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
         dataset_id=runner_data['dataset_list'][0],

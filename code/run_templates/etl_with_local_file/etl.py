@@ -70,10 +70,18 @@ def main():
 
     base_path = parameters["etl_param_bar_instance"]
     file_name = get_zip_file_name(base_path)
+
+    archive_root_folder_name = None
     with ZipFile(base_path + "/" + file_name) as zip:
+        archive_elements = zip.namelist()
+        archive_folders = [el for el in archive_elements if el.endswith("/")]
+        if len(archive_folders) < 3:
+            raise ValueError("Archive folder format is invalid: expected a root folder containing the 'Nodes' and " +
+                "'Edges' folders")
+        archive_root_folder_name = archive_elements[0]
         zip.extractall(base_path)
 
-    base_path = base_path + "/reference"
+    base_path = os.path.join(base_path, archive_root_folder_name)
     customers = list()
     with open(base_path + "/Nodes/Customer.csv") as _f:
         LOGGER.info("Found 'Customer' list")

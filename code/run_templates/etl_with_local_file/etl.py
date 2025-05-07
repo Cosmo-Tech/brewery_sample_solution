@@ -36,6 +36,7 @@ def get_zip_file_name(dir):
 
 def main():
     LOGGER.info("Starting the ETL Run")
+    organization_id=os.environ.get("CSM_ORGANIZATION_ID")
     credentials = DefaultAzureCredential()
     scope = os.environ.get("CSM_API_SCOPE")
     access_token = credentials.get_token(scope).token
@@ -48,7 +49,7 @@ def main():
     with cosmotech_api.ApiClient(configuration) as api_client:
         runner_api_instance = RunnerApi(api_client)
         dataset_api_instance = DatasetApi(api_client)
-        runner_data = runner_api_instance.get_runner(organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
+        runner_data = runner_api_instance.get_runner(organization_id=organization_id,
                                                      workspace_id=os.environ.get("CSM_WORKSPACE_ID"),
                                                      runner_id=os.environ.get("CSM_RUNNER_ID"))
 
@@ -106,7 +107,7 @@ def main():
                 "source": row['source'],
                 "target": row['target'],
                 "name": row['name'],
-                "params": f"a: 'a'"  # API endpoint does not allow undefined or empty params
+                "params": f"name: '{row['name']}'"
             }
             satisfactions.append(satisfaction)
 
@@ -120,39 +121,38 @@ def main():
                 "source": row['source'],
                 "target": row['target'],
                 "name": row['name'],
-                "params": f"a: 'a'"  # API endpoint does not allow undefined or empty params
+                "params": f"name: '{row['name']}'"
             }
             links.append(link)
 
     dataset = Dataset(ingestion_status="SUCCESS")
-    dataset_api_instance.update_dataset(os.environ.get("CSM_ORGANIZATION_ID"), runner_data['dataset_list'][0], dataset)
+    target_dataset_id=runner_data['dataset_list'][0]
+    dataset_api_instance.update_dataset(organization_id, target_dataset_id, dataset)
 
     try:
-        LOGGER.info("Erasing data from target Dataset")
+        LOGGER.info(f"Erasing data from target Dataset ({target_dataset_id})")
         dataset_api_instance.twingraph_query(
-            organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
-            dataset_id=runner_data['dataset_list'][0],
+            organization_id=organization_id,
+            dataset_id=target_dataset_id,
             dataset_twin_graph_query={"query": "MATCH (n) DETACH DELETE n"})
     except e:
         pass
 
-    LOGGER.info("Writing entities into target Dataset")
+    LOGGER.info(f"Writing entities into target Dataset ({target_dataset_id})")
     dataset_api_instance.create_twingraph_entities(
-        organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
-        dataset_id=runner_data['dataset_list'][0],
+        organization_id=organization_id,
+        dataset_id=target_dataset_id,
         type="node",
         graph_properties=bars + customers)
 
-    LOGGER.info("Writing relationships into target Dataset")
+    LOGGER.info(f"Writing relationships into target Dataset ({target_dataset_id})")
     dataset_api_instance.create_twingraph_entities(
-        organization_id=os.environ.get("CSM_ORGANIZATION_ID"),
-        dataset_id=runner_data['dataset_list'][0],
+        organization_id=organization_id,
+        dataset_id=target_dataset_id,
         type="relationship",
         graph_properties=satisfactions + links)
 
-    dataset_api_instance.update_dataset(
-        os.environ.get("CSM_ORGANIZATION_ID"), runner_data['dataset_list'][0], Dataset(twincacheStatus="FULL")
-    )
+    dataset_api_instance.update_dataset(organization_id, target_dataset_id, Dataset(twincacheStatus="FULL"))
 
     LOGGER.info("ETL Run finished")
 

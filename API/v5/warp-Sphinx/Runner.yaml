@@ -1,0 +1,9 @@
+name: 'Dev Brewery Runner'
+tags:
+  - 'dev'
+  - 'brewery'
+solutionId: 'sol-lgv9y484qg9'
+runTemplateId: 'sim_brewery_parameters'
+ownerName: 'Owner'
+solutionName: 'Dev Brewery Solution'
+runTemplateName: 'Run template with Brewery parameters'

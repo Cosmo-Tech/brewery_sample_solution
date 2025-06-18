@@ -732,6 +732,13 @@ parameterGroups:
       - etl_param_subdataset_filter_thirsty_multiselect
 runTemplates:
   - id: 'sim_brewery_parameters'
+    runSizing: 
+      requests:
+        cpu: 1
+        memory: 1G
+      limits:
+        cpu: 1
+        memory: 1G
     labels:
       fr: 'Run template avec les paramètres de Brewery '
       en: 'Run template with Brewery parameters'

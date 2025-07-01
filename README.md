@@ -27,20 +27,20 @@ csm docker run --rm brewery_simulator -- -i BreweryTutorialSimulation
 
 Install dependencies and run
 ```
-uv pip install -r code/requirements.txt
+pip install -r code/requirements.txt
 csm-orc run code/run_templates/minimal/run.json 
 ```
 
 
 ## Deploy
 
-To publish a new simulator image, use:
+Publish a new simulator image to both registries used by Sphinx:
 
 ```
 az login
 az acr login -n acrwarpwaadxdevdlrivo
-csm docker release --tag 3.0.0-dev.3 --registry acrwarpwaadxdevdlrivo.azurecr.io/
+csm docker release --tag x.y.z --registry acrwarpwaadxdevdlrivo.azurecr.io/
 
 az acr login -n acrsphinxd38ygr
-csm docker release --tag 3.0.0-dev.3 --registry acrsphinxd38ygr.azurecr.io/
+csm docker release --tag x.y.z --registry acrsphinxd38ygr.azurecr.io/
 ```

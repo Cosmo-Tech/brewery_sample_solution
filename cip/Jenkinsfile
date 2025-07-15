@@ -78,7 +78,6 @@ node('docker') {
                                flow --minimum \
                                     --minimum-extensions \
                                     --unity \
-                                    --no-docker \
                                     --no-studio \
                                     --no-csmcli \
                                     --commit-ish no-sync \
@@ -92,7 +91,7 @@ node('docker') {
         stage('Build docker image'){
           dir('src'){
             sh '../csmenv/bin/csm --css-home ../CSS/build docker build --flow'
-            sh 'docker image save cosmotech/mybrewery_simulator:latest -o Generated/Artifact/mybrewery_simulator.tar'
+            sh 'docker image save cosmotech/brewerysamplesolution_simulator:latest -o Generated/Artifact/brewerysamplesolution_simulator.tar'
           }
         }
         stage('Run model tests') {

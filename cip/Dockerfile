@@ -17,7 +17,15 @@ RUN apt-get update \
 
 RUN python3 --version
 
-ENV HOME=/home/ciuser
+ARG JDK_NAME=temurin-11-jdk
+RUN curl -sSL https://packages.adoptium.net/artifactory/api/gpg/key/public > /etc/apt/trusted.gpg.d/adoptium.asc \
+  && echo "deb [signed-by=/etc/apt/trusted.gpg.d/adoptium.asc] https://packages.adoptium.net/artifactory/deb bookworm main" > /etc/apt/sources.list.d/adoptium.list \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends ${JDK_NAME} \
+  && apt-get clean
+
+ENV HOME=/home/ciuser \
+    JAVA_HOME=/usr/lib/jvm/${JDK_NAME}-amd64
 
 ARG uid=1000
 ARG docker_gid=102
@@ -30,6 +38,6 @@ RUN groupadd -g $uid ciuser \
 USER ciuser:docker
 WORKDIR $HOME
 
-LABEL org.opencontainers.image.source=https://github.com/Cosmo-Tech/brewery_for_continuous
+LABEL org.opencontainers.image.source=https://github.com/Cosmo-Tech/brewery_sample_solution
 
 CMD bash

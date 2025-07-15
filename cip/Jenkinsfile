@@ -1,0 +1,120 @@
+// properties([
+//     parameters([
+//         // -----------------------------------------------------------
+//         // BUILD SOURCES ------------------------------------------------------
+//         string(name: 'source_model', defaultValue: 'DSE/add_cicd_PROD_14389',
+//             description: 'Asset commitish to build'),
+//         string(name: 'source_css', defaultValue: 'v11.2.0',
+//             description: 'SDK commitish to build with'),
+//     ])
+// ])
+
+import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
+
+node('docker') {
+  ansiColor('xterm') {
+      stage('Git') {
+        cleanWs()
+        dir('src') {
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: params.source_model]],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [
+                    [
+                    $class: 'SubmoduleOption',
+                    disableSubmodules: false,
+                    parentCredentials: true,
+                    recursiveSubmodules: true,
+                    reference: '',
+                    trackingSubmodules: false
+                    ],
+                    [$class: 'GitLFSPull']
+                ],
+                submoduleCfg: [],
+                userRemoteConfigs: [[
+                    url: 'git@github.com:Cosmo-Tech/brewery_sample_solution.git',
+                    credentialsId: 'platform@cosmotech.com github'
+                ]]
+            ])
+        }
+        dir('CSS') {
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: params.source_css]],
+                userRemoteConfigs: [[url: 'ssh://git@cogit.cosmotech.com/prod/css.git', credentialsId: 'cogit']]
+            ])
+        }
+        currentBuild.description = '[breweryCICD:' + params.source_model + ', CSS:' + params.source_css + ']'
+      }
+      def image = "$JOB_BASE_NAME".toLowerCase()
+      stage('Prepare Env') {
+        dir('src') {
+            def userId = sh(script: 'id -u', returnStdout: true).trim()
+            def dockerGid = sh(script: 'stat -c "%g" /var/run/docker.sock', returnStdout: true).trim()
+            sh("docker build --pull -t $image --build-arg uid=$userId --build-arg docker_gid=$dockerGid cip")
+        }
+      }
+      def job = env.JOB_BASE_NAME.toLowerCase().replace('%2f', '_')
+      def container = "ci-$job-$BUILD_NUMBER".toLowerCase()
+      docker.image("$image").inside("-u ciuser:docker \
+                                     -v $HOME/.ccache:/home/ciuser/.ccache \
+                                     -v $HOME/.cache:/home/ciuser/.cache \
+                                     -v $HOME/.m2:/home/ciuser/.m2 \
+                                     -v $HOME/.gradle:/home/ciuser/.gradle \
+                                     -v $HOME/.embedpostgresql:/home/ciuser/.embedpostgresql \
+                                     -v /var/run/docker.sock:/var/run/docker.sock \
+                                     -v /usr/bin/docker:/usr/bin/docker \
+                                     --name $container \
+                                     -e CSMCLI_APP_UP_CONNECT=$container \
+                                     -h $NODE_NAME \
+                                     --ipc=host \
+                                     --shm-size=256m") {
+      stage('Build Studio') {
+        sh 'python3 -m venv csmenv \
+            && csmenv/bin/pip install CSS/csmcli'
+        dir('CSS') {
+          sh '../csmenv/bin/csm css --sources . \
+                               flow --minimum \
+                                    --minimum-extensions \
+                                    --unity \
+                                    --no-docker \
+                                    --no-java \
+                                    --no-studio \
+                                    --no-csmcli \
+                                    --commit-ish no-sync \
+                                    --build-type Release'
+        }
+        stage('Build Model') {
+          dir('src'){
+            sh '../csmenv/bin/csm --css-home ../CSS/build build --flow'
+          }
+        }
+        stage('Build docker image'){
+          dir('src'){
+            sh '../csmenv/bin/csm --css-home ../CSS/build docker build --flow'
+            sh 'docker image save cosmotech/mybrewery_simulator:latest -o Generated/Artifact/mybrewery_simulator.tar'
+          }
+        }
+        stage('Run model tests') {
+          dir('src'){
+            sh '../csmenv/bin/csm --css-home ../CSS/build test --output-junit Testing/results.xml'
+          }
+        }
+      }
+      stage('Artifacts') {
+        archiveArtifacts artifacts: 'src/Generated/Artifact/*', fingerprint: true
+      }
+                                     }
+        stage('Results') {
+      sh 'docker ps -aq | xargs -rt docker rm -f'
+      xunit(
+                tools: [
+                  CTest(pattern:
+                    'src/Generated/Build/Testing/results.xml')
+                ],
+                thresholds: [failed(failureThreshold: '0')]
+              )
+        }
+  }
+}

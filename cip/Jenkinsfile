@@ -79,7 +79,6 @@ node('docker') {
                                     --minimum-extensions \
                                     --unity \
                                     --no-docker \
-                                    --no-java \
                                     --no-studio \
                                     --no-csmcli \
                                     --commit-ish no-sync \

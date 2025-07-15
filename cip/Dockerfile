@@ -13,16 +13,16 @@ RUN apt-get update \
         python3-venv \
         python3-dev \
         zlib1g-dev \
-    && apt-get clean
-
-RUN python3 --version
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG JDK_NAME=temurin-11-jdk
 RUN curl -sSL https://packages.adoptium.net/artifactory/api/gpg/key/public > /etc/apt/trusted.gpg.d/adoptium.asc \
   && echo "deb [signed-by=/etc/apt/trusted.gpg.d/adoptium.asc] https://packages.adoptium.net/artifactory/deb bookworm main" > /etc/apt/sources.list.d/adoptium.list \
   && apt-get update \
   && apt-get install -y --no-install-recommends ${JDK_NAME} \
-  && apt-get clean
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 ENV HOME=/home/ciuser \
     JAVA_HOME=/usr/lib/jvm/${JDK_NAME}-amd64

@@ -96,23 +96,22 @@ node('docker') {
         }
         stage('Run model tests') {
           dir('src'){
-            sh '../csmenv/bin/csm --css-home ../CSS/build test --output-junit Testing/results.xml'
+            sh '../csmenv/bin/csm --css-home ../CSS/build test --no-compress-output --output-junit testresults.xml'
           }
         }
       }
       stage('Artifacts') {
-        archiveArtifacts artifacts: 'src/Generated/Artifact/*', fingerprint: true
+          archiveArtifacts artifacts: 'src/Generated/Artifact/*', fingerprint: true
       }
-                                     }
-        stage('Results') {
-      sh 'docker ps -aq | xargs -rt docker rm -f'
-      xunit(
-                tools: [
-                  CTest(pattern:
-                    'src/Generated/Build/Testing/results.xml')
-                ],
-                thresholds: [failed(failureThreshold: '0')]
-              )
-        }
+      stage('Results') {
+          xunit(
+              tools: [
+                CTest(pattern:
+                  'src/Generated/Build/testresults.xml')
+              ],
+              thresholds: [failed(failureThreshold: '0')]
+            )
+      }
+    }
   }
 }

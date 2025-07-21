@@ -3,7 +3,7 @@
 //         // BUILD SOURCES ------------------------------------------------------
 //         string(name: 'source_model', defaultValue: 'DSE/add_cicd_PROD_14389',
 //             description: 'Asset commitish to build'),
-//         string(name: 'source_css', defaultValue: 'v11.2.0',
+//         string(name: 'source_css', defaultValue: 'v11.3.0',
 //             description: 'SDK commitish to build with'),
 //         // BUILD OPTIONS ------------------------------------------------------
 //         string(name: 'release_version', defaultValue: '3.0.0-dev.4',

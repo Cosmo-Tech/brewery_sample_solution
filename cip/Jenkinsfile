@@ -102,14 +102,14 @@ node('docker') {
         sh 'python3 -m venv csmenv \
             && csmenv/bin/pip install CSS/csmcli'
         dir('CSS') {
-          sh '../csmenv/bin/csm css --sources . \
-                               flow --minimum \
-                                    --minimum-extensions \
-                                    --unity \
-                                    --no-studio \
-                                    --no-csmcli \
-                                    --commit-ish no-sync \
-                                    --build-type Release'
+          sh '../csmenv/bin/csm css --sources . sync --commit-ish no-sync'
+          sh '../csmenv/bin/csm css --sources . configure --unity \
+                                                          --no-studio \
+                                                          --no-csmcli \
+                                                          --minimum \
+                                                          --minimum-extensions \
+                                                          --build-type Release'
+          sh '../csmenv/bin/csm css --sources . build'
         }
         stage('Build Model') {
           dir('src'){

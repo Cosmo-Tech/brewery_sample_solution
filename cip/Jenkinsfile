@@ -100,6 +100,29 @@ node('docker') {
           }
         }
       }
+      stage('Push to Azure Container Registry for Warp') {
+          withCredentials([
+              usernamePassword(
+                  credentialsId: 'WARP_SPHINX_REGISTRY',
+                  usernameVariable: 'ACR_USER',
+                  passwordVariable: 'ACR_PASS'
+              )
+          ]) {
+            dir('src') {
+                sh '''
+                  export ACR_LOGIN_SERVER="${ACR_USER}.azurecr.io"
+                  export IMAGE_NAME='cosmotech/brewerysamplesolution_simulator'
+                  export IMAGE_TAG='latest'
+                  echo "Logging in to Azure Container Registry"
+                  echo $ACR_PASS | docker login $ACR_LOGIN_SERVER -u $ACR_USER --password-stdin
+                  echo "Tagging image"
+                  docker tag $IMAGE_NAME:$IMAGE_TAG $ACR_LOGIN_SERVER/$IMAGE_NAME:$IMAGE_TAG
+                  echo "Pushing image"
+                  docker push $ACR_LOGIN_SERVER/$IMAGE_NAME:$IMAGE_TAG
+                '''
+            }
+          }
+      }
       stage('Artifacts') {
           archiveArtifacts artifacts: 'src/Generated/Artifact/*', fingerprint: true
       }

@@ -1,7 +1,7 @@
 // properties([
 //     parameters([
 //         // BUILD SOURCES ------------------------------------------------------
-//         string(name: 'source_model', defaultValue: 'DSE/add_cicd_PROD_14389',
+//         string(name: 'source_model', defaultValue: 'release/brewery-3.0',
 //             description: 'Asset commitish to build'),
 //         string(name: 'source_css', defaultValue: 'v11.3.0',
 //             description: 'SDK commitish to build with'),

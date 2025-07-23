@@ -30,7 +30,7 @@ def pushToAcr(credentialsId) {
                 echo \$ACR_PASS | docker login \$ACR_LOGIN_SERVER -u \$ACR_USER --password-stdin
                 echo "Tagging image"
                 docker tag \$IMAGE_NAME:\$IMAGE_TAG \$ACR_LOGIN_SERVER/\$IMAGE_NAME:\$IMAGE_TAG
-                docker tag \$IMAGE_NAME:latest \$ACR_LOGIN_SERVER/\$IMAGE_NAME:latest
+                docker tag \$IMAGE_NAME:\$IMAGE_TAG \$ACR_LOGIN_SERVER/\$IMAGE_NAME:latest
                 echo "Pushing image"
                 docker push \$ACR_LOGIN_SERVER/\$IMAGE_NAME:\$IMAGE_TAG
                 docker push \$ACR_LOGIN_SERVER/\$IMAGE_NAME:latest

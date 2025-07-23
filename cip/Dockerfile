@@ -13,6 +13,7 @@ RUN apt-get update \
         python3-venv \
         python3-dev \
         zlib1g-dev \
+        lsb-release \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

@@ -7,14 +7,14 @@ RUN apt-get update \
         ccache \
         clang-format \
         curl \
+        default-jre \
         git \
+        lsb-release \
         ninja-build \
         python3 \
         python3-venv \
         python3-dev \
         zlib1g-dev \
-        lsb-release \
-        default-jre \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

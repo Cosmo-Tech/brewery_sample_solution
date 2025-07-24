@@ -19,7 +19,7 @@ void pushToAcr(credentialsId) {
             passwordVariable: 'ACR_PASS'
         )
     ]) {
-        solutionImage = docker.image("cosmotech/brewerysamplesolution_simulator:latest")
+        def solutionImage = docker.image("cosmotech/brewerysamplesolution_simulator:latest")
         docker.withRegistry("https://${ACR_USER}.azurecr.io", credentialsId){
             solutionImage.push('latest')
             solutionImage.push("${params.release_version}")

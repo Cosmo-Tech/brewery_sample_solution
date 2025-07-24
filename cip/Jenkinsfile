@@ -11,9 +11,7 @@
 //     ])
 // ])
 
-
-
-def pushToAcr(credentialsId) {
+void pushToAcr(credentialsId) {
     withCredentials([
         usernamePassword(
             credentialsId: credentialsId,
@@ -21,20 +19,10 @@ def pushToAcr(credentialsId) {
             passwordVariable: 'ACR_PASS'
         )
     ]) {
-        dir('src') {
-            sh """
-                export ACR_LOGIN_SERVER="\${ACR_USER}.azurecr.io"
-                export IMAGE_NAME='cosmotech/brewerysamplesolution_simulator'
-                export IMAGE_TAG='${params.release_version}'
-                echo "Logging in to Azure Container Registry"
-                echo \$ACR_PASS | docker login \$ACR_LOGIN_SERVER -u \$ACR_USER --password-stdin
-                echo "Tagging image"
-                docker tag \$IMAGE_NAME:\$IMAGE_TAG \$ACR_LOGIN_SERVER/\$IMAGE_NAME:\$IMAGE_TAG
-                docker tag \$IMAGE_NAME:\$IMAGE_TAG \$ACR_LOGIN_SERVER/\$IMAGE_NAME:latest
-                echo "Pushing image"
-                docker push \$ACR_LOGIN_SERVER/\$IMAGE_NAME:\$IMAGE_TAG
-                docker push \$ACR_LOGIN_SERVER/\$IMAGE_NAME:latest
-            """
+        solutionImage = docker.image("cosmotech/brewerysamplesolution_simulator:latest")
+        docker.withRegistry("https://${ACR_USER}.azurecr.io", credentialsId){
+            solutionImage.push('latest')
+            solutionImage.push("${params.release_version}")
         }
     }
 }

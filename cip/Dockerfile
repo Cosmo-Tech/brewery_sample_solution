@@ -14,6 +14,7 @@ RUN apt-get update \
         python3-dev \
         zlib1g-dev \
         lsb-release \
+        default-jre \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

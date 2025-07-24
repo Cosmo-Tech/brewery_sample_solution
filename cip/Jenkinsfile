@@ -11,7 +11,7 @@
 //     ])
 // ])
 
-import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
+
 
 def pushToAcr(credentialsId) {
     withCredentials([
@@ -94,7 +94,6 @@ node('docker') {
                                      -v /var/run/docker.sock:/var/run/docker.sock \
                                      -v /usr/bin/docker:/usr/bin/docker \
                                      --name $container \
-                                     -e CSMCLI_APP_UP_CONNECT=$container \
                                      -h $NODE_NAME \
                                      --ipc=host \
                                      --shm-size=256m") {
@@ -102,7 +101,6 @@ node('docker') {
         sh 'python3 -m venv csmenv \
             && csmenv/bin/pip install CSS/csmcli'
         dir('CSS') {
-          sh '../csmenv/bin/csm css --sources . sync --commit-ish no-sync'
           sh '../csmenv/bin/csm css --sources . configure --unity \
                                                           --no-studio \
                                                           --no-csmcli \
@@ -125,25 +123,16 @@ node('docker') {
         }
         stage('Run model tests') {
           dir('src'){
-            sh '../csmenv/bin/csm --css-home ../CSS/build test --no-compress-output --output-junit testresults.xml'
+            sh '../csmenv/bin/csm --css-home ../CSS/build test'
           }
         }
       }
-      stage('Push to Azure Container Registry for Warp') {
+      stage('Push to Container Registry') {
           pushToAcr('WARP_SPHINX_REGISTRY')
           pushToAcr('VELA_SPHINX_REGISTRY')
       }
       stage('Artifacts') {
           archiveArtifacts artifacts: 'src/Generated/Artifact/*', fingerprint: true
-      }
-      stage('Results') {
-          xunit(
-              tools: [
-                CTest(pattern:
-                  'src/Generated/Build/testresults.xml')
-              ],
-              thresholds: [failed(failureThreshold: '0')]
-            )
       }
     }
   }

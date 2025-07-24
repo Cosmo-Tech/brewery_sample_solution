@@ -88,9 +88,6 @@ node('docker') {
       docker.image("$image").inside("-u ciuser:docker \
                                      -v $HOME/.ccache:/home/ciuser/.ccache \
                                      -v $HOME/.cache:/home/ciuser/.cache \
-                                     -v $HOME/.m2:/home/ciuser/.m2 \
-                                     -v $HOME/.gradle:/home/ciuser/.gradle \
-                                     -v $HOME/.embedpostgresql:/home/ciuser/.embedpostgresql \
                                      -v /var/run/docker.sock:/var/run/docker.sock \
                                      -v /usr/bin/docker:/usr/bin/docker \
                                      --name $container \

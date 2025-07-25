@@ -1,0 +1,122 @@
+// properties([
+//     parameters([
+//         // BUILD SOURCES ------------------------------------------------------
+//         string(name: 'source_model', defaultValue: 'release/brewery-3.0',
+//             description: 'Asset commitish to build'),
+//         string(name: 'source_css', defaultValue: 'v11.3.0',
+//             description: 'SDK commitish to build with'),
+//         // BUILD OPTIONS ------------------------------------------------------
+//         string(name: 'release_version', defaultValue: '3.0.0-dev.4',
+//             description: 'Push named version as well as latest'),
+//     ])
+// ])
+
+void pushToAcr(credentialsId) {
+    withCredentials([
+        usernamePassword(
+            credentialsId: credentialsId,
+            usernameVariable: 'ACR_USER',
+            passwordVariable: 'ACR_PASS'
+        )
+    ]) {
+        def solutionImage = docker.image("cosmotech/brewerysamplesolution_simulator:latest")
+        docker.withRegistry("https://${ACR_USER}.azurecr.io", credentialsId){
+            solutionImage.push('latest')
+            solutionImage.push("${params.release_version}")
+        }
+    }
+}
+
+node('docker') {
+  ansiColor('xterm') {
+      stage('Git') {
+        cleanWs()
+        dir('src') {
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: params.source_model]],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [
+                    [
+                    $class: 'SubmoduleOption',
+                    disableSubmodules: false,
+                    parentCredentials: true,
+                    recursiveSubmodules: true,
+                    reference: '',
+                    trackingSubmodules: false
+                    ],
+                    [$class: 'GitLFSPull']
+                ],
+                submoduleCfg: [],
+                userRemoteConfigs: [[
+                    url: 'git@github.com:Cosmo-Tech/brewery_sample_solution.git',
+                    credentialsId: 'platform@cosmotech.com github'
+                ]]
+            ])
+        }
+        dir('CSS') {
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: params.source_css]],
+                userRemoteConfigs: [[url: 'ssh://git@cogit.cosmotech.com/prod/css.git', credentialsId: 'cogit']]
+            ])
+        }
+        currentBuild.description = '[breweryCICD:' + params.source_model + ', CSS:' + params.source_css + ']'
+      }
+      def image = "$JOB_BASE_NAME".toLowerCase()
+      stage('Prepare Env') {
+        dir('src') {
+            def userId = sh(script: 'id -u', returnStdout: true).trim()
+            def dockerGid = sh(script: 'stat -c "%g" /var/run/docker.sock', returnStdout: true).trim()
+            sh("docker build --pull -t $image --build-arg uid=$userId --build-arg docker_gid=$dockerGid cip")
+        }
+      }
+      def job = env.JOB_BASE_NAME.toLowerCase().replace('%2f', '_')
+      def container = "ci-$job-$BUILD_NUMBER".toLowerCase()
+      docker.image("$image").inside("-u ciuser:docker \
+                                     -v $HOME/.ccache:/home/ciuser/.ccache \
+                                     -v $HOME/.cache:/home/ciuser/.cache \
+                                     -v /var/run/docker.sock:/var/run/docker.sock \
+                                     -v /usr/bin/docker:/usr/bin/docker \
+                                     --name $container \
+                                     -h $NODE_NAME") {
+      stage('Build Studio') {
+        sh 'python3 -m venv csmenv \
+            && csmenv/bin/pip install CSS/csmcli'
+        dir('CSS') {
+          sh '../csmenv/bin/csm css --sources . configure --unity \
+                                                          --no-studio \
+                                                          --no-csmcli \
+                                                          --minimum \
+                                                          --minimum-extensions \
+                                                          --build-type Release'
+          sh '../csmenv/bin/csm css --sources . build'
+        }
+        stage('Build Model') {
+          dir('src'){
+            sh '../csmenv/bin/csm --css-home ../CSS/build build --flow'
+          }
+        }
+        stage('Build docker image'){
+          dir('src'){
+            sh '../csmenv/bin/csm --css-home ../CSS/build docker build --flow'
+            sh 'docker tag cosmotech/brewerysamplesolution_simulator:latest cosmotech/brewerysamplesolution_simulator:' + params.release_version
+            sh 'docker image save cosmotech/brewerysamplesolution_simulator:latest -o Generated/Artifact/brewerysamplesolution_simulator.tar'
+          }
+        }
+        stage('Run model tests') {
+          dir('src'){
+            sh '../csmenv/bin/csm --css-home ../CSS/build test'
+          }
+        }
+      }
+      stage('Push to Container Registry') {
+          pushToAcr('WARP_SPHINX_REGISTRY')
+          pushToAcr('VELA_SPHINX_REGISTRY')
+      }
+      stage('Artifacts') {
+          archiveArtifacts artifacts: 'src/Generated/Artifact/*', fingerprint: true
+      }
+    }
+  }
+}

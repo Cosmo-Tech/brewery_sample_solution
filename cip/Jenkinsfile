@@ -79,9 +79,7 @@ node('docker') {
                                      -v /var/run/docker.sock:/var/run/docker.sock \
                                      -v /usr/bin/docker:/usr/bin/docker \
                                      --name $container \
-                                     -h $NODE_NAME \
-                                     --ipc=host \
-                                     --shm-size=256m") {
+                                     -h $NODE_NAME") {
       stage('Build Studio') {
         sh 'python3 -m venv csmenv \
             && csmenv/bin/pip install CSS/csmcli'

@@ -28,7 +28,7 @@ csm docker run --rm brewery_simulator -- -i BreweryTutorialSimulation
 Install dependencies and run
 ```
 pip install -r code/requirements.txt
-csm-orc run code/run_templates/minimal/run.json 
+csm-orc run code/run_templates/minimal/run.json
 ```
 
 

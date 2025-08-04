@@ -1,0 +1,29 @@
+name: 'Simulation View Demo Solution'
+description: 'Demo solution for the advanced flowchart visualization'
+repository: brewery_simulator
+version: 1.4.3
+tags:
+  - demo
+parameters:
+  - id: unused_parameter
+    varType: string
+parameterGroups:
+  - id: unused_parameter_group
+    parameters:
+      - unused_parameter
+runTemplates:
+  - id: 'not_implemented'
+    name: Not implemented run template
+    csmSimulation: BreweryDemoSimulationWithConnector
+    fetchDatasets: false
+    fetchScenarioParameters: false
+    applyParameters: false
+    sendDatasetsToDataWarehouse: false
+    sendInputParametersToDataWarehouse: false
+    validateData: false
+    preRun: false
+    run: false
+    postRun: false
+    parameterGroups:
+      - unused_parameter_group
+    orchestratorType: argoWorkflow

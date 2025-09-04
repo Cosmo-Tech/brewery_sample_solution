@@ -1,0 +1,32 @@
+name: Track Dependencies
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request: 
+    types: [open, edited]
+
+jobs:
+  dependency_track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install swyft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+      - name: Generate SBOM
+        run: |
+          syft . >> sbom.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sbom.json
+          path: .
+      - name: Upload cyclonedx bom to dependency
+        uses: DependencyTrack/gh-upload-sbom@v3
+        with:
+          serverhostname: ${{ secrets.DEPENDENCY_TRACK_SERVER_HOSTNAME }}
+          apikey: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}
+          project: '50a4ad6a-638b-4d7e-9d8e-0310efa85ab9'
+          bomfilename: 'build/reports/cosmotech-api-bom.xml'

@@ -22,7 +22,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: sbom.json
-          path: .
       - name: Upload cyclonedx bom to dependency
         uses: DependencyTrack/gh-upload-sbom@v3
         with:

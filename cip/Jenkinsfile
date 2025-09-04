@@ -104,6 +104,22 @@ node('docker') {
             sh 'docker image save cosmotech/brewerysamplesolution_simulator:latest -o Generated/Artifact/brewerysamplesolution_simulator.tar'
           }
         }
+        stage('Generate SBOM'){
+          dir('src'){
+            sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b ~/.local/bin v0.66.0 && \
+                export PATH=$HOME/.local/bin/:$PATH && \
+                trivy image --format cyclonedx --output sbom.json cosmotech/brewerysamplesolution_simulator:latest'
+          }
+        }
+        stage('Publish SBOM to DT'){
+          dir('src'){
+            try {
+                dependencyTrackPublisher artifact: 'sbom.json', projectId: '77f1c795-86b0-48b5-9057-5c0dc397529b', synchronous: true
+            } catch (e) {
+                echo 'failed'
+            }
+          }
+        }
         stage('Run model tests') {
           dir('src'){
             sh '../csmenv/bin/csm --css-home ../CSS/build test'

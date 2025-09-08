@@ -113,11 +113,7 @@ node('docker') {
         }
         stage('Publish SBOM to DT'){
           dir('src'){
-            try {
-                dependencyTrackPublisher artifact: 'sbom.json', projectId: '77f1c795-86b0-48b5-9057-5c0dc397529b', synchronous: true
-            } catch (e) {
-                echo 'failed'
-            }
+                dependencyTrackPublisher artifact: 'sbom.json', projectId: '77f1c795-86b0-48b5-9057-5c0dc397529b', synchronous: false
           }
         }
         stage('Run model tests') {

@@ -1,5 +1,5 @@
 cosmotech-run-orchestrator~=2.0.1
 azure-storage-blob
-CosmoTech-Acceleration-Library~=1.0.0
+CosmoTech-Acceleration-Library==1.1.0
 faker~=30.6.0
 psycopg2-binary==2.9.*

@@ -1,0 +1,871 @@
+id: 'sol-414m4e1q72em8'
+key: 'Dev Brewery Solution'
+name: 'Dev Brewery Solution'
+description: 'Dev Brewery Solution'
+repository: 'cosmotech/brewerysamplesolution_simulator'
+version: '3.0.0-dev.10'
+sdkVersion: '10.4.0'
+alwaysPull: true
+url: 'https://kubernetes.cosmotech.com/cosmotech-webapp/wa-vela-dev'
+tags:
+  - 'dev'
+  - 'brewery'
+parameters:
+  - id: 'stock'
+    labels:
+      fr: 'Stock'
+      en: 'Stock'
+    varType: 'int'
+    defaultValue: 100
+  - id: 'restock_qty'
+    labels:
+      fr: 'Restock'
+      en: 'Restock'
+    varType: 'int'
+    defaultValue: 25
+  - id: 'nb_waiters'
+    labels:
+      fr: 'Serveurs'
+      en: 'Waiters'
+    varType: 'int'
+    defaultValue: 5
+  - id: 'currency'
+    labels:
+      fr: 'Symbole de la monnaie'
+      en: 'Currency symbol'
+    varType: 'enum'
+    defaultValue: 'USD'
+    options:
+      enumValues:
+        - key: 'USD'
+          value:
+            en: 'United States dollar ($)'
+            fr: 'Dollar américain ($)'
+          tooltipText:
+            fr: 'Le dollar américain est la monnaie nationale des États-Unis et de plusieurs autres pays'
+            en: 'The United States dollar is the official currency of the United States and several other countries'
+        - key: 'EUR'
+          value: 'Euro (€)'
+          tooltipText:
+            fr: "L'euro est la monnaie unique de 20 des 27 États membres de l'Union européenne"
+            en: 'Euro is the official currency of 20 of the 27 member states of the European Union'
+        - key: 'BTC'
+          value: 'Bitcoin (฿)'
+          tooltipText:
+            fr: "Le Bitcoin est une cryptomonnaie dont l'objectif est de créer un système financier décentralisé"
+            en: 'Bitcoin is a protocol which implements a public, permanent, and decentralized ledger'
+        - key: 'JPY'
+          value:
+            en: 'Japanese yen (¥)'
+            fr: 'Yen (¥)'
+      tooltipText:
+        fr: "Choisissez un symbole :\n\t- $\n\t- €\n\t- ฿\n\t- ¥"
+        en: "Choose a symbol:\n\t- $\n\t- €\n\t- ฿\n\t- ¥"
+  - id: 'currency_name'
+    labels:
+      fr: 'Nom de la monnaie'
+      en: 'Currency name'
+    varType: 'string'
+    defaultValue: 'EUR'
+    options:
+      tooltipText:
+        fr: 'Choisissez un nom de monnaie'
+        en: 'Choose a currency name'
+      minLength: 2
+      maxLength: 10
+  - id: 'currency_value'
+    labels:
+      fr: 'Valeur'
+      en: 'Value'
+    varType: 'number'
+    defaultValue: 1000
+    options:
+      tooltipText:
+        fr: 'Choisissez une valeur'
+        en: 'Set value'
+  - id: 'currency_used'
+    labels:
+      fr: 'Activer la monnaie'
+      en: 'Enable currency'
+    varType: 'bool'
+    defaultValue: false
+    options:
+      tooltipText:
+        fr: 'Activez la monnaie'
+        en: 'Enable the currency'
+  - id: 'start_date'
+    labels:
+      fr: 'Date de départ'
+      en: 'Start date'
+    varType: 'date'
+    defaultValue: '2014-08-18T00:00:00.000Z'
+    options:
+      tooltipText:
+        fr: 'Choisissez une date de début'
+        en: 'Choose a start date'
+  - id: 'end_date'
+    labels:
+      fr: 'Date de fin'
+      en: 'End date'
+    varType: 'date'
+    defaultValue: '2014-08-20T00:00:00.000Z'
+    options:
+      tooltipText:
+        fr: 'Choisissez une date de fin'
+        en: 'Choose an end date'
+      validation: '> start_date'
+  - id: 'average_consumption'
+    labels:
+      fr: 'Consommation moyenne'
+      en: 'Average consumption'
+    varType: 'number'
+    minValue: 0
+    maxValue: 10
+    defaultValue: 3
+    options:
+      subType: 'SLIDER'
+      tooltipText:
+        fr: 'En pintes'
+        en: 'In pints'
+  - id: 'additional_seats'
+    labels:
+      fr: 'Sièges additionnels'
+      en: 'Additional seats'
+    varType: 'number'
+    defaultValue: -4
+    minValue: -600
+    maxValue: 2500
+    options:
+      tooltipText:
+        fr: 'La valeur peut être comprise entre -600 et 2500'
+        en: 'Value can be between -600 and 2500'
+  - id: 'additional_tables'
+    labels:
+      fr: 'Tables additionnelles'
+      en: 'Additional tables'
+    varType: 'number'
+    defaultValue: 3
+    minValue: -150
+    maxValue: 12000
+    options:
+      tooltipText:
+        fr: 'La valeur peut être comprise entre -150 et 12000'
+        en: 'Value can be between -150 and 12000'
+  - id: 'activated'
+    labels:
+      en: 'Activated'
+      fr: 'Activé'
+    varType: 'bool'
+    defaultValue: false
+  - id: 'evaluation'
+    labels:
+      fr: 'Evaluation'
+      en: 'Evaluation'
+    varType: 'string'
+    defaultValue: 'Good'
+    options:
+      minLength: 2
+  - id: 'volume_unit'
+    labels:
+      en: 'Volume unit'
+      fr: 'Unité de volume'
+    varType: 'enum'
+    defaultValue: 'LITRE'
+    options:
+      enumValues:
+        - key: 'LITRE'
+          value: 'L'
+        - key: 'BARREL'
+          value: 'bl'
+        - key: 'CUBIC_METRE'
+          value: 'm³'
+      subType: 'RADIO'
+  - id: 'comment'
+    labels:
+      en: 'Comment'
+      fr: 'Commentaire'
+    varType: 'string'
+    defaultValue: 'None'
+    options:
+      maxLength: 30
+  - id: 'additional_date'
+    labels:
+      en: 'Additional date'
+      fr: 'Date additionnelle'
+    varType: 'date'
+    defaultValue: '2022-06-22T00:00:00.000Z'
+    minValue: '2021-01-01T00:00:00.000Z'
+    maxValue: '2022-12-31T00:00:00.000Z'
+  - id: 'initial_stock_dataset'
+    labels:
+      fr: 'Stock de départ'
+      en: 'Initial stock'
+    varType: '%DATASETID%'
+    options:
+      description: 'Initial stock dataset part'
+      defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+      shouldRenameFileOnUpload: true
+  - id: 'example_dataset_part_1'
+    labels:
+      fr: 'Exemple de sous-partie de dataset 1'
+      en: 'Example dataset part 1'
+    varType: '%DATASETID%'
+    options:
+      description: '1st example of dataset part'
+      defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+      tooltipText:
+        fr: 'Choisissez un dataset'
+        en: 'Set a dataset'
+  - id: 'example_dataset_part_2'
+    labels:
+      fr: 'Exemple de sous-partie de dataset 2'
+      en: 'Example dataset part 2'
+    varType: '%DATASETID%'
+    options:
+      description: '2nd example of dataset part'
+      defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+  - id: 'example_dataset_part_3'
+    labels:
+      fr: 'Exemple de sous-partie de dataset 3'
+      en: 'Example dataset part 3'
+    varType: '%DATASETID%'
+    options:
+      description: '3rd example of dataset part'
+      defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
+      tooltipText:
+        fr: 'Choisissez un dataset'
+        en: 'Set a dataset'
+  - id: 'customers'
+    labels:
+      fr: 'Clients'
+      en: 'Customers'
+    varType: '%DATASETID%'
+    options:
+      canChangeRowsNumber: true
+      description: 'customers data'
+      subType: 'TABLE'
+      columns:
+        - field: 'name'
+          type:
+            - 'nonResizable'
+            - 'nonSortable'
+        - field: 'age'
+          type:
+            - 'int'
+          minValue: 0
+          maxValue: 120
+          acceptsEmptyFields: true
+        - headerName: 'consumption'
+          children:
+            - field: 'canDrinkAlcohol'
+              type:
+                - 'bool'
+            - field: 'favoriteDrink'
+              type:
+                - 'enum'
+              enumValues:
+                - 'AppleJuice'
+                - 'Beer'
+                - 'OrangeJuice'
+                - 'Wine'
+        - headerName: 'identity'
+          children:
+            - field: 'birthday'
+              type:
+                - 'date'
+              minValue: '1900-01-01'
+              maxValue: '2022-12-19T13:46:15.223Z'
+              acceptsEmptyFields: true
+            - field: 'height'
+              type:
+                - 'number'
+              minValue: 0
+              maxValue: 2.5
+              acceptsEmptyFields: true
+      dateFormat: 'dd/MM/yyyy'
+      tooltipText:
+        fr: 'Importez ou exportez un fichier clients'
+        en: 'Import or export a customers file'
+  - id: 'events'
+    labels:
+      fr: 'Evénements'
+      en: 'Events'
+    varType: '%DATASETID%'
+    defaultValue: 'd-kovkq76eo1qj9'
+    options:
+      tooltipText:
+        fr: "Importez ou exportez un fichier d'événements"
+        en: 'Import or export an events file'
+      description: 'events data'
+      subType: 'TABLE'
+      columns:
+        - field: 'theme'
+          type:
+            - 'string'
+        - field: 'date'
+          type:
+            - 'date'
+          minValue: '1900-01-01'
+          maxValue: '2999-12-31'
+        - field: 'timeOfDay'
+          type:
+            - 'enum'
+          enumValues:
+            - 'morning'
+            - 'midday'
+            - 'afternoon'
+            - 'evening'
+        - field: 'eventType'
+          type:
+            - 'string'
+            - 'nonResizable'
+            - 'nonEditable'
+        - field: 'reservationsNumber'
+          type:
+            - 'int'
+          minValue: 0
+          maxValue: 300
+          acceptsEmptyFields: true
+        - field: 'online'
+          type:
+            - 'bool'
+            - 'nonSortable'
+      dateFormat: 'dd/MM/yyyy'
+  - id: 'initial_state'
+    labels:
+      fr: 'Etat initial'
+      en: 'Initial state'
+    varType: '%DATASETID%'
+    options:
+      subType: 'TABLE'
+      dynamicValues:
+        query: 'MATCH(customer: Customer) WITH {name: customer.id, satisfaction: customer.Satisfaction, surroundingSatisfaction: customer.SurroundingSatisfaction, thirsty: customer.Thirsty} as fields RETURN fields'
+        resultKey: 'fields'
+      columns:
+        - field: 'name'
+          headerName: 'Name'
+          type:
+            - 'string'
+        - field: 'satisfaction'
+          headerName: 'Satisfaction'
+          type:
+            - 'int'
+          minValue: 0
+          maxValue: 10
+          acceptsEmptyFields: true
+        - field: 'surroundingSatisfaction'
+          headerName: 'Surrounding satisfaction'
+          type:
+            - 'int'
+          minValue: 0
+          maxValue: 10
+          acceptsEmptyFields: true
+        - field: 'thirsty'
+          headerName: 'Thirsty'
+          type:
+            - 'bool'
+          acceptsEmptyFields: true
+  - id: 'training_start_date'
+    labels:
+      fr: 'Date de départ'
+      en: 'Start date'
+    varType: 'date'
+  - id: 'training_end_date'
+    labels:
+      fr: 'Date de Fin'
+      en: 'End date'
+    varType: 'date'
+  - id: etl_param_stock
+    labels:
+      fr: Stock
+      en: Stock
+    varType: string
+    defaultValue: 100
+  - id: 'countries'
+    labels:
+      fr: 'Pays'
+      en: 'Countries'
+    varType: 'list'
+    defaultValue: '["FRANCE","INDIA"]'
+    options:
+      enumValues:
+        - key: 'FRANCE'
+          value: 'France'
+        - key: 'GERMANY'
+          value:
+            en: 'Germany'
+            fr: 'Allemagne'
+        - key: 'GREECE'
+          value:
+            en: 'Greece'
+            fr: 'Grèce'
+        - key: 'INDIA'
+          value:
+            en: 'India'
+            fr: 'Inde'
+        - key: 'JAPAN'
+          value:
+            en: 'Japan'
+            fr: 'Japon'
+      tooltipText:
+        fr: "Choisissez un ensemble de pays parmi la liste proposée"
+        en: "Select countries among the list"
+  - id: dynamic_values_customers_enum
+    labels:
+      fr: Client (enum)
+      en: Customer (enum)
+    tooltipText:
+      fr: Sélectionnez un client parmi la liste
+      en: Pick a customer from the list
+    varType: enum
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(n:Customer) RETURN n.id as customer_id'
+        resultKey: customer_id
+  - id: dynamic_values_customers_list
+    labels:
+      fr: Liste de clients (list)
+      en: Customers list (list)
+    tooltipText:
+      fr: Sélectionnez des clients parmi la liste
+      en: Pick customers from the list
+    varType: list
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(n:Customer) RETURN n.id as customer_id'
+        resultKey: customer_id
+  - id: etl_param_restock_quantity
+    labels:
+      fr: Réapprovisionnement
+      en: Restock
+    varType: string
+    defaultValue: 25
+  - id: etl_param_num_waiters
+    labels:
+      fr: Serveurs
+      en: Waiters
+    varType: string
+    defaultValue: 5
+  - id: etl_param_tables_count
+    labels:
+      fr: Nombre de tables
+      en: Number of tables
+    varType: string
+    defaultValue: 10
+  - id: etl_param_customers_count
+    labels:
+      fr: Nombre de clients
+      en: Number of customers
+    varType: string
+    defaultValue: 50
+  - id: etl_param_locale
+    labels:
+      fr: Localisation des noms générés
+      en: Locale of generated names
+    varType: 'string'
+    defaultValue: 'en'
+  - id: etl_param_satisfaction
+    labels:
+      fr: Satisfaction
+      en: Satisfaction
+    varType: string
+    defaultValue: 0
+  - id: etl_param_surrounding_satisfaction
+    labels:
+      fr: Satisfaction de l'entourage
+      en: Surrounding satisfaction
+    varType: string
+    defaultValue: 0
+  - id: etl_param_thirsty
+    labels:
+      fr: Soif initiale
+      en: Initial thirst
+    varType: enum
+    options:
+      enumValues:
+        - key: 'THIRSTY'
+          value:
+            en: 'Thirsty'
+            fr: 'A soif'
+        - key: 'NOT_THIRSTY'
+          value:
+            en: 'Not thirsty'
+            fr: "N'a pas soif"
+  - id: etl_param_bar_instance
+    labels:
+      fr: fichier d'instance
+      en: instance file
+    varType: '%DATASETID%'
+    options:
+      description: 'Initial stock dataset part'
+      defaultFileTypeFilter: '.zip'
+      shouldRenameFileOnUpload: true
+  - id: etl_param_azure_storage_co_string
+    labels:
+      fr: azure storage connection string
+      en: azure storage connection string
+    varType: string
+  - id: etl_param_az_storage_account
+    labels:
+      fr: azure storage account name
+      en: azure storage account name
+    varType: string
+  - id: etl_param_az_storage_container
+    labels:
+      fr: azure storage container name
+      en: azure storage container name
+    varType: string
+  - id: etl_param_az_storage_path
+    labels:
+      fr: azure storage path
+      en: azure storage path
+    varType: string
+  - id: etl_param_subdataset_filter_is_thirsty
+    labels:
+      fr: Filtrer par
+      en: Filter by
+    varType: enum
+    options:
+      enumValues:
+        - key: 'THIRSTY'
+          value:
+            en: 'Thirsty'
+            fr: 'A soif'
+        - key: 'NOT_THIRSTY'
+          value:
+            en: 'Not thirsty'
+            fr: "N'a pas soif"
+      tooltipText:
+        fr: "Conserver uniquement les clients en fonction de leur soif initiale"
+        en: "Keep only customers defined by their initial thirst level"
+  - id: etl_param_subdataset_filter_thirsty_multiselect
+    labels:
+      fr: Filtrer par
+      en: Filter by
+    varType: list
+    options:
+      enumValues:
+        - key: 'THIRSTY'
+          value:
+            en: 'Thirsty'
+            fr: 'A soif'
+        - key: 'NOT_THIRSTY'
+          value:
+            en: 'Not thirsty'
+            fr: "N'a pas soif"
+      tooltipText:
+        fr: "Conserver uniquement les clients en fonction de leur soif initiale"
+        en: "Keep only customers defined by their initial thirst level"
+  - id: etl_param_subdataset_filter_dynamic_customer_name
+    labels:
+      fr: Filtrer par client
+      en: Filter by customer
+    varType: enum
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(n:Customer) RETURN n.id as id'
+        resultKey: id
+  - id: etl_param_subdataset_filter_dynamic_customers_list
+    labels:
+      fr: Filtrer par clients
+      en: Filter by customers
+    varType: list
+    options:
+      dynamicEnumValues:
+        type: cypher
+        query: 'MATCH(n:Customer) RETURN n.id as id'
+        resultKey: id
+  - id: 'scenario_to_compare'
+    labels:
+      fr: 'Scénario à comparer'
+      en: 'Scenario to compare'
+    varType: 'enum'
+    options:
+      subType: 'SCENARIOS'
+      runTemplateFilter: ['sim_brewery_parameters', 'sim_mock_parameters']
+      tooltipText:
+        fr: "Scénario auquel on va comparer les données"
+        en: "Scenario against which to compare data"
+parameterGroups:
+  - id: 'bar_parameters'
+    labels:
+      fr: 'Bar'
+      en: 'Pub'
+    parameters:
+      - 'stock'
+      - 'restock_qty'
+      - 'nb_waiters'
+  - id: 'basic_types'
+    labels:
+      fr: 'Exemples de types standards'
+      en: 'Basic types examples'
+    parameters:
+      - 'currency'
+      - 'currency_name'
+      - 'currency_value'
+      - 'currency_used'
+      - 'start_date'
+      - 'end_date'
+      - 'average_consumption'
+    options:
+      authorizedRoles:
+        - 'Platform.Admin'
+        - 'Organization.User'
+      hideParameterGroupIfNoPermission: false
+  - id: 'training_dates'
+    labels:
+      fr: 'Dates de simulation'
+      en: 'Simulation dates'
+    parameters:
+      - 'training_start_date'
+      - 'training_end_date'
+  - id: 'file_upload'
+    labels:
+      en: 'Initial values'
+      fr: 'Valeurs initiales'
+    parameters:
+      - 'initial_stock_dataset'
+  - id: 'dataset_parts'
+    labels:
+      en: 'Dataset parts'
+      fr: 'Fragments de dataset'
+    parameters:
+      - 'example_dataset_part_1'
+      - 'example_dataset_part_2'
+  - id: 'extra_dataset_part'
+    labels:
+      en: 'Additional dataset part'
+      fr: 'Fragment additionnel'
+    parameters:
+      - 'example_dataset_part_3'
+  - id: 'customers'
+    labels:
+      en: 'Customers'
+      fr: 'Clients'
+    parameters:
+      - 'customers'
+  - id: 'events'
+    labels:
+      en: 'Events'
+      fr: 'Évènements'
+    parameters:
+      - 'events'
+      - 'additional_seats'
+      - 'activated'
+      - 'evaluation'
+  - id: 'initial_state'
+    labels:
+      en: 'Initial state'
+      fr: 'Etat initial'
+    parameters:
+      - 'initial_state'
+  - id: 'additional_parameters'
+    labels:
+      en: 'Additional parameters'
+      fr: 'Paramètres additionnels'
+    parameters:
+      - 'volume_unit'
+      - 'additional_tables'
+      - 'comment'
+      - 'additional_date'
+      - 'countries'
+      - 'scenario_to_compare'
+  - id: dynamic_values_customers_group
+    labels:
+      fr: Clients
+      en: Customers
+    parameters:
+      - dynamic_values_customers_enum
+      - dynamic_values_customers_list
+  - id: etl_param_group_bar_parameters
+    labels:
+      fr: Bar
+      en: Bar
+    parameters:
+      - etl_param_stock
+      - etl_param_restock_quantity
+      - etl_param_num_waiters
+  - id: etl_param_group_customer_parameters
+    labels:
+      fr: Clients
+      en: Customers
+    parameters:
+      - etl_param_satisfaction
+      - etl_param_surrounding_satisfaction
+      - etl_param_thirsty
+  - id: etl_param_group_instance_parameters
+    labels:
+      fr: Instance
+      en: Instance
+    parameters:
+      - etl_param_tables_count
+      - etl_param_customers_count
+      - etl_param_locale
+  - id: etl_param_group_local_file
+    labels:
+      fr: local_file
+      en: local_file
+    parameters:
+      - etl_param_bar_instance
+  - id: etl_param_group_azure_storage
+    labels:
+      fr: azure_storage_connection
+      en: azure_storage connexion
+    parameters:
+      - etl_param_azure_storage_co_string
+      - etl_param_az_storage_account
+      - etl_param_az_storage_container
+      - etl_param_az_storage_path
+  - id: etl_param_group_sub_dataset_by_filter
+    parameters:
+      - etl_param_subdataset_filter_is_thirsty
+  - id: etl_param_group_sub_dataset_by_dynamic_filter
+    parameters:
+      - etl_param_subdataset_filter_dynamic_customer_name
+  - id: etl_param_group_sub_dataset_by_dynamic_filter_w
+    parameters:
+      - etl_param_subdataset_filter_dynamic_customers_list
+  - id: etl_param_group_sub_dataset_by_filter_w
+    parameters:
+      - etl_param_subdataset_filter_thirsty_multiselect
+runTemplates:
+  - id: 'sim_brewery_parameters'
+    runSizing:
+      requests:
+        cpu: 1
+        memory: 1G
+      limits:
+        cpu: 1
+        memory: 1G
+    labels:
+      fr: 'Run template avec les paramètres de Brewery '
+      en: 'Run template with Brewery parameters'
+    name: 'Run template with Brewery parameters'
+    description: 'Run template with Brewery parameters'
+    csmSimulation: 'BreweryDemoSimulationWithConnector'
+    tags:
+      - 'sim_brewery_parameters'
+      - 'With params'
+    parameterGroups:
+      - 'bar_parameters'
+      - 'file_upload'
+  - id: 'sim_no_parameters'
+    labels:
+      fr: 'Run template sans paramètres'
+      en: 'Run template without parameters'
+    name: 'Run template without parameters'
+    description: 'Run template without parameters'
+    csmSimulation: 'BreweryDemoSimulationWithConnector'
+    tags:
+      - 'sim_no_parameters'
+      - 'No param'
+  - id: 'sim_mock_parameters'
+    labels:
+      fr: 'Run template avec paramètres basiques fictifs'
+      en: 'Run template with mock basic types parameters'
+    name: 'Run template with mock basic types parameters'
+    description: 'Run template with mock basic types parameters'
+    csmSimulation: 'BreweryDemoSimulationWithConnector'
+    tags:
+      - 'sim_mock_parameters'
+      - 'Example'
+    parameterGroups:
+      - 'basic_types'
+      - 'dataset_parts'
+      - 'extra_dataset_part'
+      - 'customers'
+      - 'events'
+      - 'additional_parameters'
+      - 'initial_state'
+  - id: dynamic_values_customers
+    labels:
+      fr: Valeurs dynamiques (requiert un dataset Twingraph)
+      en: Dynamic values (requires a Twingraph dataset)
+    parameterGroups:
+      - dynamic_values_customers_group
+  - id: 'hidden test run template'
+    labels:
+      fr: 'Run template masqué sans paramètres'
+      en: 'Hidden test run template without parameters'
+    name: 'Hidden test run template without parameters'
+    description: 'Run template without parameters'
+    csmSimulation: 'BreweryDemoSimulationWithConnector'
+  - id: etl_with_local_file
+    labels:
+      fr: Brewery (.zip) depuis un fichier local
+      en: Brewery (.zip) from Local File
+    tags:
+      - datasource
+    parameterGroups:
+      - etl_param_group_bar_parameters
+      - etl_param_group_local_file
+  - id: etl_instance_generator
+    labels:
+      fr: Générateur d'instance
+      en: Instance generator
+    tags:
+      - datasource
+    parameterGroups:
+      - etl_param_group_instance_parameters
+      - etl_param_group_bar_parameters
+      - etl_param_group_customer_parameters
+  - id: etl_with_azure_storage
+    labels:
+      fr: Brewery (.zip) depuis Azure Storage
+      en: Brewery (.zip) from Azure Storage
+    tags:
+      - datasource
+    parameterGroups:
+      - etl_param_group_bar_parameters
+      - etl_param_group_azure_storage
+  - id: etl_sub_dataset_by_filter
+    labels:
+      fr: Filtre de dataset
+      en: Dataset filter
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_filter
+  - id: './etl_sub_dataset_by_filter'
+    labels:
+      fr: Filtre dynamique de dataset
+      en: Dataset dynamic filter
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_dynamic_filter
+  - id: './/etl_sub_dataset_by_filter'
+    labels:
+      fr: Filtre par sélection multiple
+      en: Multi-selection filter
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_filter_with_multiple_selection
+  - id: './//etl_sub_dataset_by_filter'
+    labels:
+      fr: Filtre dynamique avec sélection multiple
+      en: Dynamic filter with multi-selection
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection
+  - id: etl_sub_dataset_by_filter_boolean
+    labels:
+      fr: Filtre de données sur une valeur booléenne
+      en: Dataset filter on a boolean value
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_filter
+  - id: etl_sub_dataset_by_filter_multi
+    labels:
+      fr: Filtre dynamique avec sélection multiple
+      en: Dataset filter on a multi-selection dynamic values
+    tags:
+      - subdatasource
+    parameterGroups:
+      - etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection

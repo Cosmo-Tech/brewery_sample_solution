@@ -1,4 +1,4 @@
-cosmotech-run-orchestrator~=2.0.1
+cosmotech-run-orchestrator~=2.0.2
 azure-storage-blob
 CosmoTech-Acceleration-Library @ git+https://github.com/Cosmo-Tech/CosmoTech-Acceleration-Library@feature/cosmotech_api_5.0
 cosmotech-api~=5.0.0b3

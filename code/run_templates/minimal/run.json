@@ -1,6 +1,47 @@
 {
   "steps": [
-    { "id": "csm_data_version", "command": "csm-data", "arguments": ["--version"] },
-    { "id": "csm_orc_version", "command": "csm-orc", "arguments": ["--version"] }
+    {
+      "id": "generate",
+      "command": "python",
+      "arguments": [
+        "code/run_templates/common/generate_dataset.py"
+      ],
+      "useSystemEnvironment": true,
+      "outputs": {
+        "dataset_id": {
+          "description": "Generated Dataset ID in the Cosmo Tech API"
+        }
+      }
+    },
+    {
+      "id": "download",
+      "command": "python",
+      "arguments": [
+        "code/run_templates/common/download_dataset.py"
+      ],
+      "useSystemEnvironment": true,
+      "inputs": {
+        "source_dataset": {
+          "stepId": "generate",
+          "output": "dataset_id",
+          "as": "CSM_DATASET_ID"
+        }
+      },
+      "precedents": [
+        "generate"
+      ]
+    },
+    {
+      "id": "engine",
+      "command": "csm-simulator",
+      "arguments": [
+        "-i",
+        "BreweryDemoSimulationWithConnector"
+      ],
+      "precedents": [
+        "download"
+      ],
+      "useSystemEnvironment": true
+    }
   ]
 }

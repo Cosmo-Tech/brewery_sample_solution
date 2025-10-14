@@ -1,0 +1,6 @@
+name: "The Cosmo Brewery Company"
+security:
+  default: viewer
+  accessControlList:
+    - id: dev.sample.webapp@example.com
+      role: admin

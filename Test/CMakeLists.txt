@@ -9,6 +9,8 @@
 # compensation.
 set(EXE_NAME main -P ${CMAKE_CURRENT_SOURCE_DIR} -f)
 
+csmAddTest(BreweryTutorialSimulation ${EXE_NAME} -i BreweryTutorialSimulation)
+
 if(EXAMPLES_MATHGL_DISPLAY)
   csmAddTest(Simulation_1 ${EXE_NAME} -i Simulation_1 -E ${CEX_PLUGINS_DIR} INSTALL)
   csmSetTestsProperties(Simulation_1 PROPERTIES FAIL_REGULAR_EXPRESSION "Cannot connect to probe")

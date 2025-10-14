@@ -10,17 +10,10 @@
       "useSystemEnvironment": true
     },
     {
-      "id": "send_to_adx",
-      "command": "csm-orc",
-      "arguments": ["send-to-adx"],
-      "precedents": ["fetch_parameters"],
-      "useSystemEnvironment": true
-    },
-    {
       "id": "engine",
       "command": "csm-orc",
       "arguments": ["run-step"],
-      "precedents": ["send_to_adx"],
+      "precedents": ["fetch_parameters"],
       "useSystemEnvironment": true
     }
   ]

@@ -1,0 +1,16 @@
+name: 'Simulation View Demo Workspace'
+description: 'Demo workspace for the advanced flowchart visualization'
+tags: ['demo']
+solution:
+  solutionId: <solution_id>
+  runTemplateFilter:
+    - not_implemented
+datasetCopy: false
+webApp:
+  url: 'https://simulation-view-demo.app.cosmotech.com'
+  options:
+    menu:
+      documentationUrl: >-
+        https://portal.cosmotech.com/resources/platform-resources/web-app-user-guide
+      supportUrl: 'https://support.cosmotech.com'
+      organizationUrl: 'https://cosmotech.com'

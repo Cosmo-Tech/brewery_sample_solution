@@ -6,7 +6,7 @@ import tempfile
 from csv import DictWriter
 
 import numpy as np
-from cosmotech.coal.utils.api import get_api_client
+from cosmotech.coal.cosmotech_api.connection import get_api_client
 from cosmotech.orchestrator.utils.logger import get_logger
 from cosmotech.orchestrator.utils.logger import log_data
 from cosmotech_api import DatasetPartTypeEnum

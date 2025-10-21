@@ -12,6 +12,31 @@ tags: null
 webApp:
   url: https://sample.app.cosmotech.com
   options:
+    charts:
+      supersetDomain: 'https://superset-kubernetes.cosmotech.com'
+      dashboards:
+        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          height: 500px
+          width: 100%
+          hideTab: false
+          hideTitle: false
+          hideChartControls: false
+          hideFilters: false
+          expandFilters: false
+          customUrlParams: {}
+          filters: []
+      scenarioView:
+        default: '272c380b-8824-48fc-a274-aa2fefb1226a'
+        overrides:
+          sim_brewery_parameters: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          sim_no_parameters: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          sim_mock_parameters: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          dynamic_values_customers: '272c380b-8824-48fc-a274-aa2fefb1226a'
+      dashboardView:
+        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          title:
+            en: 'Scenario Results'
+            fr: 'Résultats du scénario'
     menu:
       supportUrl: 'https://support.cosmotech.com'
       organizationUrl: 'https://cosmotech.com'

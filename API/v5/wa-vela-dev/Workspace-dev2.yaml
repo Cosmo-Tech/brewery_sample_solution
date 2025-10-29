@@ -17,6 +17,7 @@ webApp:
       logInWithUserCredentials: false
       scenarioViewIframeDisplayRatio: 4.514285714
       dashboardsViewIframeDisplayRatio: 1.610062893
+      useWebappTheme: true
       dashboardsView:
         - title:
             en: Scenario comparison

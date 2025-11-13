@@ -200,7 +200,7 @@ parameters:
     labels:
       fr: 'Stock de départ'
       en: 'Initial stock'
-    varType: '%DATASETID%'
+    varType: '%DATASET_PART_ID_FILE%'
     options:
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
@@ -209,7 +209,7 @@ parameters:
     labels:
       fr: 'Exemple de sous-partie de dataset 1'
       en: 'Example dataset part 1'
-    varType: '%DATASETID%'
+    varType: '%DATASET_PART_ID_FILE%'
     options:
       description: '1st example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
@@ -220,7 +220,7 @@ parameters:
     labels:
       fr: 'Exemple de sous-partie de dataset 2'
       en: 'Example dataset part 2'
-    varType: '%DATASETID%'
+    varType: '%DATASET_PART_ID_FILE%'
     options:
       description: '2nd example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
@@ -228,7 +228,7 @@ parameters:
     labels:
       fr: 'Exemple de sous-partie de dataset 3'
       en: 'Example dataset part 3'
-    varType: '%DATASETID%'
+    varType: '%DATASET_PART_ID_FILE%'
     options:
       description: '3rd example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
@@ -239,7 +239,7 @@ parameters:
     labels:
       fr: 'Clients'
       en: 'Customers'
-    varType: '%DATASETID%'
+    varType: '%DATASET_PART_ID_FILE%'
     options:
       canChangeRowsNumber: true
       description: 'customers data'
@@ -290,7 +290,7 @@ parameters:
     labels:
       fr: 'Evénements'
       en: 'Events'
-    varType: '%DATASETID%'
+    varType: '%DATASET_PART_ID_FILE%'
     defaultValue: 'd-kovkq76eo1qj9'
     options:
       tooltipText:
@@ -335,7 +335,7 @@ parameters:
     labels:
       fr: 'Etat initial'
       en: 'Initial state'
-    varType: '%DATASETID%'
+    varType: '%DATASET_PART_ID_FILE%'
     options:
       subType: 'TABLE'
       dynamicValues:
@@ -497,7 +497,7 @@ parameters:
     labels:
       fr: fichier d'instance
       en: instance file
-    varType: '%DATASETID%'
+    varType: '%DATASET_PART_ID_FILE%'
     options:
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip'

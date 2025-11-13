@@ -59,6 +59,7 @@ webApp:
             - Thirsty
       datasourceFilter:
         - etl_instance_generator
+        - FileUploadToDataset
         - None
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true

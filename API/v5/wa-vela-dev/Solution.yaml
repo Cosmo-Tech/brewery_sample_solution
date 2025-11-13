@@ -725,10 +725,10 @@ parameterGroups:
   - id: etl_param_group_sub_dataset_by_dynamic_filter
     parameters:
       - etl_param_subdataset_filter_dynamic_customer_name
-  - id: etl_param_group_sub_dataset_by_dynamic_filter_w
+  - id: etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection
     parameters:
       - etl_param_subdataset_filter_dynamic_customers_list
-  - id: etl_param_group_sub_dataset_by_filter_w
+  - id: etl_param_group_sub_dataset_by_filter_with_multiple_selection
     parameters:
       - etl_param_subdataset_filter_thirsty_multiselect
 runTemplates:

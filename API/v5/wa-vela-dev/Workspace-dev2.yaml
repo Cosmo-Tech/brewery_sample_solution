@@ -9,9 +9,8 @@ solution:
 datasetCopy: false
 version: null
 tags: null
-webApp:
-  url: https://sample.app.cosmotech.com
-  options:
+additionalData:
+  webapp:
     charts:
       workspaceId: 290de699-9026-42c0-8c83-e4e87c3f22dd
       logInWithUserCredentials: false

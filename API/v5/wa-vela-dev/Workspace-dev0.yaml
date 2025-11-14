@@ -9,9 +9,8 @@ solution:
 datasetCopy: false
 version: null
 tags: null
-webApp:
-  url: https://sample.app.cosmotech.com
-  options:
+additionalData:
+  webapp:
     menu:
       supportUrl: 'https://support.cosmotech.com'
       organizationUrl: 'https://cosmotech.com'

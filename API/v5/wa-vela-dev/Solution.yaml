@@ -35,7 +35,7 @@ parameters:
       en: 'Currency symbol'
     varType: 'enum'
     defaultValue: 'USD'
-    options:
+    additionalData:
       enumValues:
         - key: 'USD'
           value:
@@ -67,7 +67,7 @@ parameters:
       en: 'Currency name'
     varType: 'string'
     defaultValue: 'EUR'
-    options:
+    additionalData:
       tooltipText:
         fr: 'Choisissez un nom de monnaie'
         en: 'Choose a currency name'
@@ -79,7 +79,7 @@ parameters:
       en: 'Value'
     varType: 'number'
     defaultValue: 1000
-    options:
+    additionalData:
       tooltipText:
         fr: 'Choisissez une valeur'
         en: 'Set value'
@@ -89,7 +89,7 @@ parameters:
       en: 'Enable currency'
     varType: 'bool'
     defaultValue: false
-    options:
+    additionalData:
       tooltipText:
         fr: 'Activez la monnaie'
         en: 'Enable the currency'
@@ -99,7 +99,7 @@ parameters:
       en: 'Start date'
     varType: 'date'
     defaultValue: '2014-08-18T00:00:00.000Z'
-    options:
+    additionalData:
       tooltipText:
         fr: 'Choisissez une date de début'
         en: 'Choose a start date'
@@ -109,7 +109,7 @@ parameters:
       en: 'End date'
     varType: 'date'
     defaultValue: '2014-08-20T00:00:00.000Z'
-    options:
+    additionalData:
       tooltipText:
         fr: 'Choisissez une date de fin'
         en: 'Choose an end date'
@@ -122,7 +122,7 @@ parameters:
     minValue: 0
     maxValue: 10
     defaultValue: 3
-    options:
+    additionalData:
       subType: 'SLIDER'
       tooltipText:
         fr: 'En pintes'
@@ -135,7 +135,7 @@ parameters:
     defaultValue: -4
     minValue: -600
     maxValue: 2500
-    options:
+    additionalData:
       tooltipText:
         fr: 'La valeur peut être comprise entre -600 et 2500'
         en: 'Value can be between -600 and 2500'
@@ -147,7 +147,7 @@ parameters:
     defaultValue: 3
     minValue: -150
     maxValue: 12000
-    options:
+    additionalData:
       tooltipText:
         fr: 'La valeur peut être comprise entre -150 et 12000'
         en: 'Value can be between -150 and 12000'
@@ -163,7 +163,7 @@ parameters:
       en: 'Evaluation'
     varType: 'string'
     defaultValue: 'Good'
-    options:
+    additionalData:
       minLength: 2
   - id: 'volume_unit'
     labels:
@@ -171,7 +171,7 @@ parameters:
       fr: 'Unité de volume'
     varType: 'enum'
     defaultValue: 'LITRE'
-    options:
+    additionalData:
       enumValues:
         - key: 'LITRE'
           value: 'L'
@@ -186,7 +186,7 @@ parameters:
       fr: 'Commentaire'
     varType: 'string'
     defaultValue: 'None'
-    options:
+    additionalData:
       maxLength: 30
   - id: 'additional_date'
     labels:
@@ -201,7 +201,7 @@ parameters:
       fr: 'Stock de départ'
       en: 'Initial stock'
     varType: '%DATASET_PART_ID_FILE%'
-    options:
+    additionalData:
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
       shouldRenameFileOnUpload: true
@@ -210,7 +210,7 @@ parameters:
       fr: 'Exemple de sous-partie de dataset 1'
       en: 'Example dataset part 1'
     varType: '%DATASET_PART_ID_FILE%'
-    options:
+    additionalData:
       description: '1st example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
       tooltipText:
@@ -221,7 +221,7 @@ parameters:
       fr: 'Exemple de sous-partie de dataset 2'
       en: 'Example dataset part 2'
     varType: '%DATASET_PART_ID_FILE%'
-    options:
+    additionalData:
       description: '2nd example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
   - id: 'example_dataset_part_3'
@@ -229,7 +229,7 @@ parameters:
       fr: 'Exemple de sous-partie de dataset 3'
       en: 'Example dataset part 3'
     varType: '%DATASET_PART_ID_FILE%'
-    options:
+    additionalData:
       description: '3rd example of dataset part'
       defaultFileTypeFilter: '.zip,.csv,.json,.xls,.xlsx'
       tooltipText:
@@ -240,7 +240,7 @@ parameters:
       fr: 'Clients'
       en: 'Customers'
     varType: '%DATASET_PART_ID_FILE%'
-    options:
+    additionalData:
       canChangeRowsNumber: true
       description: 'customers data'
       subType: 'TABLE'
@@ -292,7 +292,7 @@ parameters:
       en: 'Events'
     varType: '%DATASET_PART_ID_FILE%'
     defaultValue: 'd-kovkq76eo1qj9'
-    options:
+    additionalData:
       tooltipText:
         fr: "Importez ou exportez un fichier d'événements"
         en: 'Import or export an events file'
@@ -336,7 +336,7 @@ parameters:
       fr: 'Etat initial'
       en: 'Initial state'
     varType: '%DATASET_PART_ID_FILE%'
-    options:
+    additionalData:
       subType: 'TABLE'
       dynamicValues:
         query: 'MATCH(customer: Customer) WITH {name: customer.id, satisfaction: customer.Satisfaction, surroundingSatisfaction: customer.SurroundingSatisfaction, thirsty: customer.Thirsty} as fields RETURN fields'
@@ -387,7 +387,7 @@ parameters:
       en: 'Countries'
     varType: 'list'
     defaultValue: '["FRANCE","INDIA"]'
-    options:
+    additionalData:
       enumValues:
         - key: 'FRANCE'
           value: 'France'
@@ -418,7 +418,7 @@ parameters:
       fr: Sélectionnez un client parmi la liste
       en: Pick a customer from the list
     varType: enum
-    options:
+    additionalData:
       dynamicEnumValues:
         type: cypher
         query: 'MATCH(n:Customer) RETURN n.id as customer_id'
@@ -431,7 +431,7 @@ parameters:
       fr: Sélectionnez des clients parmi la liste
       en: Pick customers from the list
     varType: list
-    options:
+    additionalData:
       dynamicEnumValues:
         type: cypher
         query: 'MATCH(n:Customer) RETURN n.id as customer_id'
@@ -483,7 +483,7 @@ parameters:
       fr: Soif initiale
       en: Initial thirst
     varType: enum
-    options:
+    additionalData:
       enumValues:
         - key: 'THIRSTY'
           value:
@@ -498,7 +498,7 @@ parameters:
       fr: fichier d'instance
       en: instance file
     varType: '%DATASET_PART_ID_FILE%'
-    options:
+    additionalData:
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip'
       shouldRenameFileOnUpload: true
@@ -527,7 +527,7 @@ parameters:
       fr: Filtrer par
       en: Filter by
     varType: enum
-    options:
+    additionalData:
       enumValues:
         - key: 'THIRSTY'
           value:
@@ -545,7 +545,7 @@ parameters:
       fr: Filtrer par
       en: Filter by
     varType: list
-    options:
+    additionalData:
       enumValues:
         - key: 'THIRSTY'
           value:
@@ -563,7 +563,7 @@ parameters:
       fr: Filtrer par client
       en: Filter by customer
     varType: enum
-    options:
+    additionalData:
       dynamicEnumValues:
         type: cypher
         query: 'MATCH(n:Customer) RETURN n.id as id'
@@ -573,7 +573,7 @@ parameters:
       fr: Filtrer par clients
       en: Filter by customers
     varType: list
-    options:
+    additionalData:
       dynamicEnumValues:
         type: cypher
         query: 'MATCH(n:Customer) RETURN n.id as id'
@@ -583,7 +583,7 @@ parameters:
       fr: 'Scénario à comparer'
       en: 'Scenario to compare'
     varType: 'enum'
-    options:
+    additionalData:
       subType: 'SCENARIOS'
       runTemplateFilter: ['sim_brewery_parameters', 'sim_mock_parameters']
       tooltipText:
@@ -610,7 +610,7 @@ parameterGroups:
       - 'start_date'
       - 'end_date'
       - 'average_consumption'
-    options:
+    additionalData:
       authorizedRoles:
         - 'Platform.Admin'
         - 'Organization.User'

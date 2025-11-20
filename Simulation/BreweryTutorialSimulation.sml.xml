@@ -6,7 +6,7 @@
   $Revision$
   $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
 -->
-<csmSon:Simulation xmlns:csmSon="http://www.cosmotech.com/csm_simulation/11.4">
+<csmSon:Simulation xmlns:csmSon="http://www.cosmotech.com/csm_simulation/11.5">
   <csmSon:Documentation/>
   <csmSon:ModelInstance type="Brewery" id="Model">
     <csmSon:Loader type="csmXMLInstantiation">

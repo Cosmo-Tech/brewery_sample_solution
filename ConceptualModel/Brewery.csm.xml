@@ -6,7 +6,7 @@
   $Revision$
   $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
 -->
-<csm:Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doc="http://www.cosmotech.com/csm_doc/11.4" xmlns:dbk="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" xmlns:csm="http://www.cosmotech.com/csm/11.4">
+<csm:Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doc="http://www.cosmotech.com/csm_doc/11.5" xmlns:dbk="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" xmlns:csm="http://www.cosmotech.com/csm/11.5">
   <csm:ModelName>Brewery</csm:ModelName>
   <csm:Compound>
     <csm:Environment>ModelEnvironment</csm:Environment>
@@ -158,7 +158,7 @@ csmForEachTypedSubEntity(BE_Customer, customer)
     </csm:Compound>
   </csm:CompoundEntity>
   <csm:Environment xsi:type="csm:NoEnvironment" name="NoEnvironment"/>
-  <csm:Environment xmlns:csmRoom="http://www.cosmotech.com/csm_room/11.4" xsi:type="csmRoom:Room" name="ModelEnvironment"/>
+  <csm:Environment xmlns:csmRoom="http://www.cosmotech.com/csm_room/11.5" xsi:type="csmRoom:Room" name="ModelEnvironment"/>
   <csm:Environment xsi:type="csm:Graph" name="CustomerGraph">
     <csm:Arc name="Satisfaction">
       <csm:Source>Customer</csm:Source>

@@ -4,13 +4,14 @@ name: '1️⃣ Dev1'
 description: 'Brewery dev1 workspace with Superset dashboards. This workspace uses v5 of Cosmo Tech API on KoB/vela.'
 solution:
   solutionId: 'sol-414m4e1q72em8'
-  runTemplateFilter: ['sim_brewery_parameters', 'sim_no_parameters', 'sim_mock_parameters']
-  defaultRunTemplateDataset: null
 datasetCopy: false
 version: null
 tags: null
 additionalData:
   webapp:
+    solution:
+      runTemplateFilter: ['sim_brewery_parameters', 'sim_no_parameters', 'sim_mock_parameters']
+      defaultRunTemplateDataset: null
     charts:
       supersetDomain: 'https://superset-kubernetes.cosmotech.com'
       dashboards:

@@ -4,13 +4,14 @@ name: '2️⃣ Dev2'
 description: 'Brewery dev2 workspace with PowerBI dashboards. This workspace uses v5 of Cosmo Tech API on KoB/vela.'
 solution:
   solutionId: 'sol-414m4e1q72em8'
-  runTemplateFilter: ['sim_brewery_parameters', 'sim_no_parameters', 'sim_mock_parameters']
-  defaultRunTemplateDataset: null
 datasetCopy: false
 version: null
 tags: null
 additionalData:
   webapp:
+    solution:
+      runTemplateFilter: ['sim_brewery_parameters', 'sim_no_parameters', 'sim_mock_parameters']
+      defaultRunTemplateDataset: null
     charts:
       workspaceId: 290de699-9026-42c0-8c83-e4e87c3f22dd
       logInWithUserCredentials: false

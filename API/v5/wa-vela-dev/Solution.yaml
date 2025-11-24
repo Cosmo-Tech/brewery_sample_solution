@@ -273,8 +273,8 @@ parameters:
             - field: 'birthday'
               type:
                 - 'date'
-              minValue: '1900-01-01'
-              maxValue: '2022-12-19T13:46:15.223Z'
+              minValue: '01/01/1900'
+              maxValue: '19/12/2022'
               acceptsEmptyFields: true
             - field: 'height'
               type:
@@ -305,8 +305,8 @@ parameters:
         - field: 'date'
           type:
             - 'date'
-          minValue: '1900-01-01'
-          maxValue: '2999-12-31'
+          minValue: '01/01/1900'
+          maxValue: '31/12/2999'
         - field: 'timeOfDay'
           type:
             - 'enum'

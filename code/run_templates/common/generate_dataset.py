@@ -6,13 +6,9 @@ import tempfile
 from csv import DictWriter
 
 import numpy as np
-from cosmotech.coal.cosmotech_api.connection import get_api_client
+from cosmotech.coal.cosmotech_api.apis.dataset import DatasetApi
 from cosmotech.orchestrator.utils.logger import get_logger
 from cosmotech.orchestrator.utils.logger import log_data
-from cosmotech_api import DatasetPartTypeEnum
-from cosmotech_api.api.dataset_api import DatasetApi
-from cosmotech_api.api.dataset_api import DatasetCreateRequest
-from cosmotech_api.api.dataset_api import DatasetPartCreateRequest
 from faker import Faker
 
 LOGGER = get_logger("Brewery/DatasetV5")
@@ -95,31 +91,13 @@ with tempfile.TemporaryDirectory(suffix="dataset") as temp_dir:
             _dw.writeheader()
             _dw.writerows(_content)
 
-    with get_api_client()[0] as client:
-        d_api = DatasetApi(client)
-        d_request = DatasetCreateRequest(
-            name=f"{RUNNER_ID} - {RUN_ID}",
-            runnerId=RUNNER_ID,
-            parts=list(
-                DatasetPartCreateRequest(
-                    name=f"{RUN_ID} - {_p.name}",
-                    sourceName=_p.name,
-                    type=DatasetPartTypeEnum.FILE
-                )
-                for _p in temp_dir_path.glob("*.csv")
-            )
-        )
-        d_ret = d_api.create_dataset(
-            ORG_ID,
-            WS_ID,
-            d_request,
-            files=list(
-                (_p.name, _p.open("rb").read())
-                for _p in temp_dir_path.glob("*.csv")
-            )
-        )
+    dataset_api = DatasetApi()
 
-        dataset_id = d_ret.id
+    dataset = dataset_api.upload_dataset(
+        dataset_name = f"{RUNNER_ID} - {RUN_ID}",
+        as_files=list(temp_dir_path.glob("*.csv"))
+    )
+    dataset_id = dataset.id
 
 log_data("dataset_id", dataset_id)
 

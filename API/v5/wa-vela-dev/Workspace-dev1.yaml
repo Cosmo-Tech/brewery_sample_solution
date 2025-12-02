@@ -42,28 +42,108 @@ additionalData:
       organizationUrl: 'https://cosmotech.com'
       documentationUrl: 'https://portal.cosmotech.com/resources/platform-resources/web-app-user-guide'
     datasetManager:
+      graphIndicators:
+        - name:
+            en: Bars
+            fr: Bars
+          id: count_id
+          queryId: bars
+        - name:
+            en: Customers
+            fr: Clients
+          id: count_id
+          queryId: customers
+        - name:
+            en: Customers interactions
+            fr: Interactions clients
+          id: count_name
+          queryId: satisfaction_graph
+        - name:
+            en: All relationships
+            fr: Tous les liens
+          id: count_name
+          queryId: relationships
       categories:
-        - id: bars
+        - previewTable:
+            columns:
+              - headerName: Number of waiters
+                field: nbWaiters
+                type:
+                  - int
+              - headerName: Restock quantity
+                field: restockQty
+                type:
+                  - int
+              - headerName: Stock
+                field: stock
+                type:
+                  - int
+            resultKey: fields
+            queryId: bars_attributes
           name:
             en: Bars
             fr: Bars
-          type: entity
           description:
             en: >-
-              Bars are compound entities in the Brewery model. They are responsible
-              of the stock management and the number of waiters.
-               An entity of type Bar is the parent entity of Customers inside this bar.
+              Bars are compound entities in the Brewery model. They are responsible of
+              the stock management and the number of waiters. An entity of type Bar is
+              the parent entity of Customers inside this bar.
             fr: >-
               Les bars sont des entités composées du modèle Brewery. Ils sont
               responsables de la gestion du stock et du nombre de serveurs.
 
-              Une entité de type Bar est l'entité parente des entités Customer
+              Une entité de type Bar est l"entité parente des entités Customer
               présentes dans ce bar.
           attributes:
             - NbWaiters
             - RestockQty
             - Stock
-        - id: customers
+          id: bars2
+          type: entity
+          kpis:
+            - name:
+                en: Average stock
+                fr: Moyenne stock
+              id: avg_Stock
+              queryId: bars
+            - name:
+                en: Average waiters
+                fr: Moyenne serveurs
+              id: avg_NbWaiters
+              queryId: bars
+            - name:
+                en: Min. waiters
+                fr: Min. serveurs
+              id: min_NbWaiters
+              queryId: bars
+            - name:
+                en: Max. waiters
+                fr: Max. serveurs
+              id: max_NbWaiters
+              queryId: bars
+        - previewTable:
+            columns:
+              - headerName: Name
+                field: name
+                type:
+                  - string
+              - headerName: Satisfaction
+                field: satisfaction
+                type:
+                  - int
+              - headerName: Surrounding satisfaction
+                field: surroundingSatisfaction
+                type:
+                  - int
+              - headerName: Thirsty
+                field: thirsty
+                type:
+                  - bool
+            resultKey: fields
+            queryId: customers_attributes
+          name:
+            en: Customers
+            fr: Clients
           description:
             en: >-
               Customers are basic entities in the Brewery model. They are used to
@@ -72,16 +152,50 @@ additionalData:
             fr: >-
               Les clients sont des entités basiques du modèle Brewery. Ces entités
               permettent de simuler la consommation de boisson pour chaque entité de
-              type Bar liée, et implémentent un graphe permettant d'influencer le
-              comportement d'autres clients.
-          name:
-            en: Customers
-            fr: Clients
-          type: entity
+              type Bar liée, et implémentent un graphe permettant d"influencer le
+              comportement d"autres clients.
           attributes:
+            - Name
             - Satisfaction
             - SurroundingSatisfaction
             - Thirsty
+          id: customers2
+          type: entity
+          kpis:
+            - name:
+                en: Average satisfaction
+                fr: Satisfaction moyenne
+              id: avg_Satisfaction
+              queryId: customers
+        - name:
+            en: Fake entity
+            fr: Entité factice
+          description:
+            en: Fake category without data
+            fr: Catégorie factice sans aucune donnée
+          id: fakeEntityType
+          type: entity
+      queries:
+        - options:
+            avgs: 'Stock,NbWaiters'
+            counts: id
+            mins: NbWaiters
+            maxs: NbWaiters
+          datasetPartName: bars
+          id: bars
+        - options:
+            avgs: Satisfaction
+            counts: id
+          datasetPartName: customers
+          id: customers
+        - options:
+            counts: name
+          datasetPartName: satisfaction_arcs
+          id: satisfaction_graph
+        - options:
+            counts: name
+          datasetPartName: bar_to_customer_compounds
+          id: relationships
       datasourceFilter:
         - etl_instance_generator
         - FileUploadToDataset

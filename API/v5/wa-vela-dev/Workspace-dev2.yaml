@@ -92,18 +92,17 @@ additionalData:
         - previewTable:
             columns:
               - headerName: Number of waiters
-                field: nbWaiters
+                field: NbWaiters
                 type:
                   - int
               - headerName: Restock quantity
-                field: restockQty
+                field: RestockQty
                 type:
                   - int
               - headerName: Stock
-                field: stock
+                field: Stock
                 type:
                   - int
-            resultKey: fields
             queryId: bars_attributes
           name:
             en: Bars
@@ -149,22 +148,21 @@ additionalData:
         - previewTable:
             columns:
               - headerName: Name
-                field: name
+                field: id
                 type:
                   - string
               - headerName: Satisfaction
-                field: satisfaction
+                field: Satisfaction
                 type:
                   - int
               - headerName: Surrounding satisfaction
-                field: surroundingSatisfaction
+                field: SurroundingSatisfaction
                 type:
                   - int
               - headerName: Thirsty
-                field: thirsty
+                field: Thirsty
                 type:
                   - bool
-            resultKey: fields
             queryId: customers_attributes
           name:
             en: Customers
@@ -201,6 +199,17 @@ additionalData:
           id: fakeEntityType
           type: entity
       queries:
+        - options:
+            selects: 'NbWaiters,RestockQty,Stock'
+            counts: id
+            mins: NbWaiters
+            maxs: NbWaiters
+          datasetPartName: bars
+          id: bar_table
+        - options:
+            selects: 'id,Satisfaction,SurroundingSatisfaction,Thirsty'
+          datasetPartName: customers
+          id: customer_table
         - options:
             avgs: 'Stock,NbWaiters'
             counts: id

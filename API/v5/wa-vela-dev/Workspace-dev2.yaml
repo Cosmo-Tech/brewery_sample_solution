@@ -123,7 +123,7 @@ additionalData:
             - NbWaiters
             - RestockQty
             - Stock
-          id: bars2
+          id: bars
           type: entity
           kpis:
             - name:
@@ -184,7 +184,7 @@ additionalData:
             - Satisfaction
             - SurroundingSatisfaction
             - Thirsty
-          id: customers2
+          id: customers
           type: entity
           kpis:
             - name:

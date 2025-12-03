@@ -339,28 +339,27 @@ parameters:
     additionalData:
       subType: 'TABLE'
       dynamicValues:
-        query: 'MATCH(customer: Customer) WITH {name: customer.id, satisfaction: customer.Satisfaction, surroundingSatisfaction: customer.SurroundingSatisfaction, thirsty: customer.Thirsty} as fields RETURN fields'
-        resultKey: 'fields'
+        datasetPartName: 'customers'
       columns:
-        - field: 'name'
+        - field: 'id'
           headerName: 'Name'
           type:
             - 'string'
-        - field: 'satisfaction'
+        - field: 'Satisfaction'
           headerName: 'Satisfaction'
           type:
             - 'int'
           minValue: 0
           maxValue: 10
           acceptsEmptyFields: true
-        - field: 'surroundingSatisfaction'
+        - field: 'SurroundingSatisfaction'
           headerName: 'Surrounding satisfaction'
           type:
             - 'int'
           minValue: 0
           maxValue: 10
           acceptsEmptyFields: true
-        - field: 'thirsty'
+        - field: 'Thirsty'
           headerName: 'Thirsty'
           type:
             - 'bool'

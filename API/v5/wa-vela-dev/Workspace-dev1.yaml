@@ -78,7 +78,7 @@ additionalData:
                 field: Stock
                 type:
                   - int
-            queryId: bars_attributes
+            queryId: bar_table
           name:
             en: Bars
             fr: Bars
@@ -138,7 +138,7 @@ additionalData:
                 field: Thirsty
                 type:
                   - bool
-            queryId: customers_attributes
+            queryId: customer_table
           name:
             en: Customers
             fr: Clients
@@ -176,9 +176,6 @@ additionalData:
       queries:
         - options:
             selects: 'NbWaiters,RestockQty,Stock'
-            counts: id
-            mins: NbWaiters
-            maxs: NbWaiters
           datasetPartName: bars
           id: bar_table
         - options:

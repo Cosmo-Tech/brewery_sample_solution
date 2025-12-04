@@ -10,7 +10,11 @@ tags: null
 additionalData:
   webapp:
     solution:
-      runTemplateFilter: ['sim_brewery_parameters', 'sim_no_parameters', 'sim_mock_parameters']
+      runTemplateFilter:
+        - 'sim_brewery_parameters'
+        - 'sim_no_parameters'
+        - 'sim_mock_parameters'
+        - 'dynamic_values_customers'
       defaultRunTemplateDataset: null
     menu:
       supportUrl: 'https://support.cosmotech.com'

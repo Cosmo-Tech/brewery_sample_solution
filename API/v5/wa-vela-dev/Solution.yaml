@@ -419,9 +419,11 @@ parameters:
     varType: enum
     additionalData:
       dynamicEnumValues:
-        type: cypher
-        query: 'MATCH(n:Customer) RETURN n.id as customer_id'
-        resultKey: customer_id
+        type: dbDatasetPart
+        datasetPartName: customers
+        resultKey: id
+        options:
+          selects: 'id'
   - id: dynamic_values_customers_list
     labels:
       fr: Liste de clients (list)
@@ -432,9 +434,11 @@ parameters:
     varType: list
     additionalData:
       dynamicEnumValues:
-        type: cypher
-        query: 'MATCH(n:Customer) RETURN n.id as customer_id'
-        resultKey: customer_id
+        type: dbDatasetPart
+        datasetPartName: customers
+        resultKey: id
+        options:
+          selects: 'id'
   - id: etl_param_restock_quantity
     labels:
       fr: Réapprovisionnement
@@ -564,9 +568,11 @@ parameters:
     varType: enum
     additionalData:
       dynamicEnumValues:
-        type: cypher
-        query: 'MATCH(n:Customer) RETURN n.id as id'
+        type: dbDatasetPart
+        datasetPartName: customers
         resultKey: id
+        options:
+          selects: 'id'
   - id: etl_param_subdataset_filter_dynamic_customers_list
     labels:
       fr: Filtrer par clients
@@ -574,9 +580,11 @@ parameters:
     varType: list
     additionalData:
       dynamicEnumValues:
-        type: cypher
-        query: 'MATCH(n:Customer) RETURN n.id as id'
+        type: dbDatasetPart
+        datasetPartName: customers
         resultKey: id
+        options:
+          selects: 'id'
   - id: 'scenario_to_compare'
     labels:
       fr: 'Scénario à comparer'

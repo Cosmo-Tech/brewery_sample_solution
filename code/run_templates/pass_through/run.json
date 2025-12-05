@@ -1,0 +1,33 @@
+{
+  "steps": [
+    {
+      "id": "download",
+      "command": "python",
+      "arguments": [
+        "code/run_templates/common/download_dataset.py"
+      ],
+      "useSystemEnvironment": true,
+      "inputs": {
+        "source_dataset": {
+          "stepId": "generate",
+          "output": "dataset_id",
+          "as": "CSM_DATASET_ID"
+        }
+      },
+      "precedents": [
+        "generate"
+      ]
+    },
+    {
+      "id": "send_data",
+      "command": "python",
+      "arguments": [
+        "code/run_templates/pass_through/send_dataset.py"
+      ],
+      "precedents": [
+        "download"
+      ],
+      "useSystemEnvironment": true
+    }
+  ]
+}

@@ -22,7 +22,7 @@
       "id": "send_data",
       "command": "python",
       "arguments": [
-        "code/run_templates/pass_through/send_dataset.py"
+        "code/run_templates/pass_through/send_data.py"
       ],
       "precedents": [
         "download"

@@ -439,6 +439,21 @@ parameters:
         resultKey: id
         options:
           selects: 'id'
+  - id: dynamic_default_value_customers_count
+    labels:
+      fr: Nomber de clients
+      en: Number of customers
+    varType: int
+    additionalData:
+      tooltipText:
+        fr: La valeur par défaut pour ce champ est automatiquement calculée en récupérant le nombre de clients dans le dataset associé
+        en: The default value for this field is automatically computed by fetching the number of customers in the associated dataset
+      dynamicValues:
+        type: dbDatasetPart
+        datasetPartName: customers
+        resultKey: count_id
+        options:
+          counts: 'id'
   - id: etl_param_restock_quantity
     labels:
       fr: Réapprovisionnement
@@ -687,6 +702,7 @@ parameterGroups:
     parameters:
       - dynamic_values_customers_enum
       - dynamic_values_customers_list
+      - dynamic_default_value_customers_count
   - id: etl_param_group_bar_parameters
     labels:
       fr: Bar

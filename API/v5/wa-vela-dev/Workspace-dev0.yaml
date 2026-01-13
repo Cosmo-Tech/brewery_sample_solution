@@ -4,6 +4,9 @@ name: '0️⃣ Dev0'
 description: 'Brewery dev0 workspace without dashboards. This workspace uses v5 of Cosmo Tech API on KoB/vela.'
 solution:
   solutionId: 'sol-414m4e1q72em8'
+  datasetId: 'd-w4lg0pjm8vpeg'
+  defaultParameterValues:
+    events: 'dp-m3jl1nooz5nzm'
 datasetCopy: false
 version: null
 tags: null

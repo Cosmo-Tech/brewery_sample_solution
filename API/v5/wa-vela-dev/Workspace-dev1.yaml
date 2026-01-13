@@ -19,7 +19,7 @@ additionalData:
     charts:
       supersetDomain: 'https://superset-kubernetes.cosmotech.com'
       dashboards:
-        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+        - id: '129d8644-8939-4bbb-b396-42c89b55b119'
           height: 500px
           width: 100%
           hideTab: false
@@ -30,14 +30,14 @@ additionalData:
           customUrlParams: {}
           filters: []
       scenarioView:
-        default: '272c380b-8824-48fc-a274-aa2fefb1226a'
+        default: '129d8644-8939-4bbb-b396-42c89b55b119'
         overrides:
-          sim_brewery_parameters: '272c380b-8824-48fc-a274-aa2fefb1226a'
-          sim_no_parameters: '272c380b-8824-48fc-a274-aa2fefb1226a'
-          sim_mock_parameters: '272c380b-8824-48fc-a274-aa2fefb1226a'
-          dynamic_values_customers: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          sim_brewery_parameters: '129d8644-8939-4bbb-b396-42c89b55b119'
+          sim_no_parameters: '129d8644-8939-4bbb-b396-42c89b55b119'
+          sim_mock_parameters: '129d8644-8939-4bbb-b396-42c89b55b119'
+          dynamic_values_customers: '129d8644-8939-4bbb-b396-42c89b55b119'
       dashboardView:
-        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+        - id: '129d8644-8939-4bbb-b396-42c89b55b119'
           title:
             en: 'Scenario Results'
             fr: 'Résultats du scénario'

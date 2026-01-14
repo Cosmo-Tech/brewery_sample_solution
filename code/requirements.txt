@@ -1,6 +1,6 @@
 cosmotech-run-orchestrator~=2.0.2
 azure-storage-blob
-CosmoTech-Acceleration-Library @ git+https://github.com/Cosmo-Tech/CosmoTech-Acceleration-Library@feature/cosmotech_api_5.0
+cosmoTech-acceleration-library @ git+https://github.com/Cosmo-Tech/CosmoTech-Acceleration-Library@LAL/use_config_on_runner_api
 cosmotech-api~=5.0.0b3
 faker~=30.6.0
 psycopg2-binary==2.9.*

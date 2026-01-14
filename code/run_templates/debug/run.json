@@ -10,9 +10,9 @@
       "useSystemEnvironment": true
     },
     {
-      "id": "engine",
-      "command": "csm-orc",
-      "arguments": ["run-step"],
+      "id": "print_out",
+      "command": "python3",
+      "arguments": ["code/run_templates/debug/print_inputs.py"],
       "precedents": ["fetch_parameters"],
       "useSystemEnvironment": true
     }

@@ -1,0 +1,42 @@
+{
+    "steps": [
+        {
+          "id": "fetch_parameters",
+          "command": "csm-data",
+          "arguments": ["api", "run-load-data"],
+          "useSystemEnvironment": true
+        }, 
+        {
+          "id": "engine",
+          "command": "csm-simulator",
+          "arguments": [
+            "-i",
+            "BreweryDemoSimulationWithConnector"
+          ],
+          "precedents": [
+            "generate_input_data"
+          ],
+          "useSystemEnvironment": true
+        },
+        {
+          "id": "load_results_to_store",
+          "command": "csm-data",
+          "arguments": [
+            "store",
+            "load-csv-folder"
+          ],
+          "precedents": ["engine"],
+          "useSystemEnvironment": true
+        },
+        {
+          "id": "send_results_to_psql",
+          "command": "csm-data",
+          "arguments": [
+            "store",
+            "output"
+          ],
+          "precedents": ["load_results_to_store"],
+          "useSystemEnvironment": true
+        }
+    ]
+}

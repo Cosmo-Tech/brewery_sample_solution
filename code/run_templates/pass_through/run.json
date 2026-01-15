@@ -1,31 +1,46 @@
 {
   "steps": [
     {
-      "id": "download",
-      "command": "python",
+      "id": "fetch_parameters",
+      "command": "csm-data",
       "arguments": [
-        "code/run_templates/common/download_dataset.py"
+        "api",
+        "run-load-data"
       ],
-      "useSystemEnvironment": true,
-      "inputs": {
-        "source_dataset": {
-          "stepId": "generate",
-          "output": "dataset_id",
-          "as": "CSM_DATASET_ID"
-        }
-      },
-      "precedents": [
-        "generate"
-      ]
+      "useSystemEnvironment": true
     },
     {
-      "id": "send_data",
+      "id": "generate_output_data",
       "command": "python",
       "arguments": [
-        "code/run_templates/pass_through/send_data.py"
+        "code/run_templates/pass_through/generate_csv_files.py"
       ],
       "precedents": [
-        "download"
+        "fetch_parameters"
+      ],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "load_results_to_store",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "load-csv-folder"
+      ],
+      "precedents": [
+        "generate_output_data"
+      ],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "send_results_output",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "output"
+      ],
+      "precedents": [
+        "load_results_to_store"
       ],
       "useSystemEnvironment": true
     }

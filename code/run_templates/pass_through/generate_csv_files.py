@@ -5,6 +5,7 @@ import argparse
 import sys
 import os
 import time
+from pathlib import Path
 
 # --- Configuration / Profiles ---
 
@@ -118,7 +119,11 @@ def estimate_row_size(shape, samples=50):
     end = dummy_io.tell()
     return (end - start) / samples
 
-def generate_file(filename, target_size_str, shape):
+def generate_file(filename, target_size_str, shape, folder="."):
+    # Ensure folder exists
+    os.makedirs(folder, exist_ok=True)
+    filepath = os.path.join(folder, filename)
+
     target_bytes = parse_size(target_size_str)
     avg_row_size = estimate_row_size(shape)
     
@@ -131,11 +136,11 @@ def generate_file(filename, target_size_str, shape):
     estimated_rows = int(data_bytes_needed / avg_row_size) if avg_row_size > 0 else 0
 
     print(f"--- Configuration ---")
-    print(f"File:   {filename}")
+    print(f"File:   {filepath}")
     print(f"Shape:  {shape.upper()} ({len(fieldnames)} cols)")
     print(f"Target: {target_size_str} (~{estimated_rows:,} rows)")
     
-    with open(filename, "w", newline="", encoding="utf-8") as f:
+    with open(filepath, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         
@@ -154,7 +159,7 @@ def generate_file(filename, target_size_str, shape):
                 
     elapsed = time.time() - start_time
     try:
-        actual_size = os.path.getsize(filename)
+        actual_size = os.path.getsize(filepath)
         print(f"\nDone! Generated {actual_size / (1024**2):.2f} MB in {elapsed:.2f}s")
     except OSError:
         print(f"\nDone! (Size check failed)")
@@ -162,45 +167,45 @@ def generate_file(filename, target_size_str, shape):
 # --- Main ---
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate CSV datasets.")
+    # parser = argparse.ArgumentParser(description="Generate CSV datasets.")
     
-    parser.add_argument("output", nargs="?", help="Output CSV filename (ignored if --flow is used)")
-    parser.add_argument("--size", default="10MB", help="Target size (e.g., 10MB, 1GB). Default: 10MB")
-    parser.add_argument("--shape", choices=["wide", "narrow"], default="narrow", help="Data shape.")
-    parser.add_argument("--ddl", action="store_true", help="Print PostgreSQL CREATE TABLE statement and exit.")
-    parser.add_argument("--flow", action="store_true", help="Generate full series of test files (sizes 10KB to 1GB, both shapes).")
+    # parser.add_argument("output", nargs="?", help="Output CSV filename (ignored if --flow is used)")
+    # parser.add_argument("--size", default="10MB", help="Target size (e.g., 10MB, 1GB). Default: 10MB")
+    # parser.add_argument("--shape", choices=["wide", "narrow"], default="narrow", help="Data shape.")
+    # parser.add_argument("--ddl", action="store_true", help="Print PostgreSQL CREATE TABLE statement and exit.")
+    # parser.add_argument("--flow", action="store_true", help="Generate full series of test files (sizes 10KB to 1GB, both shapes).")
     
-    args = parser.parse_args()
+    # args = parser.parse_args()
 
-    # 1. DDL Mode
-    if args.ddl:
-        print_ddl(args.shape)
-        sys.exit(0)
+    # # 1. DDL Mode
+    # if args.ddl:
+    #     print_ddl(args.shape)
+    #     sys.exit(0)
 
-    # 2. Flow Mode (Batch Generation)
-    if args.flow:
-        sizes = ["10KB", "100KB", "1MB", "10MB", "100MB", "200MB", "500MB", "1GB"]
-        shapes = ["wide", "narrow"]
+    # # 2. Flow Mode (Batch Generation)
+    # if args.flow:
+    #     sizes = ["10KB", "100KB", "1MB", "10MB", "100MB", "200MB", "500MB", "1GB"]
+    #     shapes = ["wide", "narrow"]
         
-        print(f"Starting FLOW generation mode...")
-        print(f"Sizes: {sizes}")
-        print(f"Shapes: {shapes}\n")
+    #     print(f"Starting FLOW generation mode...")
+    #     print(f"Sizes: {sizes}")
+    #     print(f"Shapes: {shapes}\n")
         
-        total_start = time.time()
+    #     total_start = time.time()
         
-        for s in sizes:
-            for sh in shapes:
-                filename = f"dataset_{s}_{sh}.csv"
-                generate_file(filename, s, sh)
-                print("-" * 40)
+    #     for s in sizes:
+    #         for sh in shapes:
+    #             filename = f"dataset_{s}_{sh}.csv"
+    #             generate_file(filename, s, sh)
+    #             print("-" * 40)
                 
-        print(f"\nBatch generation complete in {time.time() - total_start:.2f}s")
-        sys.exit(0)
+    #     print(f"\nBatch generation complete in {time.time() - total_start:.2f}s")
+    #     sys.exit(0)
 
-    # 3. Single File Mode
-    if not args.output:
-        print("Error: output filename is required (unless using --flow or --ddl)")
-        parser.print_help()
-        sys.exit(1)
+    # # 3. Single File Mode
+    # if not args.output:
+    #     print("Error: output filename is required (unless using --flow or --ddl)")
+    #     parser.print_help()
+    #     sys.exit(1)
 
-    generate_file(args.output, args.size, args.shape)
+    generate_file("10MB.csv", "10MB", "wide", os.environ['CSM_DATASET_ABSOLUTE_PATH'])

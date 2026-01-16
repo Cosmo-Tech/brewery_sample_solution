@@ -441,7 +441,7 @@ parameters:
           selects: 'id'
   - id: dynamic_default_value_customers_count
     labels:
-      fr: Nomber de clients
+      fr: Nombre de clients
       en: Number of customers
     varType: int
     additionalData:

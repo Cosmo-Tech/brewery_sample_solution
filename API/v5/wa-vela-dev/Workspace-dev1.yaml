@@ -15,6 +15,7 @@ additionalData:
         - 'sim_no_parameters'
         - 'sim_mock_parameters'
         - 'dynamic_values_customers'
+        - 'standalone'
       defaultRunTemplateDataset: null
     charts:
       supersetDomain: 'https://superset-kubernetes.cosmotech.com'

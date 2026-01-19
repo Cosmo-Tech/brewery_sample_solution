@@ -3,7 +3,7 @@ key: 'Dev Brewery Solution'
 name: 'Dev Brewery Solution'
 description: 'Dev Brewery Solution'
 repository: 'cosmotech/brewerysamplesolution_simulator'
-version: '3.0.0-dev.10'
+version: '3.0.0-dev.15'
 sdkVersion: '10.4.0'
 alwaysPull: true
 url: 'https://kubernetes.cosmotech.com/cosmotech-webapp/wa-vela-dev'
@@ -892,3 +892,7 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection
+  - id: standalone
+    labels:
+      fr: Simulation "stand-alone" sans paramètres
+      en: Standalone simulation without parameters

@@ -18,6 +18,7 @@ additionalData:
         - 'sim_no_parameters'
         - 'sim_mock_parameters'
         - 'dynamic_values_customers'
+        - 'standalone'
       defaultRunTemplateDataset: null
     menu:
       supportUrl: 'https://support.cosmotech.com'

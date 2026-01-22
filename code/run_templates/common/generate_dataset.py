@@ -39,12 +39,14 @@ def generate_data(data_dir):
         customers = list(fake_generator.name() for _ in range(random.randint(30, 150)))
         n_customers = len(customers)
         _stock = random.randint(30, 500)
-        bar_content.append({
-            "id": bar,
-            "Stock": _stock,
-            "RestockQty": random.randint(10, _stock),
-            "NbWaiters": random.randint(1, n_customers // 2),
-        })
+        bar_content.append(
+            {
+                "id": bar,
+                "Stock": _stock,
+                "RestockQty": random.randint(10, _stock),
+                "NbWaiters": random.randint(1, n_customers // 2),
+            }
+        )
         mask = np.random.randint(2, size=(n_customers, n_customers), dtype=bool)
         r_customer = []
         for i in range(n_customers):
@@ -53,34 +55,41 @@ def generate_data(data_dir):
                 _name = f"{_name} {dup_counter}"
                 dup_counter += 1
             r_customer.append(_name)
-            customer_content.append({
-                "id": _name,
-                "Thirsty": "false",
-                "Satisfaction": 100,
-                "SurroundingSatisfaction": 100
-            })
-            bar_vertex_content.append({
-                "source": bar,
-                "target": _name
-            })
+            customer_content.append(
+                {
+                    "id": _name,
+                    "Thirsty": "false",
+                    "Satisfaction": 100,
+                    "SurroundingSatisfaction": 100,
+                }
+            )
+            bar_vertex_content.append({"source": bar, "target": _name})
 
         for i, j in itertools.combinations(range(n_customers), 2):
             if mask[i][j] or mask[j][i]:
-                arc_satisfaction_content.append({
-                    "source": r_customer[i],
-                    "target": r_customer[j],
-                })
-                arc_satisfaction_content.append({
-                    "source": r_customer[j],
-                    "target": r_customer[i],
-                })
+                arc_satisfaction_content.append(
+                    {
+                        "source": r_customer[i],
+                        "target": r_customer[j],
+                    }
+                )
+                arc_satisfaction_content.append(
+                    {
+                        "source": r_customer[j],
+                        "target": r_customer[i],
+                    }
+                )
 
         data_dir_path = pathlib.Path(data_dir)
         for _name, _headers, _content in [
             ("Customer.csv", headers_customer, customer_content),
             ("Bar.csv", headers_bar, bar_content),
             ("Bar_vertex.csv", headers_bar_vertex, bar_vertex_content),
-            ("arc_Satisfaction.csv", headers_arc_satisfaction, arc_satisfaction_content),
+            (
+                "arc_Satisfaction.csv",
+                headers_arc_satisfaction,
+                arc_satisfaction_content,
+            ),
         ]:
             _path = data_dir_path / _name
             with _path.open("w") as _file:
@@ -105,24 +114,23 @@ def create_dataset_from(data_dir):
             DatasetPartCreateRequest(
                 name=f"{RUN_ID} - {_p.name}",
                 sourceName=_p.name,
-                type=DatasetPartTypeEnum.FILE
+                type=DatasetPartTypeEnum.FILE,
             )
             for _p in data_dir_path.glob("*.csv")
-        )
+        ),
     )
     return d_api.create_dataset(
         ORG_ID,
         WS_ID,
         d_request,
         files=list(
-            (_p.name, _p.open("rb").read())
-            for _p in data_dir_path.glob("*.csv")
-        )
+            (_p.name, _p.open("rb").read()) for _p in data_dir_path.glob("*.csv")
+        ),
     )
 
 
 if __name__ == "__main__":
-    with tempfile.TemporaryFile(suffix='dataset') as temp_dir:
+    with tempfile.TemporaryFile(suffix="dataset") as temp_dir:
         temp_dir_path = pathlib.Path(temp_dir)
         generate_data(temp_dir_path)
         dataset_id = create_dataset_from(temp_dir_path)

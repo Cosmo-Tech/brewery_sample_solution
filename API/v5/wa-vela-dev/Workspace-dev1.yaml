@@ -21,24 +21,30 @@ additionalData:
       supersetDomain: 'https://superset-kubernetes.cosmotech.com'
       dashboards:
         - id: '129d8644-8939-4bbb-b396-42c89b55b119'
-          height: 500px
+          height: 900px
           width: 100%
-          hideTab: false
-          hideTitle: false
+        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          height: 900px
+          width: 100%
+          hideTitle: true
           hideChartControls: false
           hideFilters: false
           expandFilters: false
-          customUrlParams: {}
-          filters: []
+          filters:
+            - id: "TFlc5mI_Emoke793qamlg"
+              operator: "=="
+              column: "simulation_run"
+              value: "lastRunId"
       scenarioView:
         default: '129d8644-8939-4bbb-b396-42c89b55b119'
         overrides:
-          sim_brewery_parameters: '129d8644-8939-4bbb-b396-42c89b55b119'
-          sim_no_parameters: '129d8644-8939-4bbb-b396-42c89b55b119'
-          sim_mock_parameters: '129d8644-8939-4bbb-b396-42c89b55b119'
-          dynamic_values_customers: '129d8644-8939-4bbb-b396-42c89b55b119'
+          standalone: '272c380b-8824-48fc-a274-aa2fefb1226a'
       dashboardView:
         - id: '129d8644-8939-4bbb-b396-42c89b55b119'
+          title:
+            en: 'Brewery Operations Overview'
+            fr: 'Aperçu des opérations'
+        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
           title:
             en: 'Scenario Results'
             fr: 'Résultats du scénario'

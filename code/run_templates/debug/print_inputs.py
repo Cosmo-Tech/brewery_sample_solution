@@ -42,6 +42,10 @@ def main():
     _conf = Configuration()
 
     param_path = Path(_conf.cosmotech.parameters_absolute_path)
+    dprint("parameter.json:")
+    with open(param_path / "parameters.json") as f:
+        print(f.read())
+
     dprint(f"Printing {param_path.resolve()} content:")
     for line in tree(param_path):
         dprint(line)

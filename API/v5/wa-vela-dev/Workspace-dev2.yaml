@@ -38,10 +38,10 @@ additionalData:
           dynamicFilters:
             - table: 'public breweryStock'
               column: Simulation_run
-              values: visibleScenariosSimulationRunsIds
+              values: visibleScenariosLastRunIds
             - table: 'public brewerySatisfaction'
               column: Simulation_run
-              values: visibleScenariosSimulationRunsIds
+              values: visibleScenariosLastRunIds
           pageName:
             en: ReportSection99fca3e46d5107c9ddea
             fr: ReportSection99fca3e46d5107c9ddea

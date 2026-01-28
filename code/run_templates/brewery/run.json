@@ -7,6 +7,17 @@
           "useSystemEnvironment": true
         }, 
         {
+          "id": "parameters_handler",
+          "command": "python3",
+          "arguments": [
+            "code/run_templates/brewery/parameters_handler.py"
+          ],
+          "precedents": [
+            "fetch_parameters"
+          ],
+          "useSystemEnvironment": true
+        },
+        {
           "id": "engine",
           "command": "csm-simulator",
           "arguments": [
@@ -14,7 +25,7 @@
             "BreweryDemoSimulationWithConnector"
           ],
           "precedents": [
-            "fetch_parameters"
+            "parameters_handler"
           ],
           "useSystemEnvironment": true
         },

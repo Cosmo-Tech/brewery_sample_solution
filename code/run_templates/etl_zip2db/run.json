@@ -12,7 +12,7 @@
     {
       "id": "ETL",
       "command": "python",
-      "arguments": ["run_templates/etl_with_local_file/etl.py"],
+      "arguments": ["run_templates/etl_zip2db/etl.py"],
       "precedents": ["fetch_parameters"],
       "useSystemEnvironment": true
     }

@@ -119,8 +119,8 @@ parameters:
       fr: 'Consommation moyenne'
       en: 'Average consumption'
     varType: 'number'
-    minValue: 0
-    maxValue: 10
+    minValue: '0'
+    maxValue: '10'
     defaultValue: '3'
     additionalData:
       subType: 'SLIDER'
@@ -132,9 +132,9 @@ parameters:
       fr: 'Sièges additionnels'
       en: 'Additional seats'
     varType: 'number'
-    defaultValue: -4
-    minValue: -600
-    maxValue: 2500
+    defaultValue: '-4'
+    minValue: '-600'
+    maxValue: '2500'
     additionalData:
       tooltipText:
         fr: 'La valeur peut être comprise entre -600 et 2500'
@@ -145,8 +145,8 @@ parameters:
       en: 'Additional tables'
     varType: 'number'
     defaultValue: '3'
-    minValue: -150
-    maxValue: 12000
+    minValue: '-150'
+    maxValue: '12000'
     additionalData:
       tooltipText:
         fr: 'La valeur peut être comprise entre -150 et 12000'
@@ -252,8 +252,8 @@ parameters:
         - field: 'age'
           type:
             - 'int'
-          minValue: 0
-          maxValue: 120
+          minValue: '0'
+          maxValue: '120'
           acceptsEmptyFields: true
         - headerName: 'consumption'
           children:
@@ -279,8 +279,8 @@ parameters:
             - field: 'height'
               type:
                 - 'number'
-              minValue: 0
-              maxValue: 2.5
+              minValue: '0'
+              maxValue: '2.5'
               acceptsEmptyFields: true
       dateFormat: 'dd/MM/yyyy'
       tooltipText:
@@ -323,8 +323,8 @@ parameters:
         - field: 'reservationsNumber'
           type:
             - 'int'
-          minValue: 0
-          maxValue: 300
+          minValue: '0'
+          maxValue: '300'
           acceptsEmptyFields: true
         - field: 'online'
           type:
@@ -349,15 +349,15 @@ parameters:
           headerName: 'Satisfaction'
           type:
             - 'int'
-          minValue: 0
-          maxValue: 10
+          minValue: '0'
+          maxValue: '10'
           acceptsEmptyFields: true
         - field: 'SurroundingSatisfaction'
           headerName: 'Surrounding satisfaction'
           type:
             - 'int'
-          minValue: 0
-          maxValue: 10
+          minValue: '0'
+          maxValue: '10'
           acceptsEmptyFields: true
         - field: 'Thirsty'
           headerName: 'Thirsty'

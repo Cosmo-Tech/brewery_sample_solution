@@ -16,19 +16,19 @@ parameters:
       fr: 'Stock'
       en: 'Stock'
     varType: 'int'
-    defaultValue: 100
+    defaultValue: '100'
   - id: 'restock_qty'
     labels:
       fr: 'Restock'
       en: 'Restock'
     varType: 'int'
-    defaultValue: 25
+    defaultValue: '25'
   - id: 'nb_waiters'
     labels:
       fr: 'Serveurs'
       en: 'Waiters'
     varType: 'int'
-    defaultValue: 5
+    defaultValue: '5'
   - id: 'currency'
     labels:
       fr: 'Symbole de la monnaie'
@@ -78,7 +78,7 @@ parameters:
       fr: 'Valeur'
       en: 'Value'
     varType: 'number'
-    defaultValue: 1000
+    defaultValue: '1000'
     additionalData:
       tooltipText:
         fr: 'Choisissez une valeur'
@@ -88,7 +88,7 @@ parameters:
       fr: 'Activer la monnaie'
       en: 'Enable currency'
     varType: 'bool'
-    defaultValue: false
+    defaultValue: 'false'
     additionalData:
       tooltipText:
         fr: 'Activez la monnaie'
@@ -119,9 +119,9 @@ parameters:
       fr: 'Consommation moyenne'
       en: 'Average consumption'
     varType: 'number'
-    minValue: 0
-    maxValue: 10
-    defaultValue: 3
+    minValue: '0'
+    maxValue: '10'
+    defaultValue: '3'
     additionalData:
       subType: 'SLIDER'
       tooltipText:
@@ -132,9 +132,9 @@ parameters:
       fr: 'Sièges additionnels'
       en: 'Additional seats'
     varType: 'number'
-    defaultValue: -4
-    minValue: -600
-    maxValue: 2500
+    defaultValue: '-4'
+    minValue: '-600'
+    maxValue: '2500'
     additionalData:
       tooltipText:
         fr: 'La valeur peut être comprise entre -600 et 2500'
@@ -144,9 +144,9 @@ parameters:
       fr: 'Tables additionnelles'
       en: 'Additional tables'
     varType: 'number'
-    defaultValue: 3
-    minValue: -150
-    maxValue: 12000
+    defaultValue: '3'
+    minValue: '-150'
+    maxValue: '12000'
     additionalData:
       tooltipText:
         fr: 'La valeur peut être comprise entre -150 et 12000'
@@ -156,7 +156,7 @@ parameters:
       en: 'Activated'
       fr: 'Activé'
     varType: 'bool'
-    defaultValue: false
+    defaultValue: 'false'
   - id: 'evaluation'
     labels:
       fr: 'Evaluation'
@@ -252,8 +252,8 @@ parameters:
         - field: 'age'
           type:
             - 'int'
-          minValue: 0
-          maxValue: 120
+          minValue: '0'
+          maxValue: '120'
           acceptsEmptyFields: true
         - headerName: 'consumption'
           children:
@@ -279,8 +279,8 @@ parameters:
             - field: 'height'
               type:
                 - 'number'
-              minValue: 0
-              maxValue: 2.5
+              minValue: '0'
+              maxValue: '2.5'
               acceptsEmptyFields: true
       dateFormat: 'dd/MM/yyyy'
       tooltipText:
@@ -323,8 +323,8 @@ parameters:
         - field: 'reservationsNumber'
           type:
             - 'int'
-          minValue: 0
-          maxValue: 300
+          minValue: '0'
+          maxValue: '300'
           acceptsEmptyFields: true
         - field: 'online'
           type:
@@ -349,15 +349,15 @@ parameters:
           headerName: 'Satisfaction'
           type:
             - 'int'
-          minValue: 0
-          maxValue: 10
+          minValue: '0'
+          maxValue: '10'
           acceptsEmptyFields: true
         - field: 'SurroundingSatisfaction'
           headerName: 'Surrounding satisfaction'
           type:
             - 'int'
-          minValue: 0
-          maxValue: 10
+          minValue: '0'
+          maxValue: '10'
           acceptsEmptyFields: true
         - field: 'Thirsty'
           headerName: 'Thirsty'
@@ -379,7 +379,7 @@ parameters:
       fr: Stock
       en: Stock
     varType: string
-    defaultValue: 100
+    defaultValue: '100'
   - id: 'countries'
     labels:
       fr: 'Pays'
@@ -459,25 +459,25 @@ parameters:
       fr: Réapprovisionnement
       en: Restock
     varType: string
-    defaultValue: 25
+    defaultValue: '25'
   - id: etl_param_num_waiters
     labels:
       fr: Serveurs
       en: Waiters
     varType: string
-    defaultValue: 5
+    defaultValue: '5'
   - id: etl_param_tables_count
     labels:
       fr: Nombre de tables
       en: Number of tables
     varType: string
-    defaultValue: 10
+    defaultValue: '10'
   - id: etl_param_customers_count
     labels:
       fr: Nombre de clients
       en: Number of customers
     varType: string
-    defaultValue: 50
+    defaultValue: '50'
   - id: etl_param_locale
     labels:
       fr: Localisation des noms générés
@@ -489,13 +489,13 @@ parameters:
       fr: Satisfaction
       en: Satisfaction
     varType: string
-    defaultValue: 0
+    defaultValue: '0'
   - id: etl_param_surrounding_satisfaction
     labels:
       fr: Satisfaction de l'entourage
       en: Surrounding satisfaction
     varType: string
-    defaultValue: 0
+    defaultValue: '0'
   - id: etl_param_thirsty
     labels:
       fr: Soif initiale

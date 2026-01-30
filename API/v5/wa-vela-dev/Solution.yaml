@@ -16,19 +16,19 @@ parameters:
       fr: 'Stock'
       en: 'Stock'
     varType: 'int'
-    defaultValue: 100
+    defaultValue: '100'
   - id: 'restock_qty'
     labels:
       fr: 'Restock'
       en: 'Restock'
     varType: 'int'
-    defaultValue: 25
+    defaultValue: '25'
   - id: 'nb_waiters'
     labels:
       fr: 'Serveurs'
       en: 'Waiters'
     varType: 'int'
-    defaultValue: 5
+    defaultValue: '5'
   - id: 'currency'
     labels:
       fr: 'Symbole de la monnaie'
@@ -78,7 +78,7 @@ parameters:
       fr: 'Valeur'
       en: 'Value'
     varType: 'number'
-    defaultValue: 1000
+    defaultValue: '1000'
     additionalData:
       tooltipText:
         fr: 'Choisissez une valeur'
@@ -121,7 +121,7 @@ parameters:
     varType: 'number'
     minValue: 0
     maxValue: 10
-    defaultValue: 3
+    defaultValue: '3'
     additionalData:
       subType: 'SLIDER'
       tooltipText:
@@ -144,7 +144,7 @@ parameters:
       fr: 'Tables additionnelles'
       en: 'Additional tables'
     varType: 'number'
-    defaultValue: 3
+    defaultValue: '3'
     minValue: -150
     maxValue: 12000
     additionalData:
@@ -379,7 +379,7 @@ parameters:
       fr: Stock
       en: Stock
     varType: string
-    defaultValue: 100
+    defaultValue: '100'
   - id: 'countries'
     labels:
       fr: 'Pays'
@@ -459,25 +459,25 @@ parameters:
       fr: Réapprovisionnement
       en: Restock
     varType: string
-    defaultValue: 25
+    defaultValue: '25'
   - id: etl_param_num_waiters
     labels:
       fr: Serveurs
       en: Waiters
     varType: string
-    defaultValue: 5
+    defaultValue: '5'
   - id: etl_param_tables_count
     labels:
       fr: Nombre de tables
       en: Number of tables
     varType: string
-    defaultValue: 10
+    defaultValue: '10'
   - id: etl_param_customers_count
     labels:
       fr: Nombre de clients
       en: Number of customers
     varType: string
-    defaultValue: 50
+    defaultValue: '50'
   - id: etl_param_locale
     labels:
       fr: Localisation des noms générés
@@ -489,13 +489,13 @@ parameters:
       fr: Satisfaction
       en: Satisfaction
     varType: string
-    defaultValue: 0
+    defaultValue: '0'
   - id: etl_param_surrounding_satisfaction
     labels:
       fr: Satisfaction de l'entourage
       en: Surrounding satisfaction
     varType: string
-    defaultValue: 0
+    defaultValue: '0'
   - id: etl_param_thirsty
     labels:
       fr: Soif initiale

@@ -88,7 +88,7 @@ parameters:
       fr: 'Activer la monnaie'
       en: 'Enable currency'
     varType: 'bool'
-    defaultValue: false
+    defaultValue: 'false'
     additionalData:
       tooltipText:
         fr: 'Activez la monnaie'
@@ -156,7 +156,7 @@ parameters:
       en: 'Activated'
       fr: 'Activé'
     varType: 'bool'
-    defaultValue: false
+    defaultValue: 'false'
   - id: 'evaluation'
     labels:
       fr: 'Evaluation'

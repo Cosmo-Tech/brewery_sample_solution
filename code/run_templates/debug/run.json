@@ -15,6 +15,28 @@
       "arguments": ["code/run_templates/debug/print_inputs.py"],
       "precedents": ["fetch_parameters"],
       "useSystemEnvironment": true
+    },
+    {
+      "id": "load_results_to_store",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "load-csv-folder",
+        "--csv-folder",
+        "$CSM_DATASET_ABSOLUTE_PATH"
+      ],
+      "precedents": ["print_out"],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "send_results_to_psql",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "output"
+      ],
+      "precedents": ["load_results_to_store"],
+      "useSystemEnvironment": true
     }
   ]
 }

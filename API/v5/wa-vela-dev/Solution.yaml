@@ -758,10 +758,10 @@ runTemplates:
   - id: 'sim_brewery_parameters'
     runSizing:
       requests:
-        cpu: 1
+        cpu: "1"
         memory: 1G
       limits:
-        cpu: 1
+        cpu: "1"
         memory: 1G
     labels:
       fr: 'Run template avec les paramètres de Brewery '

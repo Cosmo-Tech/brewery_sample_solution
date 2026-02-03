@@ -3,7 +3,7 @@ import shutil
 import csv
 from pathlib import Path
 
-from cosmotech.coal.utils.configuration.Configuration import ENVIRONMENT_CONFIGURATION as EC
+from cosmotech.coal.utils.configuration import ENVIRONMENT_CONFIGURATION as EC
 from cosmotech.orchestrator.utils.logger import get_logger
 
 LOGGER = get_logger('parameters_handler')

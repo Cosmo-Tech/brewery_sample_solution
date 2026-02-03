@@ -46,6 +46,13 @@ def read_parameters():
     return parameters
 
 
+def fetch_parameter_file_path(param_name: str) -> Path:
+    for r, d, f in os.walk(EC.cosmotech.parameters_absolute_path):
+        if param_name in r:
+            return Path(r) / f[0]
+    raise FileNotFoundError(f"Parameter file for {param_name} not found.")
+
+
 def main():
     LOGGER.info("Starting parameter handler")
 
@@ -65,8 +72,7 @@ def main():
     LOGGER.info("Updated Bar.csv with parameters")
 
     # replace bar.csv if file is provided as parameter
-    param_path = Path(EC.cosmotech.parameters_absolute_path)
-    bar_param_path = param_path / "bar.csv"
+    bar_param_path = fetch_parameter_file_path("initial_stock_dataset")
     if bar_data_path.exists():
         # replace dataset Bar.csv with parameter Bar.csv
         shutil.copy(bar_param_path, bar_data_path)

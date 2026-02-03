@@ -1,0 +1,60 @@
+{
+    "steps": [
+        {
+          "id": "fetch_parameters",
+          "command": "csm-data",
+          "arguments": ["api", "run-load-data"],
+          "useSystemEnvironment": true
+        }, 
+        {
+          "id": "print_out",
+          "command": "python3",
+          "arguments": ["code/run_templates/full_demo/print_inputs.py"],
+          "precedents": ["fetch_parameters"],
+          "useSystemEnvironment": true
+        },
+        {
+          "id": "parameters_handler",
+          "command": "python3",
+          "arguments": [
+            "code/run_templates/full_demo/parameters_handler.py"
+          ],
+          "precedents": [
+            "fetch_parameters"
+          ],
+          "useSystemEnvironment": true
+        },
+        {
+          "id": "engine",
+          "command": "csm-simulator",
+          "arguments": [
+            "-i",
+            "BreweryDemoSimulationWithConnector"
+          ],
+          "precedents": [
+            "parameters_handler"
+          ],
+          "useSystemEnvironment": true
+        },
+        {
+          "id": "load_results_to_store",
+          "command": "csm-data",
+          "arguments": [
+            "store",
+            "load-csv-folder"
+          ],
+          "precedents": ["engine"],
+          "useSystemEnvironment": true
+        },
+        {
+          "id": "send_results_to_psql",
+          "command": "csm-data",
+          "arguments": [
+            "store",
+            "output"
+          ],
+          "precedents": ["load_results_to_store"],
+          "useSystemEnvironment": true
+        }
+    ]
+}

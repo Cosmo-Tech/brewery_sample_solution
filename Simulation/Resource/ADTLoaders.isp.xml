@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<csmSon:ModelPart xmlns:csmSon="http://www.cosmotech.com/csm_modelpart/11.5">
+<csmSon:ModelPart xmlns:csmSon="http://www.cosmotech.com/csm_modelpart/12.0">
   <csmSon:Loader type="cexCSVEntityLoader" name="ADT CSV loader for entity type: Bar">
     <csmSon:Property name="DefaultType">Bar</csmSon:Property>
     <csmSon:Property name="FieldSeparator">,</csmSon:Property>

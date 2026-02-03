@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Language: XML
-  $Author:$
-  $Date:$
-  $Revision$
-  $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
--->
-<csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/11.5">
+<csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/12.0">
   <csmSor:Name>BrewerySampleSolution</csmSor:Name>
   <csmSor:Version><![CDATA[3.0.0-dev]]></csmSor:Version>
   <csmSor:Description><![CDATA[A project generated with CoSMo]]></csmSor:Description>
@@ -23,16 +16,16 @@
         <csmSor:Observables>
           <csmSor:EntityReference name="CustomerSatisfactionObs">{Model}Brewery::{Entity}Customer</csmSor:EntityReference>
         </csmSor:Observables>
-        <csmSor:Measure xsi:type="csmSor:DataType" name="CustomerSatisfactionMeasure" updateRate="OncePerObservablesValue" owned="1">
+        <csmSor:Measure xsi:type="csmSor:DataType" name="CustomerSatisfactionMeasure" updateRate="OncePerObservablesValue" owned="true">
           <csmSor:DataTypeReference>{Model}Brewery::{DataType}Integer</csmSor:DataTypeReference>
           <csmSor:Implementation language="cpp">
-            <csmSor:Code>GetCustomerSatisfactionMeasure() = GetCustomerSatisfactionObs()-&gt;GetSatisfaction();</csmSor:Code>
+            <csmSor:Code><![CDATA[GetCustomerSatisfactionMeasure() = GetCustomerSatisfactionObs()->GetSatisfaction();]]></csmSor:Code>
           </csmSor:Implementation>
         </csmSor:Measure>
-        <csmSor:Dimension xsi:type="csmSor:DataType" name="CustomerNameDimension" updateRate="OncePerObservablesValue" owned="1">
+        <csmSor:Dimension xsi:type="csmSor:DataType" name="CustomerNameDimension" updateRate="OncePerObservablesValue" owned="true">
           <csmSor:DataTypeReference>{Model}Brewery::{DataType}String</csmSor:DataTypeReference>
           <csmSor:Implementation language="cpp">
-            <csmSor:Code>GetCustomerNameDimension() = GetCustomerSatisfactionObs()-&gt;GetName();</csmSor:Code>
+            <csmSor:Code><![CDATA[GetCustomerNameDimension() = GetCustomerSatisfactionObs()->GetName();]]></csmSor:Code>
           </csmSor:Implementation>
         </csmSor:Dimension>
       </csmSor:Probe>
@@ -40,10 +33,10 @@
         <csmSor:Observables>
           <csmSor:EntityReference name="BarObs">{Model}Brewery::{Entity}Bar</csmSor:EntityReference>
         </csmSor:Observables>
-        <csmSor:Measure xsi:type="csmSor:DataType" name="StockMeasure" updateRate="OncePerObservablesValue" owned="1">
+        <csmSor:Measure xsi:type="csmSor:DataType" name="StockMeasure" updateRate="OncePerObservablesValue" owned="true">
           <csmSor:DataTypeReference>{Model}Brewery::{DataType}Integer</csmSor:DataTypeReference>
           <csmSor:Implementation language="cpp">
-            <csmSor:Code>GetStockMeasure() = GetBarObs()-&gt;GetStock();</csmSor:Code>
+            <csmSor:Code><![CDATA[GetStockMeasure() = GetBarObs()->GetStock();]]></csmSor:Code>
           </csmSor:Implementation>
         </csmSor:Measure>
       </csmSor:Probe>

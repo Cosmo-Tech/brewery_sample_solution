@@ -72,7 +72,7 @@ def main():
     LOGGER.info("Updated Bar.csv with parameters")
 
     # replace bar.csv if file is provided as parameter
-    bar_param_path = fetch_parameter_file_path("initial_stock_dataset")
+    bar_param_path = fetch_parameter_file_path("initial_stock_dataset") / "initial_stock_dataset"
     if bar_data_path.exists():
         # replace dataset Bar.csv with parameter Bar.csv
         shutil.copy(bar_param_path, bar_data_path)

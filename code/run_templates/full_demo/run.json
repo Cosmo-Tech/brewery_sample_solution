@@ -20,7 +20,7 @@
             "code/run_templates/full_demo/parameters_handler.py"
           ],
           "precedents": [
-            "fetch_parameters"
+            "print_out"
           ],
           "useSystemEnvironment": true
         },

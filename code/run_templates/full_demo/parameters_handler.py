@@ -2,9 +2,10 @@ import csv
 import json
 import os
 import itertools
+import shutil
 from pathlib import Path
 
-from cosmotech.coal.utils.configuration.Configuration import ENVIRONMENT_CONFIGURATION as EC
+from cosmotech.coal.utils.configuration import ENVIRONMENT_CONFIGURATION as EC
 from cosmotech.orchestrator.utils.logger import get_logger
 
 LOGGER = get_logger('parameter_handler')
@@ -49,11 +50,18 @@ def update_first_row_in_csv(csv_path, updated_values):
     return rows[0]
 
 
+def fetch_dataset_file_path(dataset_name: str) -> Path:
+    for r, d, f in os.walk(EC.cosmotech.dataset_absolute_path):
+        if dataset_name in f:
+            return Path(r) / dataset_name
+    raise FileNotFoundError(f"File for {dataset_name} not found in {EC.cosmotech.dataset_absolute_path}.")
+
+
 def fetch_parameter_file_path(param_name: str) -> Path:
     for r, d, f in os.walk(EC.cosmotech.parameters_absolute_path):
         if param_name in r:
             return Path(r) / f[0]
-    raise FileNotFoundError(f"Parameter file for {param_name} not found.")
+    raise FileNotFoundError(f"File for {param_name} not found in {EC.cosmotech.parameters_absolute_path}.")
 
 
 def fetch_customers_list():
@@ -67,18 +75,39 @@ def fetch_customers_list():
                 names.append(row['Name'])
         return names
 
-    customers_csv_path = fetch_parameter_file_path("customers")
+    try:
+        customers_csv_path = fetch_parameter_file_path("customers_dynamic_table")
+    except FileNotFoundError:
+        customers_csv_path = fetch_dataset_file_path("Customer.csv")
     customers.extend(extract_names_from_csv(customers_csv_path))
 
-    additionnal_customers_csv_path = fetch_parameter_file_path("additional_customers")
-    customers.extend(extract_names_from_csv(additionnal_customers_csv_path))
+    try:
+        additionnal_customers_csv_path = fetch_parameter_file_path("additional_customers")
+        customers.extend(extract_names_from_csv(additionnal_customers_csv_path))
+    except FileNotFoundError:
+        pass
 
     LOGGER.info(f"Fetched {len(customers)} customers from {customers_csv_path}")
     return customers
 
+def generate_customers(customers: list):
+    customer_csv_path = Path(EC.cosmotech.dataset_absolute_path) / "Customer.csv"
+    with open(customer_csv_path, 'w', newline='') as f:
+        fieldnames = ['id', 'Thirsty', 'Satisfaction', 'SurroundingSatisfaction']
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for customer in customers:
+            writer.writerow({
+                'id': customer,
+                'Thirsty': 'false',
+                'Satisfaction': 100,
+                'SurroundingSatisfaction': 100
+            })
+    LOGGER.info(f"Generated Customer.csv with {len(customers)} customers at {customer_csv_path}")
+
 
 def generate_bar_to_customer_mapping(bar_name: str, customers: list):
-    bar_vertex_csv_path = Path(EC.cosmotech.datasets_absolute_path) / "Bar_vertex.csv"
+    bar_vertex_csv_path = Path(EC.cosmotech.dataset_absolute_path) / "Bar_vertex.csv"
     with open(bar_vertex_csv_path, 'w', newline='') as f:
         fieldnames = ['source', 'target']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -89,14 +118,14 @@ def generate_bar_to_customer_mapping(bar_name: str, customers: list):
 
 
 def generate_customers_to_customer_mapping(customers: list):
-    arc_satisfaction_csv_path = Path(EC.cosmotech.datasets_absolute_path) / "arc_Satisfaction.csv"
+    arc_satisfaction_csv_path = Path(EC.cosmotech.dataset_absolute_path) / "arc_Satisfaction.csv"
     with open(arc_satisfaction_csv_path, 'w', newline='') as f:
         fieldnames = ['source', 'target']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for i, j in itertools.combinations(customers, 2):
-            writer.writerow({'source': customers[i], 'target': customers[j]})
-            writer.writerow({'source': customers[j], 'target': customers[i]})
+            writer.writerow({'source': i, 'target': j})
+            writer.writerow({'source': j, 'target': i})
     LOGGER.info(f"Generated customers to customer mapping in {arc_satisfaction_csv_path}")
 
 
@@ -114,15 +143,34 @@ def main():
         updated_values["RestockQty"] = parameters["RestockQty"]
     if "Stock" in parameters:
         updated_values["Stock"] = parameters["Stock"]
-    if "bar_name" in parameters:
-        updated_values["bar_name"] = parameters["bar_name"]
-    bar_csv_path = Path(EC.cosmotech.datasets_absolute_path) / "Bar.csv"
+    updated_values["id"] = "MyBar"
+    # copy initial Bar.csv to datasets path
+    fetched_dataset_file_path = fetch_dataset_file_path("Bar.csv")
+    bar_csv_path = Path(EC.cosmotech.dataset_absolute_path) / "Bar.csv"
+    shutil.copy(fetched_dataset_file_path, bar_csv_path)
     first_row = update_first_row_in_csv(bar_csv_path, updated_values)
     LOGGER.info("Updated Bar.csv with parameters")
 
-    # generate_Customers
+    # copy initial Customer.csv to datasets path
+    fetched_dataset_file_path = fetch_dataset_file_path("Customer.csv")
+    customer_csv_path = Path(EC.cosmotech.dataset_absolute_path) / "Customer.csv"
+    shutil.copy(fetched_dataset_file_path, customer_csv_path)
+
+    LOGGER.info("Updated Customer.csv with parameters")
+
+    # fetch customers
     customers = fetch_customers_list()
+    # generate Customer.csv
+    generate_customers(customers)
     # generate bar_vertex
-    generate_bar_to_customer_mapping(first_row["bar_name"], customers)
+    generate_bar_to_customer_mapping(first_row["id"], customers)
     # generate arc_satisfaction
     generate_customers_to_customer_mapping(customers)
+
+    print(f"oskour: {os.listdir('/mnt/coal/')}")
+    with open('/mnt/coal/coal-config.toml') as f:
+        print(f.read())
+
+
+if __name__ == "__main__":
+    main()

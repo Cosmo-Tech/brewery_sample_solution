@@ -51,7 +51,7 @@ def main():
         dprint(line)
 
     data_path = Path(_conf.cosmotech.dataset_absolute_path)
-    dprint(f"Printng {data_path.resolve()} content:")
+    dprint(f"Printing {data_path.resolve()} content:")
     for line in tree(data_path):
         dprint(line)
 

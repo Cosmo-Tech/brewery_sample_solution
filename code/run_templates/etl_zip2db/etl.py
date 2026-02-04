@@ -20,7 +20,7 @@ def get_zip_file_path(dir):
 def list_files(dir):
     for root, _, files in os.walk(dir):
         for file in files:
-            return Path(root) / file
+            yield Path(root) / file
 
 
 def main():

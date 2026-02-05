@@ -36,7 +36,7 @@ def main():
     target_dataset_id = runner_data['datasets']['bases'][0]
     path_list_db = list_files(extract_path)
     datasetApi = DatasetApi()
-    datasetApi.update_dataset_from_files(
+    datasetApi.upload_dataset_parts(
         target_dataset_id, [], path_list_db
     )
     LOGGER.info("ETL Run finished")

@@ -90,6 +90,7 @@ def fetch_customers_list():
     LOGGER.info(f"Fetched {len(customers)} customers from {customers_csv_path}")
     return customers
 
+
 def generate_customers(customers: list):
     customer_csv_path = Path(EC.cosmotech.dataset_absolute_path) / "Customer.csv"
     with open(customer_csv_path, 'w', newline='') as f:
@@ -137,12 +138,12 @@ def main():
 
     # update dataset Bar.csv with param
     updated_values = {}
-    if "NbWaiters" in parameters:
-        updated_values["NbWaiters"] = parameters["NbWaiters"]
-    if "RestockQty" in parameters:
-        updated_values["RestockQty"] = parameters["RestockQty"]
-    if "Stock" in parameters:
-        updated_values["Stock"] = parameters["Stock"]
+    if "nb_waiters" in parameters:
+        updated_values["NbWaiters"] = parameters["nb_waiters"]
+    if "restock_qty" in parameters:
+        updated_values["RestockQty"] = parameters["restock_qty"]
+    if "stock" in parameters:
+        updated_values["Stock"] = parameters["stock"]
     updated_values["id"] = "MyBar"
     # copy initial Bar.csv to datasets path
     fetched_dataset_file_path = fetch_dataset_file_path("Bar.csv")
@@ -166,10 +167,6 @@ def main():
     generate_bar_to_customer_mapping(first_row["id"], customers)
     # generate arc_satisfaction
     generate_customers_to_customer_mapping(customers)
-
-    print(f"oskour: {os.listdir('/mnt/coal/')}")
-    with open('/mnt/coal/coal-config.toml') as f:
-        print(f.read())
 
 
 if __name__ == "__main__":

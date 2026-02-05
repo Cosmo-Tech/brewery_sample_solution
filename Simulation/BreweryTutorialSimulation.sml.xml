@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Language: XML
-  $Author:$
-  $Date:$
-  $Revision$
-  $Copyright: [2010-2017] Cosmo Tech, All Rights Reserved $
--->
-<csmSon:Simulation xmlns:csmSon="http://www.cosmotech.com/csm_simulation/11.5">
-  <csmSon:Documentation/>
+<csmSon:Simulation xmlns:csmSon="http://www.cosmotech.com/csm_simulation/12.0">
   <csmSon:ModelInstance type="Brewery" id="Model">
     <csmSon:Loader type="csmXMLInstantiation">
       <csmSon:Property name="File">MyBrewery</csmSon:Property>

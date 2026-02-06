@@ -1,0 +1,23 @@
+{
+    "steps": [
+        {
+            "id": "generate_input_data",
+            "command": "python",
+            "arguments": [
+                "code/run_templates/standalone/generate.py"
+            ] 
+        }, 
+        {
+          "id": "engine",
+          "command": "csm-simulator",
+          "arguments": [
+            "-i",
+            "BreweryDemoSimulationWithConnector"
+          ],
+          "precedents": [
+            "generate_input_data"
+          ],
+          "useSystemEnvironment": true
+        }
+    ]
+}

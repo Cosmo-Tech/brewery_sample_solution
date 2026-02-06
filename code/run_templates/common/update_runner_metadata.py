@@ -11,15 +11,26 @@ api = get_api()
 
 def get_arguments():
     parser = argparse.ArgumentParser(description="Update runner metadata")
-    parser.add_argument("--table-prefix", help="RunnerMetadata table prefix", required=False, default="")
     parser.add_argument(
-        "--postgres-host", help="Postgresql host name", required=False, default=os.environ.get("POSTGRES_HOST_URI")
+        "--table-prefix", help="RunnerMetadata table prefix", required=False, default=""
     )
     parser.add_argument(
-        "--postgres-port", help="Postgresql port", required=False, default=os.environ.get("POSTGRES_HOST_PORT")
+        "--postgres-host",
+        help="Postgresql host name",
+        required=False,
+        default=os.environ.get("POSTGRES_HOST_URI"),
     )
     parser.add_argument(
-        "--postgres-db", help="Postgresql database name", required=False, default=os.environ.get("POSTGRES_DB_NAME")
+        "--postgres-port",
+        help="Postgresql port",
+        required=False,
+        default=os.environ.get("POSTGRES_HOST_PORT"),
+    )
+    parser.add_argument(
+        "--postgres-db",
+        help="Postgresql database name",
+        required=False,
+        default=os.environ.get("POSTGRES_DB_NAME"),
     )
     parser.add_argument(
         "--postgres-schema",
@@ -53,7 +64,10 @@ def get_arguments():
         default=os.environ.get("CSM_WORKSPACE_ID"),
     )
     parser.add_argument(
-        "--csm-runner-id", help="Cosmo Tech Runner ID", required=False, default=os.environ.get("CSM_RUNNER_ID")
+        "--csm-runner-id",
+        help="Cosmo Tech Runner ID",
+        required=False,
+        default=os.environ.get("CSM_RUNNER_ID"),
     )
 
     return parser.parse_args()
@@ -61,7 +75,9 @@ def get_arguments():
 
 def main():
     args = get_arguments()
-    runner = api.runner.get_runner(args.csm_organization_id, args.csm_workspace_id, args.csm_runner_id)
+    runner = api.runner.get_runner(
+        args.csm_organization_id, args.csm_workspace_id, args.csm_runner_id
+    )
 
     schema_table = f"{args.postgres_schema}.{args.table_prefix}RunnerMetadata"
     sql_create_table = f"""

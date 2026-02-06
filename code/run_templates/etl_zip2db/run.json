@@ -10,9 +10,9 @@
       "useSystemEnvironment": true
     },
     {
-      "id": "engine",
-      "command": "csm-orc",
-      "arguments": ["run-step"],
+      "id": "ETL",
+      "command": "python",
+      "arguments": ["code/run_templates/etl_zip2db/etl.py"],
       "precedents": ["fetch_parameters"],
       "useSystemEnvironment": true
     }

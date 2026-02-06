@@ -1,0 +1,42 @@
+{
+  "steps": [
+    { "id": "csm_data_version", "command": "csm-data", "arguments": ["--version"] },
+    { "id": "csm_orc_version", "command": "csm-orc", "arguments": ["--version"] },
+    {
+      "id": "fetch_parameters",
+      "command": "csm-data",
+      "arguments": ["api", "run-load-data"],
+      "precedents": ["csm_data_version", "csm_orc_version"],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "print_out",
+      "command": "python3",
+      "arguments": ["code/run_templates/debug/print_inputs.py"],
+      "precedents": ["fetch_parameters"],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "load_results_to_store",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "load-csv-folder",
+        "--csv-folder",
+        "$CSM_DATASET_ABSOLUTE_PATH"
+      ],
+      "precedents": ["print_out"],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "send_results_to_psql",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "output"
+      ],
+      "precedents": ["load_results_to_store"],
+      "useSystemEnvironment": true
+    }
+  ]
+}

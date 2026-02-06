@@ -9,7 +9,6 @@ from cosmotech_api.api.workspace_api import WorkspaceApi
 from cosmotech.coal.cosmotech_api.connection import get_api_client
 from cosmotech.coal.utils.logger import get_logger as _get_logger
 
-
 LOGGER = _get_logger("my_etl_logger")
 
 

@@ -21,8 +21,12 @@ def parse_twingraph_json(nodes, edges, node_key, edge_key, src_key, dst_key):
         item_label = item["label"]
         item_type = item["type"]
         content_by_type = content[item_type] = content.get(item_type, {})
-        content_by_label = content_by_type[item_label] = content_by_type.get(item_label, {})
-        item_properties = content_by_label[item_id] = content_by_label.get(item_id, item["properties"])
+        content_by_label = content_by_type[item_label] = content_by_type.get(
+            item_label, {}
+        )
+        item_properties = content_by_label[item_id] = content_by_label.get(
+            item_id, item["properties"]
+        )
 
         if item_type == "RELATION":
             item_properties["source"] = data[src_key]["properties"]["id"]
@@ -39,8 +43,10 @@ def parse_twingraph_json(nodes, edges, node_key, edge_key, src_key, dst_key):
         graph_content = reduce(parse_node, nodes, {})
         graph_content = reduce(parse_edge, edges, graph_content)
     except Exception as e:
-        LOGGER.error(f"An error occurred while parsing the twingraph JSON representation: {e}")
-        raise(e)
+        LOGGER.error(
+            f"An error occurred while parsing the twingraph JSON representation: {e}"
+        )
+        raise (e)
     return graph_content
 
 
@@ -114,16 +120,26 @@ def dump_twingraph_dataset_to_zip_archive(
             edge_query_str = "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst"
 
         fetch_start_time = time.time()
-        res_nodes = api.dataset.twingraph_query(organization_id, dataset_id, {"query": node_query_str})
-        res_edges = api.dataset.twingraph_query(organization_id, dataset_id, {"query": edge_query_str})
+        res_nodes = api.dataset.twingraph_query(
+            organization_id, dataset_id, {"query": node_query_str}
+        )
+        res_edges = api.dataset.twingraph_query(
+            organization_id, dataset_id, {"query": edge_query_str}
+        )
         fetch_duration_in_seconds = time.time() - fetch_start_time
-        LOGGER.info(f"Results received, queries took {fetch_duration_in_seconds} seconds")
+        LOGGER.info(
+            f"Results received, queries took {fetch_duration_in_seconds} seconds"
+        )
     except cosmotech_api.ApiException as e:
-        LOGGER.error(f"Failed to retrieve content of target dataset '{dataset_id}': %s\n" % e)
+        LOGGER.error(
+            f"Failed to retrieve content of target dataset '{dataset_id}': %s\n" % e
+        )
         raise e
 
     # Note: the keys are defined in the cypher queries above
-    graph_content = parse_twingraph_json(res_nodes, res_edges, "n", "edge", "src", "dst")
+    graph_content = parse_twingraph_json(
+        res_nodes, res_edges, "n", "edge", "src", "dst"
+    )
     create_csv_files_from_graph_content(graph_content, folder_path)
 
     output_file_path = os.path.join(folder_path, "twingraph_dump")
@@ -134,7 +150,11 @@ def dump_twingraph_dataset_to_zip_archive(
 
 def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
     try:
-        api.dataset.update_dataset(organization_id, dataset_id, {"ingestionStatus": "NONE", "sourceType": "File"})
+        api.dataset.update_dataset(
+            organization_id,
+            dataset_id,
+            {"ingestionStatus": "NONE", "sourceType": "File"},
+        )
     except cosmotech_api.ApiException as e:
         LOGGER.error("Exception when changing twingraph type & status: %s\n" % e)
         raise e
@@ -159,14 +179,20 @@ def upload_twingraph_zip_archive(organization_id, dataset_id, zip_archive_path):
     try:
         # Required delay to prevent some race condition, leading sometimes to the sourceType update being ignored
         time.sleep(2)
-        api.dataset.update_dataset(organization_id, dataset_id, {"ingestionStatus": "SUCCESS", "sourceType": "ETL"})
+        api.dataset.update_dataset(
+            organization_id,
+            dataset_id,
+            {"ingestionStatus": "SUCCESS", "sourceType": "ETL"},
+        )
     except cosmotech_api.ApiException as e:
         LOGGER.error("Exception when changing twingraph type & status: %s\n" % e)
         raise e
 
 
-def copy_dataset_twingraph(org_id, src_dataset_id, dst_dataset_id, node_query=None, edge_query=None):
-    '''
+def copy_dataset_twingraph(
+    org_id, src_dataset_id, dst_dataset_id, node_query=None, edge_query=None
+):
+    """
     Parameters:
       - org_id is the id of the organization containing the source and target datasets
       - src_dataset_id is the id of the dataset to copy
@@ -176,11 +202,12 @@ def copy_dataset_twingraph(org_id, src_dataset_id, dst_dataset_id, node_query=No
       - edge_query (optional) is a string containing the cypher query to select the edges to copy; edge data must be
         returned with the aliasas 'src, edge, dst' (default query:
         "OPTIONAL MATCH(src)-[edge]->(dst) RETURN src, edge, dst")
-    '''
+    """
     with tempfile.TemporaryDirectory() as tmp_dir:
         twingraph_dump_dir_path = os.path.join(tmp_dir, "twingraph_dump")
         zip_archive_path = dump_twingraph_dataset_to_zip_archive(
-            org_id, src_dataset_id, twingraph_dump_dir_path, node_query, edge_query)
+            org_id, src_dataset_id, twingraph_dump_dir_path, node_query, edge_query
+        )
         LOGGER.info(f"Twingraph extracted to {zip_archive_path}")
         LOGGER.info(f"Starting zip upload to existing dataset '{dst_dataset_id}'...")
         upload_twingraph_zip_archive(org_id, dst_dataset_id, zip_archive_path)

@@ -37,7 +37,7 @@ def main():
     path_list_db = list_files(extract_path)
     datasetApi = DatasetApi()
     datasetApi.upload_dataset_parts(
-        target_dataset_id, [], path_list_db
+        target_dataset_id, [], path_list_db, replace_existing=True
     )
     LOGGER.info("ETL Run finished")
 

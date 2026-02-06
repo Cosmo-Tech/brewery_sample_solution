@@ -501,6 +501,7 @@ parameters:
       fr: Soif initiale
       en: Initial thirst
     varType: enum
+    defaultValue: 'NOT_THIRSTY'
     additionalData:
       enumValues:
         - key: 'THIRSTY'

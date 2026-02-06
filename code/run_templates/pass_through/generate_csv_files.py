@@ -208,4 +208,4 @@ if __name__ == "__main__":
     #     parser.print_help()
     #     sys.exit(1)
 
-    generate_file("10MB.csv", "10MB", "wide", os.environ['CSM_DATASET_ABSOLUTE_PATH'])
+    generate_file("10MB.csv", "10MB", "wide", os.environ['CSM_OUTPUT_ABSOLUTE_PATH'])

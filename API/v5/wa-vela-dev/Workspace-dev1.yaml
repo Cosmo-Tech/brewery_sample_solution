@@ -216,6 +216,7 @@ additionalData:
       datasourceFilter:
         - etl_instance_generator
         - FileUploadToDataset
+        - etl_with_local_file
         - None
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true

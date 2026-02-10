@@ -1,17 +1,16 @@
-import csv
 import json
 import os
-import sys
-import shutil
 import tempfile
 from dataclasses import dataclass
+from pathlib import Path
 
-from cosmotech_api.model.dataset import Dataset
-from common.common import get_logger, get_api
+from cosmotech.coal.utils.logger import get_logger
+from cosmotech.coal.utils.configuration import Configuration
+from cosmotech.coal.cosmotech_api.apis.runner import RunnerApi
+from cosmotech.coal.cosmotech_api.apis.dataset import DatasetApi
 from generate_brewery_dataset import generate_brewery_dataset
 
-
-LOGGER = get_logger()
+LOGGER = get_logger('etl')
 
 
 @dataclass
@@ -37,22 +36,12 @@ def get_zip_file_name(dir):
 
 def main():
     LOGGER.info("Starting the ETL Run")
-    organization_id = os.environ.get("CSM_ORGANIZATION_ID")
-    api = get_api()
+    coal_config = Configuration()
 
-    runner_data = api.runner.get_runner(
-        organization_id=organization_id,
-        workspace_id=os.environ.get("CSM_WORKSPACE_ID"),
-        runner_id=os.environ.get("CSM_RUNNER_ID"),
-    )
-    # When a runner is an ETL created by the webapp, the 1st item in datasetList is is a dataset created by the webapp
-    # before starting the runner
-    target_dataset_id = runner_data.dataset_list[0]
-
-    with open(os.path.join(os.environ.get("CSM_PARAMETERS_ABSOLUTE_PATH"), "parameters.json")) as f:
+    with open(
+        Path(coal_config.cosmotech.parameters_absolute_path) / "parameters.json"
+    ) as f:
         parameters = {d["parameterId"]: d["value"] for d in json.loads(f.read())}
-    LOGGER.info("All parameters are loaded")
-
     generator_parameters = GeneratorParameters(
         int(parameters["etl_param_restock_quantity"]),
         int(parameters["etl_param_stock"]),
@@ -62,38 +51,32 @@ def main():
         parameters["etl_param_thirsty"] == "THIRSTY",
         parameters["etl_param_locale"],
         int(parameters["etl_param_customers_count"]),
-        int(parameters["etl_param_tables_count"],)
+        int(
+            parameters["etl_param_tables_count"],
+        ),
     )
+    LOGGER.info("All parameters are loaded")
 
+    # When a runner is an ETL created by the webapp, the 1st item in datasetList is is a dataset created by the webapp
+    # before starting the runner and is used as the target for the ETL
+    runner_data = RunnerApi().get_runner_metadata(
+        runner_id=coal_config.cosmotech.runner_id
+    )
+    target_dataset_id = runner_data['datasets']['bases'][0]
     with tempfile.TemporaryDirectory() as tmp_dir:
         generate_brewery_dataset(generator_parameters, tmp_dir)
-        output_file_path = os.path.join(tmp_dir, "generated_brewery_instance")
-        output_file_path_with_format = os.path.join(tmp_dir, "generated_brewery_instance.zip")
-        shutil.make_archive(output_file_path, "zip", tmp_dir)
-        LOGGER.info(f"Instance archive gerenated: {output_file_path_with_format}")
-
-        ws_file_path = f'datasets/{target_dataset_id}/generated_brewery_instance.zip'
-        LOGGER.info(f"Starting workspace file upload to {ws_file_path}...")
-        ws_file = api.workspace.upload_workspace_file(organization_id,
-                                                     os.environ.get("CSM_WORKSPACE_ID"),
-                                                     output_file_path_with_format,
-                                                     overwrite=True,
-                                                     destination=ws_file_path)
-        LOGGER.info("Workspace file has been uploaded")
-
-    api.dataset.update_dataset(
-        organization_id, target_dataset_id, {"ingestionStatus": "SUCCESS", "twincacheStatus":"FULL"}
-    )
+        path_tmp_dir = Path(tmp_dir)
+        path_list_file = [
+            path_tmp_dir / "arc_Satisfaction.csv",
+            path_tmp_dir / "Bar_vertex.csv",
+            path_tmp_dir / "Customer.csv",
+        ]
+        path_list_db = [path_tmp_dir / "Bar.csv"]
+        DatasetApi().update_dataset_from_files(
+            target_dataset_id, path_list_file, path_list_db
+        )
     LOGGER.info("ETL Run finished")
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        exception_type = type(e).__name__
-        file_name = os.path.split(e.__traceback__.tb_frame.f_code.co_filename)[1]
-        line_number = e.__traceback__.tb_lineno
-        LOGGER.error(f"An error occured during the dataset generation: {exception_type}")
-        LOGGER.error('%s' % e)
-        sys.exit(-1)
+    main()

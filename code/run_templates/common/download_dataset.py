@@ -19,7 +19,7 @@ dataset_id = os.environ["CSM_DATASET_ID"]
 
 _d_data = download_dataset(ORG_ID, WS_ID, dataset_id, False)
 
-tmp_path = pathlib.Path(_d_data['folder_path'])
+tmp_path = pathlib.Path(_d_data["folder_path"])
 
 for _p in tmp_path.glob("*"):
     shutil.copy(_p, SIM_DATA_PATH)

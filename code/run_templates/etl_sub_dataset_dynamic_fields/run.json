@@ -1,0 +1,20 @@
+{
+  "steps": [
+    { "id": "csm_data_version", "command": "csm-data", "arguments": ["--version"] },
+    { "id": "csm_orc_version", "command": "csm-orc", "arguments": ["--version"] },
+    {
+      "id": "fetch_parameters",
+      "command": "csm-data",
+      "arguments": ["api", "run-load-data"],
+      "precedents": ["csm_data_version", "csm_orc_version"],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "ETL",
+      "command": "python",
+      "arguments": ["code/run_templates/etl_sub_dataset_dynamic_fields/etl.py"],
+      "precedents": ["fetch_parameters"],
+      "useSystemEnvironment": true
+    }
+  ]
+}

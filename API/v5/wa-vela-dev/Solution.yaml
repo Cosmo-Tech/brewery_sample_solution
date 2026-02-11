@@ -3,7 +3,7 @@ key: 'Dev Brewery Solution'
 name: 'Dev Brewery Solution'
 description: 'Dev Brewery Solution'
 repository: 'cosmotech/brewerysamplesolution_simulator'
-version: '3.0.0-dev.15'
+version: 'latest'
 sdkVersion: '10.4.0'
 alwaysPull: true
 url: 'https://kubernetes.cosmotech.com/cosmotech-webapp/wa-vela-dev'
@@ -501,6 +501,7 @@ parameters:
       fr: Soif initiale
       en: Initial thirst
     varType: enum
+    defaultValue: 'NOT_THIRSTY'
     additionalData:
       enumValues:
         - key: 'THIRSTY'

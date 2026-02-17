@@ -72,8 +72,8 @@ def main():
             path_tmp_dir / "Customer.csv",
         ]
         path_list_db = [path_tmp_dir / "Bar.csv"]
-        DatasetApi().update_dataset_from_files(
-            target_dataset_id, path_list_file, path_list_db
+        DatasetApi().update_dataset_parts(
+            target_dataset_id, path_list_file, path_list_db, replace=True
         )
     LOGGER.info("ETL Run finished")
 

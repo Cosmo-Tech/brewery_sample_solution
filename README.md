@@ -34,7 +34,7 @@ csm-orc run code/run_templates/minimal/run.json
 
 ## Deploy
 
-Publish a new simulator image to both registries used by Sphinx:
+Publish the new simulator image to the desired registries:
 
 ```
 az login
@@ -43,4 +43,7 @@ csm docker release --tag x.y.z --registry acrwarpwaadxdevdlrivo.azurecr.io/
 
 az acr login -n acrsphinxd38ygr
 csm docker release --tag x.y.z --registry acrsphinxd38ygr.azurecr.io/
+
+az acr login -n devregistryvela
+csm docker release --tag x.y.z --registry devregistryvela.azurecr.io/
 ```

@@ -1,4 +1,5 @@
 import csv
+import json
 import random
 import string
 import argparse
@@ -207,5 +208,10 @@ if __name__ == "__main__":
     #     print("Error: output filename is required (unless using --flow or --ddl)")
     #     parser.print_help()
     #     sys.exit(1)
+    with open(os.path.join(os.environ.get("CSM_PARAMETERS_ABSOLUTE_PATH"), "parameters.json")) as f:
+        parameters = {d["parameterId"]: d["value"] for d in json.loads(f.read())}
 
-    generate_file("10MB.csv", "10MB", "wide", os.environ['CSM_OUTPUT_ABSOLUTE_PATH'])
+    size = parameters.get("csv_file_size", "10MB")
+    shape = parameters.get("csv_file_shape", "wide")
+
+    generate_file("data_output.csv", size, shape, os.environ['CSM_OUTPUT_ABSOLUTE_PATH'])

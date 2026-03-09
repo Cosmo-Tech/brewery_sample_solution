@@ -17,6 +17,7 @@ additionalData:
         - 'dynamic_values_customers'
         - 'standalone'
       defaultRunTemplateDataset: null
+    disableOutOfSyncWarningBanner: false
     charts:
       supersetDomain: 'https://superset-kubernetes.cosmotech.com'
       dashboards:

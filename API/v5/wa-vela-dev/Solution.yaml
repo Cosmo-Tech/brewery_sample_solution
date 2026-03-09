@@ -817,7 +817,7 @@ runTemplates:
     name: 'Hidden test run template without parameters'
     description: 'Run template without parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
-  - id: etl_with_local_file
+  - id: etl_zip2db
     labels:
       fr: Brewery (.zip) depuis un fichier local
       en: Brewery (.zip) from Local File

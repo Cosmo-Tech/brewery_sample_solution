@@ -32,7 +32,7 @@ additionalData:
           hideFilters: false
           expandFilters: false
           filters:
-            - id: "TFlc5mI_Emoke793qamlg"
+            - id: "NATIVE_FILTER-TFlc5mI_Emoke793qamlg"
               operator: "=="
               column: "simulation_run"
               value: "lastRunId"

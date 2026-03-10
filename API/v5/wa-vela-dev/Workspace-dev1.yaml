@@ -188,31 +188,31 @@ additionalData:
       queries:
         - options:
             selects: 'NbWaiters,RestockQty,Stock'
-          datasetPartName: bars
+          datasetPartName: Bar.csv
           id: bar_table
         - options:
             selects: 'id,Satisfaction,SurroundingSatisfaction,Thirsty'
-          datasetPartName: customers
+          datasetPartName: Customer.csv
           id: customer_table
         - options:
             avgs: 'Stock,NbWaiters'
             counts: id
             mins: NbWaiters
             maxs: NbWaiters
-          datasetPartName: bars
+          datasetPartName: Bar.csv
           id: bars
         - options:
             avgs: Satisfaction
             counts: id
-          datasetPartName: customers
+          datasetPartName: Customer.csv
           id: customers
         - options:
             counts: name
-          datasetPartName: satisfaction_arcs
+          datasetPartName: arc_Satisfaction.csv
           id: satisfaction_graph
         - options:
             counts: name
-          datasetPartName: bar_to_customer_compounds
+          datasetPartName: Bar_vertex.csv
           id: relationships
       datasourceFilter:
         - etl_instance_generator

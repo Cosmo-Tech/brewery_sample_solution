@@ -30,7 +30,10 @@ def fetch_customers_list():
         with open(csv_path, 'r', newline='') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                names.append(row['Name'])
+                if 'Name' in row:
+                    names.append(row['Name'])
+                else:
+                    names.append(row['id'])
         return names
 
     try:

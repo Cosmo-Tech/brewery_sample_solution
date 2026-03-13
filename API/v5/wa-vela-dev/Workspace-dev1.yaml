@@ -11,7 +11,7 @@ additionalData:
   webapp:
     solution:
       runTemplateFilter:
-        - 'sim_brewery_parameters'
+        - 'full_demo'
         - 'sim_no_parameters'
         - 'sim_mock_parameters'
         - 'dynamic_values_customers'

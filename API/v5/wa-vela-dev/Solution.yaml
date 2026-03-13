@@ -608,7 +608,7 @@ parameters:
     varType: 'enum'
     additionalData:
       subType: 'SCENARIOS'
-      runTemplateFilter: ['sim_brewery_parameters', 'sim_mock_parameters']
+      runTemplateFilter: ['full_demo', 'sim_mock_parameters']
       tooltipText:
         fr: "Scénario auquel on va comparer les données"
         en: "Scenario against which to compare data"
@@ -756,7 +756,7 @@ parameterGroups:
     parameters:
       - etl_param_subdataset_filter_thirsty_multiselect
 runTemplates:
-  - id: 'sim_brewery_parameters'
+  - id: 'full_demo'
     runSizing:
       requests:
         cpu: "1"
@@ -771,7 +771,7 @@ runTemplates:
     description: 'Run template with Brewery parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
     tags:
-      - 'sim_brewery_parameters'
+      - 'full_demo'
       - 'With params'
     parameterGroups:
       - 'bar_parameters'

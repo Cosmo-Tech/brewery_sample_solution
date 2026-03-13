@@ -66,14 +66,14 @@ def main():
     with tempfile.TemporaryDirectory() as tmp_dir:
         generate_brewery_dataset(generator_parameters, tmp_dir)
         path_tmp_dir = Path(tmp_dir)
-        path_list_file = [
+        path_list_db = [
             path_tmp_dir / "arc_Satisfaction.csv",
             path_tmp_dir / "Bar_vertex.csv",
             path_tmp_dir / "Customer.csv",
+            path_tmp_dir / "Bar.csv",
         ]
-        path_list_db = [path_tmp_dir / "Bar.csv"]
         DatasetApi().upload_dataset_parts(
-            target_dataset_id, path_list_file, path_list_db, replace_existing=True
+            target_dataset_id, [], path_list_db, replace_existing=True
         )
     LOGGER.info("ETL Run finished")
 

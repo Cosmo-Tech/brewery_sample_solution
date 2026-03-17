@@ -339,7 +339,7 @@ parameters:
     additionalData:
       subType: 'TABLE'
       dynamicValues:
-        datasetPartName: customers.csv
+        datasetPartName: Customer.csv
       columns:
         - field: 'id'
           headerName: 'Name'
@@ -420,7 +420,7 @@ parameters:
         en: Pick a customer from the list
       dynamicEnumValues:
         type: dbDatasetPart
-        datasetPartName: customers.csv
+        datasetPartName: Customer.csv
         resultKey: id
         options:
           selects: 'id'
@@ -435,7 +435,7 @@ parameters:
         en: Pick customers from the list
       dynamicEnumValues:
         type: dbDatasetPart
-        datasetPartName: customers.csv
+        datasetPartName: Customer.csv
         resultKey: id
         options:
           selects: 'id'
@@ -450,7 +450,7 @@ parameters:
         en: The default value for this field is automatically computed by fetching the number of customers in the associated dataset
       dynamicValues:
         type: dbDatasetPart
-        datasetPartName: customers.csv
+        datasetPartName: Customer.csv
         resultKey: count_id
         options:
           counts: 'id'
@@ -585,7 +585,7 @@ parameters:
     additionalData:
       dynamicEnumValues:
         type: dbDatasetPart
-        datasetPartName: customers.csv
+        datasetPartName: Customer.csv
         resultKey: id
         options:
           selects: 'id'
@@ -597,7 +597,7 @@ parameters:
     additionalData:
       dynamicEnumValues:
         type: dbDatasetPart
-        datasetPartName: customers.csv
+        datasetPartName: Customer.csv
         resultKey: id
         options:
           selects: 'id'

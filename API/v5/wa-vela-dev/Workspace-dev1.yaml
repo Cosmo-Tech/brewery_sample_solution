@@ -21,34 +21,45 @@ additionalData:
     charts:
       supersetDomain: 'https://superset-kubernetes.cosmotech.com'
       dashboards:
-        - id: '129d8644-8939-4bbb-b396-42c89b55b119'
-          height: 900px
-          width: 100%
-        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+        - id: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
           height: 900px
           width: 100%
           hideTitle: true
           hideChartControls: false
           hideFilters: false
-          expandFilters: false
+          expandFilters: true
           filters:
-            - id: "NATIVE_FILTER-TFlc5mI_Emoke793qamlg"
+            - id: "NATIVE_FILTER-R4vLqfZgZiiJr-Z35Ikq_"
               operator: "=="
-              column: "simulation_run"
+              column: "run_id"
               value: "lastRunId"
+        - id: 'b433be18-d6b1-4952-9fba-a5988fdcdca5'
+          height: 900px
+          width: 100%
+          hideTitle: true
+          hideChartControls: false
+          hideFilters: false
+          expandFilters: true
+        - id: '86563178-ee99-4e88-a1ee-181586d073b3'
+          height: 900px
+          width: 100%
+          hideTitle: true
+          hideChartControls: false
+          hideFilters: false
+          expandFilters: true
       scenarioView:
-        default: '129d8644-8939-4bbb-b396-42c89b55b119'
+        default: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
         overrides:
-          standalone: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          standalone: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
       dashboardView:
-        - id: '129d8644-8939-4bbb-b396-42c89b55b119'
+        - id: 'b433be18-d6b1-4952-9fba-a5988fdcdca5'
           title:
-            en: 'Brewery Operations Overview'
-            fr: 'Aperçu des opérations'
-        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+            en: 'Bar stock'
+            fr: 'Stock des bars'
+        - id: '86563178-ee99-4e88-a1ee-181586d073b3'
           title:
-            en: 'Scenario Results'
-            fr: 'Résultats du scénario'
+            en: 'Customer satisfaction'
+            fr: 'Satisfaction client'
     menu:
       supportUrl: 'https://support.cosmotech.com'
       organizationUrl: 'https://cosmotech.com'

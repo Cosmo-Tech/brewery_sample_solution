@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<csm:Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csm="http://www.cosmotech.com/csm/12.0">
+<csm:Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csm="http://www.cosmotech.com/csm/12.1">
   <csm:ModelName>Brewery</csm:ModelName>
   <csm:Compound>
     <csm:Environment>ModelEnvironment</csm:Environment>
@@ -151,7 +151,7 @@ csmForEachTypedSubEntity(BE_Customer, customer)
     </csm:Compound>
   </csm:CompoundEntity>
   <csm:Environment xsi:type="csm:NoEnvironment" name="NoEnvironment"/>
-  <csm:Environment xmlns:csmRoom="http://www.cosmotech.com/csm_room/12.0" xsi:type="csmRoom:Room" name="ModelEnvironment"/>
+  <csm:Environment xmlns:csmRoom="http://www.cosmotech.com/csm_room/12.1" xsi:type="csmRoom:Room" name="ModelEnvironment"/>
   <csm:Environment xsi:type="csm:Graph" name="CustomerGraph">
     <csm:Arc name="Satisfaction">
       <csm:Source>Customer</csm:Source>

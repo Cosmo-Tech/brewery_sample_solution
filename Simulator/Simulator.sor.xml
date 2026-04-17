@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/12.0">
+<csmSor:Simulator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csmSor="http://www.cosmotech.com/csm_simulator/12.1">
   <csmSor:Name>BrewerySampleSolution</csmSor:Name>
   <csmSor:Version><![CDATA[3.0.0-dev]]></csmSor:Version>
   <csmSor:Description><![CDATA[A project generated with CoSMo]]></csmSor:Description>

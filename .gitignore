@@ -1,6 +1,6 @@
 /Generated/
 /.idea/
-/Studio/
+.csm-studio/
 Simulation/Output
 tutorials/.ipynb_checkpoints/
 .venv

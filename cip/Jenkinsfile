@@ -106,7 +106,7 @@ node('docker') {
         }
         stage('Generate SBOM'){
           dir('src'){
-            sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b ~/.local/bin v0.66.0 && \
+            sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b ~/.local/bin v0.70.0 && \
                 export PATH=$HOME/.local/bin/:$PATH && \
                 trivy image --format cyclonedx --output sbom.json cosmotech/brewerysamplesolution_simulator:latest'
           }

@@ -47,6 +47,11 @@ additionalData:
           hideChartControls: false
           hideFilters: false
           expandFilters: true
+          filters:
+            - id: "8oNSwOG6SxqfdmGVHCr9z"
+              operator: "in"
+              column: "run_id"
+              value: "visibleScenariosLastRunIds"
       scenarioView:
         default: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
         overrides:

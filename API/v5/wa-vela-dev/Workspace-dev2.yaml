@@ -4,14 +4,13 @@ name: '2️⃣ Dev2'
 description: 'Brewery dev2 workspace with PowerBI dashboards. This workspace uses v5 of Cosmo Tech API on KoB/vela.'
 solution:
   solutionId: 'sol-414m4e1q72em8'
-datasetCopy: false
 version: null
 tags: null
 additionalData:
   webapp:
     solution:
       runTemplateFilter:
-        - 'sim_brewery_parameters'
+        - 'full_demo'
         - 'sim_no_parameters'
         - 'sim_mock_parameters'
         - 'dynamic_values_customers'
@@ -206,36 +205,36 @@ additionalData:
       queries:
         - options:
             selects: 'NbWaiters,RestockQty,Stock'
-          datasetPartName: bars
+          datasetPartName: Bar.csv
           id: bar_table
         - options:
             selects: 'id,Satisfaction,SurroundingSatisfaction,Thirsty'
-          datasetPartName: customers
+          datasetPartName: Customer.csv
           id: customer_table
         - options:
             avgs: 'Stock,NbWaiters'
             counts: id
             mins: NbWaiters
             maxs: NbWaiters
-          datasetPartName: bars
+          datasetPartName: Bar.csv
           id: bars
         - options:
             avgs: Satisfaction
             counts: id
-          datasetPartName: customers
+          datasetPartName: Customer.csv
           id: customers
         - options:
             counts: name
-          datasetPartName: satisfaction_arcs
+          datasetPartName: arc_Satisfaction.csv
           id: satisfaction_graph
         - options:
             counts: name
-          datasetPartName: bar_to_customer_compounds
+          datasetPartName: Bar_vertex.csv
           id: relationships
       datasourceFilter:
         - etl_instance_generator
         - FileUploadToDataset
-        - etl_with_local_file
+        - etl_zip2db
         - None
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true

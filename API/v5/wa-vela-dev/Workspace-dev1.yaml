@@ -4,50 +4,66 @@ name: '1️⃣ Dev1'
 description: 'Brewery dev1 workspace with Superset dashboards. This workspace uses v5 of Cosmo Tech API on KoB/vela.'
 solution:
   solutionId: 'sol-414m4e1q72em8'
-datasetCopy: false
 version: null
 tags: null
 additionalData:
   webapp:
     solution:
       runTemplateFilter:
-        - 'sim_brewery_parameters'
+        - 'full_demo'
         - 'sim_no_parameters'
         - 'sim_mock_parameters'
         - 'dynamic_values_customers'
         - 'standalone'
       defaultRunTemplateDataset: null
+    disableOutOfSyncWarningBanner: false
     charts:
       supersetDomain: 'https://superset-kubernetes.cosmotech.com'
       dashboards:
-        - id: '129d8644-8939-4bbb-b396-42c89b55b119'
-          height: 900px
-          width: 100%
-        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+        - id: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
           height: 900px
           width: 100%
           hideTitle: true
           hideChartControls: false
           hideFilters: false
-          expandFilters: false
+          expandFilters: true
           filters:
-            - id: "TFlc5mI_Emoke793qamlg"
+            - id: "NATIVE_FILTER-R4vLqfZgZiiJr-Z35Ikq_"
               operator: "=="
-              column: "simulation_run"
+              column: "run_id"
               value: "lastRunId"
+        - id: 'b433be18-d6b1-4952-9fba-a5988fdcdca5'
+          height: 900px
+          width: 100%
+          hideTitle: true
+          hideChartControls: false
+          hideFilters: false
+          expandFilters: true
+        - id: '86563178-ee99-4e88-a1ee-181586d073b3'
+          height: 900px
+          width: 100%
+          hideTitle: true
+          hideChartControls: false
+          hideFilters: false
+          expandFilters: true
+          filters:
+            - id: "8oNSwOG6SxqfdmGVHCr9z"
+              operator: "in"
+              column: "run_id"
+              value: "visibleScenariosLastRunIds"
       scenarioView:
-        default: '129d8644-8939-4bbb-b396-42c89b55b119'
+        default: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
         overrides:
-          standalone: '272c380b-8824-48fc-a274-aa2fefb1226a'
+          standalone: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
       dashboardView:
-        - id: '129d8644-8939-4bbb-b396-42c89b55b119'
+        - id: 'b433be18-d6b1-4952-9fba-a5988fdcdca5'
           title:
-            en: 'Brewery Operations Overview'
-            fr: 'Aperçu des opérations'
-        - id: '272c380b-8824-48fc-a274-aa2fefb1226a'
+            en: 'Bar stock'
+            fr: 'Stock des bars'
+        - id: '86563178-ee99-4e88-a1ee-181586d073b3'
           title:
-            en: 'Scenario Results'
-            fr: 'Résultats du scénario'
+            en: 'Customer satisfaction'
+            fr: 'Satisfaction client'
     menu:
       supportUrl: 'https://support.cosmotech.com'
       organizationUrl: 'https://cosmotech.com'
@@ -187,36 +203,36 @@ additionalData:
       queries:
         - options:
             selects: 'NbWaiters,RestockQty,Stock'
-          datasetPartName: bars
+          datasetPartName: Bar.csv
           id: bar_table
         - options:
             selects: 'id,Satisfaction,SurroundingSatisfaction,Thirsty'
-          datasetPartName: customers
+          datasetPartName: Customer.csv
           id: customer_table
         - options:
             avgs: 'Stock,NbWaiters'
             counts: id
             mins: NbWaiters
             maxs: NbWaiters
-          datasetPartName: bars
+          datasetPartName: Bar.csv
           id: bars
         - options:
             avgs: Satisfaction
             counts: id
-          datasetPartName: customers
+          datasetPartName: Customer.csv
           id: customers
         - options:
             counts: name
-          datasetPartName: satisfaction_arcs
+          datasetPartName: arc_Satisfaction.csv
           id: satisfaction_graph
         - options:
             counts: name
-          datasetPartName: bar_to_customer_compounds
+          datasetPartName: Bar_vertex.csv
           id: relationships
       datasourceFilter:
         - etl_instance_generator
         - FileUploadToDataset
-        - etl_with_local_file
+        - etl_zip2db
         - None
 sendInputToDataWarehouse: true
 useDedicatedEventHubNamespace: true

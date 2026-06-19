@@ -340,6 +340,8 @@ parameters:
       subType: 'TABLE'
       dynamicValues:
         datasetPartName: Customer.csv
+        options:
+          selects: 'id,Satisfaction,SurroundingSatisfaction,Thirsty'
       columns:
         - field: 'id'
           headerName: 'Name'

@@ -13,7 +13,7 @@
     {
       "id": "ETL",
       "command": "python",
-      "arguments": ["run_templates/etl_sub_dataset_by_filter_boolean/etl.py"],
+      "arguments": ["code/run_templates/etl_sub_dataset_by_filter_multi/etl.py"],
       "precedents": ["csm_data_version", "csm_orc_version"],
       "useSystemEnvironment": true
     }

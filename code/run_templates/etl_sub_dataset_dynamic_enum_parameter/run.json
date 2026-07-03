@@ -20,7 +20,7 @@
     {
       "id": "ETL",
       "command": "python",
-      "arguments": ["run_templates/etl_with_azure_storage/etl.py"],
+      "arguments": ["code/run_templates/etl_sub_dataset_dynamic_enum_parameter/etl.py"],
       "precedents": ["fetch_parameters"],
       "useSystemEnvironment": true
     }

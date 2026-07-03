@@ -3,7 +3,7 @@ key: 'Dev Brewery Solution'
 name: 'Dev Brewery Solution'
 description: 'Dev Brewery Solution'
 repository: 'brewerysamplesolution_simulator'
-version: '3.0.0-thu.latest'
+version: 'brewery-3.0.2-thu.0'
 sdkVersion: '10.4.0'
 alwaysPull: true
 url: 'https://kubernetes.cosmotech.com/cosmotech-webapp/wa-vela-dev'
@@ -339,7 +339,7 @@ parameters:
     additionalData:
       subType: 'TABLE'
       dynamicValues:
-        datasetPartName: Customer.csv
+        datasetPartName: Customer
         options:
           selects: 'id,Satisfaction,SurroundingSatisfaction,Thirsty'
       columns:
@@ -422,7 +422,7 @@ parameters:
         en: Pick a customer from the list
       dynamicEnumValues:
         type: dbDatasetPart
-        datasetPartName: Customer.csv
+        datasetPartName: Customer
         resultKey: id
         options:
           selects: 'id'
@@ -437,7 +437,7 @@ parameters:
         en: Pick customers from the list
       dynamicEnumValues:
         type: dbDatasetPart
-        datasetPartName: Customer.csv
+        datasetPartName: Customer
         resultKey: id
         options:
           selects: 'id'
@@ -452,7 +452,7 @@ parameters:
         en: The default value for this field is automatically computed by fetching the number of customers in the associated dataset
       dynamicValues:
         type: dbDatasetPart
-        datasetPartName: Customer.csv
+        datasetPartName: Customer
         resultKey: count_id
         options:
           counts: 'id'
@@ -587,11 +587,11 @@ parameters:
     additionalData:
       dynamicEnumValues:
         type: dbDatasetPart
-        datasetPartName: Customer.csv
+        datasetPartName: Customer
         resultKey: id
         options:
           selects: 'id'
-  - id: etl_param_subdataset_filter_dynamic_customers_list
+  - id: etl_param_list_dynamic_customers
     labels:
       fr: Filtrer par clients
       en: Filter by customers
@@ -599,7 +599,7 @@ parameters:
     additionalData:
       dynamicEnumValues:
         type: dbDatasetPart
-        datasetPartName: Customer.csv
+        datasetPartName: Customer
         resultKey: id
         options:
           selects: 'id'
@@ -745,19 +745,23 @@ parameterGroups:
       - etl_param_az_storage_account
       - etl_param_az_storage_container
       - etl_param_az_storage_path
-  - id: etl_param_group_sub_dataset_by_filter
+  - id: etl_param_group_sub_dataset_bool_parameter
     parameters:
       - etl_param_subdataset_filter_is_thirsty
-  - id: etl_param_group_sub_dataset_by_dynamic_filter
+  - id: etl_param_group_sub_dataset_dynamic_enum_parameter
     parameters:
       - etl_param_subdataset_filter_dynamic_customer_name
-  - id: etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection
+  - id: etl_param_group_sub_dataset_dynamic_list_parameter
     parameters:
-      - etl_param_subdataset_filter_dynamic_customers_list
-  - id: etl_param_group_sub_dataset_by_filter_with_multiple_selection
+      - etl_param_list_dynamic_customers
+  - id: etl_param_group_sub_dataset_list_parameter
     parameters:
       - etl_param_subdataset_filter_thirsty_multiselect
 runTemplates:
+  - id: standalone
+    labels:
+      fr: Simulation "stand-alone" sans paramètres
+      en: Standalone simulation without parameters
   - id: 'full_demo'
     runSizing:
       requests:
@@ -819,6 +823,9 @@ runTemplates:
     name: 'Hidden test run template without parameters'
     description: 'Run template without parameters'
     csmSimulation: 'BreweryDemoSimulationWithConnector'
+
+# == ETL run templates (for the Dataset Manager) - Dataset creation ==
+
   - id: etl_zip2db
     labels:
       fr: Brewery (.zip) depuis un fichier local
@@ -847,55 +854,40 @@ runTemplates:
     parameterGroups:
       - etl_param_group_bar_parameters
       - etl_param_group_azure_storage
-  - id: etl_sub_dataset_by_filter
+
+# == ETL run templates (for the Dataset Manager) - Sub-dataset creation ==
+
+  - id: etl_sub_dataset_bool_parameter
     labels:
-      fr: Filtre de dataset
-      en: Dataset filter
+      fr: Filtre simple
+      en: Simple filter
     tags:
       - subdatasource
     parameterGroups:
-      - etl_param_group_sub_dataset_by_filter
-  - id: './etl_sub_dataset_by_filter'
+      - etl_param_group_sub_dataset_bool_parameter
+  - id: 'etl_sub_dataset_list_parameter'
     labels:
-      fr: Filtre dynamique de dataset
-      en: Dataset dynamic filter
+      fr: Filtre - Choix Multiple
+      en: Filter - Multiple choice
     tags:
       - subdatasource
     parameterGroups:
-      - etl_param_group_sub_dataset_by_dynamic_filter
-  - id: './/etl_sub_dataset_by_filter'
+      - etl_param_group_sub_dataset_list_parameter
+
+  - id: 'etl_sub_dataset_dynamic_enum_parameter'
     labels:
-      fr: Filtre par sélection multiple
-      en: Multi-selection filter
+      fr: Filtre dynamique - Choix unique
+      en: Dynamic filter - Single choice
     tags:
       - subdatasource
     parameterGroups:
-      - etl_param_group_sub_dataset_by_filter_with_multiple_selection
-  - id: './//etl_sub_dataset_by_filter'
+      - etl_param_group_sub_dataset_dynamic_enum_parameter
+
+  - id: etl_sub_dataset_dynamic_list_parameter
     labels:
-      fr: Filtre dynamique avec sélection multiple
-      en: Dynamic filter with multi-selection
+      fr: Filtre dynamique - Choix Multiple
+      en: Dynamic filter - Multiple choice
     tags:
       - subdatasource
     parameterGroups:
-      - etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection
-  - id: etl_sub_dataset_by_filter_boolean
-    labels:
-      fr: Filtre de données sur une valeur booléenne
-      en: Dataset filter on a boolean value
-    tags:
-      - subdatasource
-    parameterGroups:
-      - etl_param_group_sub_dataset_by_filter
-  - id: etl_sub_dataset_by_filter_multi
-    labels:
-      fr: Filtre dynamique avec sélection multiple
-      en: Dataset filter on a multi-selection dynamic values
-    tags:
-      - subdatasource
-    parameterGroups:
-      - etl_param_group_sub_dataset_by_dynamic_filter_with_multiple_selection
-  - id: standalone
-    labels:
-      fr: Simulation "stand-alone" sans paramètres
-      en: Standalone simulation without parameters
+      - etl_param_group_sub_dataset_dynamic_list_parameter

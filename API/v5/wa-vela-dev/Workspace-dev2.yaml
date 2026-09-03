@@ -235,6 +235,8 @@ additionalData:
           datasetPartName: Bar_vertex
           id: relationships
       datasourceFilter:
+        - etl_mock_parameters_datasource
+        - etl_mock_parameters_subdatasource
         - etl_instance_generator
         - FileUploadToDataset
         - etl_zip2db

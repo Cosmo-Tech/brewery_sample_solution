@@ -909,3 +909,45 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_dynamic_list_parameter
+
+  - id: etl_mock_parameters_datasource
+    labels:
+      fr: Run template d'ETL avec paramètres basiques fictifs
+      en: ETL run template with mock parameters
+    name: ETL run template with mock parameters
+    description: ETL run template with mock parameters
+    tags:
+      - datasource
+    parameterGroups:
+      - 'basic_types'
+      - 'dataset_parts'
+      - 'extra_dataset_part'
+      - 'customers'
+      - 'events'
+      - 'additional_parameters'
+      - 'initial_state'
+      - 'dynamic_values_customers_group'
+
+  - id: etl_mock_parameters
+    name: ETL run template with mock parameters for sub-datasets
+    description: ETL run template with mock parameters for sub-datasets
+    tags:
+      - datasource
+    parameterGroups: []
+  - id: etl_mock_parameters_subdatasource
+    labels:
+      fr: Run template d'ETL avec paramètres basiques fictifs pour sous-datasets
+      en: ETL run template with mock parameters for sub-datasets
+    name: ETL run template with mock parameters for sub-datasets
+    description: ETL run template with mock parameters for sub-datasets
+    tags:
+      - subdatasource
+    parameterGroups:
+      - 'basic_types'
+      - 'dataset_parts'
+      - 'extra_dataset_part'
+      - 'customers'
+      - 'events'
+      - 'additional_parameters'
+      - 'initial_state'
+      - 'dynamic_values_customers_group'

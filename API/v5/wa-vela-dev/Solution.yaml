@@ -382,6 +382,8 @@ parameters:
       en: Stock
     varType: string
     defaultValue: '100'
+    additionalData:
+      required: true
   - id: 'countries'
     labels:
       fr: 'Pays'
@@ -462,42 +464,56 @@ parameters:
       en: Restock
     varType: string
     defaultValue: '25'
+    additionalData:
+      required: true
   - id: etl_param_num_waiters
     labels:
       fr: Serveurs
       en: Waiters
     varType: string
     defaultValue: '5'
+    additionalData:
+      required: true
   - id: etl_param_tables_count
     labels:
       fr: Nombre de tables
       en: Number of tables
     varType: string
     defaultValue: '10'
+    additionalData:
+      required: true
   - id: etl_param_customers_count
     labels:
       fr: Nombre de clients
       en: Number of customers
     varType: string
     defaultValue: '50'
+    additionalData:
+      required: true
   - id: etl_param_locale
     labels:
       fr: Localisation des noms générés
       en: Locale of generated names
     varType: string
     defaultValue: 'en'
+    additionalData:
+      required: true
   - id: etl_param_satisfaction
     labels:
       fr: Satisfaction
       en: Satisfaction
     varType: string
     defaultValue: '0'
+    additionalData:
+      required: true
   - id: etl_param_surrounding_satisfaction
     labels:
       fr: Satisfaction de l'entourage
       en: Surrounding satisfaction
     varType: string
     defaultValue: '0'
+    additionalData:
+      required: true
   - id: etl_param_thirsty
     labels:
       fr: Soif initiale
@@ -505,6 +521,7 @@ parameters:
     varType: enum
     defaultValue: 'NOT_THIRSTY'
     additionalData:
+      required: true
       enumValues:
         - key: 'THIRSTY'
           value:
@@ -523,6 +540,7 @@ parameters:
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip'
       shouldRenameFileOnUpload: true
+      required: true
   - id: etl_param_azure_storage_co_string
     labels:
       fr: azure storage connection string

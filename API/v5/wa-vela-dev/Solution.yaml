@@ -380,7 +380,7 @@ parameters:
     labels:
       fr: Stock
       en: Stock
-    varType: string
+    varType: int
     defaultValue: '100'
     additionalData:
       required: true
@@ -462,7 +462,7 @@ parameters:
     labels:
       fr: Réapprovisionnement
       en: Restock
-    varType: string
+    varType: int
     defaultValue: '25'
     additionalData:
       required: true
@@ -470,7 +470,7 @@ parameters:
     labels:
       fr: Serveurs
       en: Waiters
-    varType: string
+    varType: int
     defaultValue: '5'
     additionalData:
       required: true
@@ -478,7 +478,7 @@ parameters:
     labels:
       fr: Nombre de tables
       en: Number of tables
-    varType: string
+    varType: int
     defaultValue: '10'
     additionalData:
       required: true
@@ -486,7 +486,7 @@ parameters:
     labels:
       fr: Nombre de clients
       en: Number of customers
-    varType: string
+    varType: int
     defaultValue: '50'
     additionalData:
       required: true
@@ -502,7 +502,7 @@ parameters:
     labels:
       fr: Satisfaction
       en: Satisfaction
-    varType: string
+    varType: number
     defaultValue: '0'
     additionalData:
       required: true
@@ -510,7 +510,7 @@ parameters:
     labels:
       fr: Satisfaction de l'entourage
       en: Surrounding satisfaction
-    varType: string
+    varType: number
     defaultValue: '0'
     additionalData:
       required: true

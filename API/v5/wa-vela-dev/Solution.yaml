@@ -3,7 +3,7 @@ key: 'Dev Brewery Solution'
 name: 'Dev Brewery Solution'
 description: 'Dev Brewery Solution'
 repository: 'brewerysamplesolution_simulator'
-version: 'brewery-3.0.2-thu.0'
+version: 'brewery-3.1.2-thu'
 sdkVersion: '10.4.0'
 alwaysPull: true
 url: 'https://kubernetes.cosmotech.com/cosmotech-webapp/wa-vela-dev'
@@ -65,7 +65,7 @@ parameters:
     labels:
       fr: 'Nom de la monnaie'
       en: 'Currency name'
-    varType: 'string'
+    varType: string
     defaultValue: 'EUR'
     additionalData:
       tooltipText:
@@ -161,7 +161,7 @@ parameters:
     labels:
       fr: 'Evaluation'
       en: 'Evaluation'
-    varType: 'string'
+    varType: string
     defaultValue: 'Good'
     additionalData:
       minLength: 2
@@ -184,7 +184,7 @@ parameters:
     labels:
       en: 'Comment'
       fr: 'Commentaire'
-    varType: 'string'
+    varType: string
     defaultValue: 'None'
     additionalData:
       maxLength: 30
@@ -380,8 +380,10 @@ parameters:
     labels:
       fr: Stock
       en: Stock
-    varType: string
+    varType: int
     defaultValue: '100'
+    additionalData:
+      required: true
   - id: 'countries'
     labels:
       fr: 'Pays'
@@ -460,44 +462,58 @@ parameters:
     labels:
       fr: Réapprovisionnement
       en: Restock
-    varType: string
+    varType: int
     defaultValue: '25'
+    additionalData:
+      required: true
   - id: etl_param_num_waiters
     labels:
       fr: Serveurs
       en: Waiters
-    varType: string
+    varType: int
     defaultValue: '5'
+    additionalData:
+      required: true
   - id: etl_param_tables_count
     labels:
       fr: Nombre de tables
       en: Number of tables
-    varType: string
+    varType: int
     defaultValue: '10'
+    additionalData:
+      required: true
   - id: etl_param_customers_count
     labels:
       fr: Nombre de clients
       en: Number of customers
-    varType: string
+    varType: int
     defaultValue: '50'
+    additionalData:
+      required: true
   - id: etl_param_locale
     labels:
       fr: Localisation des noms générés
       en: Locale of generated names
-    varType: 'string'
+    varType: string
     defaultValue: 'en'
+    additionalData:
+      required: true
   - id: etl_param_satisfaction
     labels:
       fr: Satisfaction
       en: Satisfaction
-    varType: string
+    varType: number
     defaultValue: '0'
+    additionalData:
+      required: true
   - id: etl_param_surrounding_satisfaction
     labels:
       fr: Satisfaction de l'entourage
       en: Surrounding satisfaction
-    varType: string
+    varType: number
     defaultValue: '0'
+    additionalData:
+      required: true
   - id: etl_param_thirsty
     labels:
       fr: Soif initiale
@@ -505,6 +521,7 @@ parameters:
     varType: enum
     defaultValue: 'NOT_THIRSTY'
     additionalData:
+      required: true
       enumValues:
         - key: 'THIRSTY'
           value:
@@ -523,6 +540,7 @@ parameters:
       description: 'Initial stock dataset part'
       defaultFileTypeFilter: '.zip'
       shouldRenameFileOnUpload: true
+      required: true
   - id: etl_param_azure_storage_co_string
     labels:
       fr: azure storage connection string
@@ -891,3 +909,45 @@ runTemplates:
       - subdatasource
     parameterGroups:
       - etl_param_group_sub_dataset_dynamic_list_parameter
+
+  - id: etl_mock_parameters_datasource
+    labels:
+      fr: Run template d'ETL avec paramètres basiques fictifs
+      en: ETL run template with mock parameters
+    name: ETL run template with mock parameters
+    description: ETL run template with mock parameters
+    tags:
+      - datasource
+    parameterGroups:
+      - 'basic_types'
+      - 'dataset_parts'
+      - 'extra_dataset_part'
+      - 'customers'
+      - 'events'
+      - 'additional_parameters'
+      - 'initial_state'
+      - 'dynamic_values_customers_group'
+
+  - id: etl_mock_parameters
+    name: ETL run template with mock parameters for sub-datasets
+    description: ETL run template with mock parameters for sub-datasets
+    tags:
+      - datasource
+    parameterGroups: []
+  - id: etl_mock_parameters_subdatasource
+    labels:
+      fr: Run template d'ETL avec paramètres basiques fictifs pour sous-datasets
+      en: ETL run template with mock parameters for sub-datasets
+    name: ETL run template with mock parameters for sub-datasets
+    description: ETL run template with mock parameters for sub-datasets
+    tags:
+      - subdatasource
+    parameterGroups:
+      - 'basic_types'
+      - 'dataset_parts'
+      - 'extra_dataset_part'
+      - 'customers'
+      - 'events'
+      - 'additional_parameters'
+      - 'initial_state'
+      - 'dynamic_values_customers_group'

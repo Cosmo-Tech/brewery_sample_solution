@@ -46,4 +46,7 @@ csm docker release --tag x.y.z --registry acrsphinxd38ygr.azurecr.io/
 
 az acr login -n devregistryvela
 csm docker release --tag x.y.z --registry devregistryvela.azurecr.io/
+
+docker login aks-dev-joy.azure.platform.cosmotech.com -u <username>
+csm docker release --tag brewery-x.y.z --registry aks-dev-joy.azure.platform.cosmotech.com/tenant-business-webapp/
 ```

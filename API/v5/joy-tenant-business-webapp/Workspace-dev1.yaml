@@ -20,53 +20,53 @@ additionalData:
         - 'standalone'
       defaultRunTemplateDataset: null
     disableOutOfSyncWarningBanner: false
-    # charts:
-    #   supersetDomain: 'https://superset-kubernetes.cosmotech.com'
-    #   dashboards:
-    #     - id: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
-    #       height: 900px
-    #       width: 100%
-    #       hideTitle: true
-    #       hideChartControls: false
-    #       hideFilters: false
-    #       expandFilters: true
-    #       filters:
-    #         - id: "NATIVE_FILTER-R4vLqfZgZiiJr-Z35Ikq_"
-    #           operator: "=="
-    #           column: "run_id"
-    #           value: "lastRunId"
-    #     - id: 'b433be18-d6b1-4952-9fba-a5988fdcdca5'
-    #       height: 900px
-    #       width: 100%
-    #       hideTitle: true
-    #       hideChartControls: false
-    #       hideFilters: false
-    #       expandFilters: true
-    #     - id: '86563178-ee99-4e88-a1ee-181586d073b3'
-    #       height: 900px
-    #       width: 100%
-    #       hideTitle: true
-    #       hideChartControls: false
-    #       hideFilters: false
-    #       expandFilters: true
-    #       filters:
-    #         - id: "8oNSwOG6SxqfdmGVHCr9z"
-    #           operator: "in"
-    #           column: "run_id"
-    #           value: "visibleScenariosLastRunIds"
-    #   scenarioView:
-    #     default: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
-    #     overrides:
-    #       standalone: '2cdcad93-1767-4028-9cfb-29c0486ed19e'
-    #   dashboardView:
-    #     - id: 'b433be18-d6b1-4952-9fba-a5988fdcdca5'
-    #       title:
-    #         en: 'Bar stock'
-    #         fr: 'Stock des bars'
-    #     - id: '86563178-ee99-4e88-a1ee-181586d073b3'
-    #       title:
-    #         en: 'Customer satisfaction'
-    #         fr: 'Satisfaction client'
+    charts:
+      supersetDomain: 'https://superset-aks-dev-joy.azure.platform.cosmotech.com'
+      dashboards:
+        - id: 'b5251606-6e31-4d58-b913-315c57e3860c'
+          height: 900px
+          width: 100%
+          hideTitle: true
+          hideChartControls: false
+          hideFilters: false
+          expandFilters: true
+          filters:
+            - id: "NATIVE_FILTER-tHoDUl2ZZXEuY0-yEQI75"
+              operator: "=="
+              column: "run_id"
+              value: "lastRunId"
+        - id: 'd43b47f4-fcf6-430e-be33-87346fbd9498'
+          height: 900px
+          width: 100%
+          hideTitle: true
+          hideChartControls: false
+          hideFilters: false
+          expandFilters: true
+        - id: 'a08b34d0-94cd-44e0-8870-0228d2aef26f'
+          height: 900px
+          width: 100%
+          hideTitle: true
+          hideChartControls: false
+          hideFilters: false
+          expandFilters: true
+          filters:
+            - id: "y0ljvRBpL3a4ZstbDAIWg"
+              operator: "in"
+              column: "run_id"
+              value: "visibleScenariosLastRunIds"
+      scenarioView:
+        default: 'b5251606-6e31-4d58-b913-315c57e3860c'
+        overrides:
+          standalone: 'b5251606-6e31-4d58-b913-315c57e3860c'
+      dashboardView:
+        - id: 'd43b47f4-fcf6-430e-be33-87346fbd9498'
+          title:
+            en: 'Bar stock'
+            fr: 'Stock des bars'
+        - id: 'a08b34d0-94cd-44e0-8870-0228d2aef26f'
+          title:
+            en: 'Customer satisfaction'
+            fr: 'Satisfaction client'
     menu:
       supportUrl: 'https://support.cosmotech.com'
       organizationUrl: 'https://cosmotech.com'

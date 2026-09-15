@@ -48,7 +48,7 @@ for i in {1..35}; do restish post -H content-type:application/yaml https://aks-d
 Repeat the instructions below for each workspace
 
 ```
-# Add an env var with a valid bearer token
+# Add an env var with a valid bearer token (you can use restish with the option "-v" to retrieve a token value)
 BEARER_TOKEN=""
 
 # Take note of the id of the dataset that is created for the next command

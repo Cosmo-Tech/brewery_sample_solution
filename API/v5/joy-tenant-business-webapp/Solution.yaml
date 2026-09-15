@@ -2,7 +2,7 @@ id: 'sol-okknoe7e83l'
 key: 'Dev Brewery Solution'
 name: 'Dev Brewery Solution'
 description: 'Dev Brewery Solution'
-repository: 'brewerysamplesolution_simulator'
+repository: 'tenant-business-webapp/brewerysamplesolution_simulator'
 version: 'brewery-3.1.2-thu'
 # sdkVersion: '10.4.0'
 alwaysPull: true

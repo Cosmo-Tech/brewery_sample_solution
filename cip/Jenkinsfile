@@ -84,7 +84,6 @@ node('docker') {
         stage('Build docker image'){
           dir('src'){
             sh '../csmenv/bin/csm --css-home ../CSS/build docker build --flow'
-            sh 'docker tag cosmotech/brewerysamplesolution_simulator:latest product/brewerysamplesolution_simulator:' + params.release_version
             sh 'docker tag cosmotech/brewerysamplesolution_simulator:latest product/brewerysamplesolution_simulator:latest'
             sh 'docker image save product/brewerysamplesolution_simulator:latest -o Generated/Artifact/brewerysamplesolution_simulator.tar'
           }

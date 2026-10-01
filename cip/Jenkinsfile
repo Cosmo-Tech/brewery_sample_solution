@@ -11,22 +11,6 @@
 //     ])
 // ])
 
-void pushToAcr(credentialsId) {
-    withCredentials([
-        usernamePassword(
-            credentialsId: credentialsId,
-            usernameVariable: 'ACR_USER',
-            passwordVariable: 'ACR_PASS'
-        )
-    ]) {
-        def solutionImage = docker.image("cosmotech/brewerysamplesolution_simulator:latest")
-        docker.withRegistry("https://${ACR_USER}.azurecr.io", credentialsId){
-            solutionImage.push('latest')
-            solutionImage.push("${params.release_version}")
-        }
-    }
-}
-
 node('docker') {
   ansiColor('xterm') {
       stage('Git') {
@@ -100,15 +84,15 @@ node('docker') {
         stage('Build docker image'){
           dir('src'){
             sh '../csmenv/bin/csm --css-home ../CSS/build docker build --flow'
-            sh 'docker tag cosmotech/brewerysamplesolution_simulator:latest cosmotech/brewerysamplesolution_simulator:' + params.release_version
-            sh 'docker image save cosmotech/brewerysamplesolution_simulator:latest -o Generated/Artifact/brewerysamplesolution_simulator.tar'
+            sh 'docker tag cosmotech/brewerysamplesolution_simulator:latest product/brewerysamplesolution_simulator:latest'
+            sh 'docker image save product/brewerysamplesolution_simulator:latest -o Generated/Artifact/brewerysamplesolution_simulator.tar'
           }
         }
         stage('Generate SBOM'){
           dir('src'){
-            sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b ~/.local/bin v0.70.0 && \
+            sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b ~/.local/bin v0.74.0 && \
                 export PATH=$HOME/.local/bin/:$PATH && \
-                trivy image --format cyclonedx --output sbom.json cosmotech/brewerysamplesolution_simulator:latest'
+                trivy image --format cyclonedx --output sbom.json product/brewerysamplesolution_simulator:latest'
           }
         }
         stage('Publish SBOM to DT'){
@@ -123,8 +107,11 @@ node('docker') {
         }
       }
       stage('Push to Container Registry') {
-          pushToAcr('WARP_SPHINX_REGISTRY')
-          pushToAcr('VELA_SPHINX_REGISTRY')
+        def solutionImage = docker.image("product/brewerysamplesolution_simulator:latest")
+        docker.withRegistry("https://registry.cosmotech.com", 'COSMOTECH_REGISTRY'){
+            solutionImage.push('latest')
+            solutionImage.push("${params.release_version}")
+        }
       }
       stage('Artifacts') {
           archiveArtifacts artifacts: 'src/Generated/Artifact/*', fingerprint: true

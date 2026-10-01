@@ -37,16 +37,12 @@ csm-orc run code/run_templates/minimal/run.json
 Publish the new simulator image to the desired registries:
 
 ```
-az login
-az acr login -n acrwarpwaadxdevdlrivo
-csm docker release --tag x.y.z --registry acrwarpwaadxdevdlrivo.azurecr.io/
-
-az acr login -n acrsphinxd38ygr
-csm docker release --tag x.y.z --registry acrsphinxd38ygr.azurecr.io/
-
-az acr login -n devregistryvela
-csm docker release --tag x.y.z --registry devregistryvela.azurecr.io/
-
 docker login aks-dev-joy.azure.platform.cosmotech.com -u <username>
 csm docker release --tag brewery-x.y.z --registry aks-dev-joy.azure.platform.cosmotech.com/tenant-business-webapp/
 ```
+
+## Release
+
+- Make sure that the version is updated in Simulator/Simulator.sor.xml
+- Make sure all tests pass, vulnerabilities and code issues are solved
+- Run Jenkins job [Release-Brewery](https://jenkins.cosmotech.com/job/Solutions/job/Release-Brewery/)

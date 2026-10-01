@@ -43,6 +43,6 @@ csm docker release --tag brewery-x.y.z --registry aks-dev-joy.azure.platform.cos
 
 ## Release
 
-- Make sure that the version in updated in Simulator/Simulator.sor.xml
+- Make sure that the version is updated in Simulator/Simulator.sor.xml
 - Make sure all tests pass, vulnerabilities and code issues are solved
 - Run Jenkins job [Release-Brewery](https://jenkins.cosmotech.com/job/Solutions/job/Release-Brewery/)

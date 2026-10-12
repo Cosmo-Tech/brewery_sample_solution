@@ -5,6 +5,9 @@ import os
 import random
 import string
 import time
+from pathlib import Path
+
+from ingest_csv_copy import ingest_csv
 
 # Plan: see generate_csv_files_refactor.md
 SEED_BLOCK_SIZE = 1 * 1024**2  # real random rows are generated only up to this size
@@ -148,4 +151,7 @@ if __name__ == "__main__":
     size = parameters.get("csv_file_size", "10MB")
     shape = parameters.get("csv_file_shape", "wide")
 
-    generate_file("data_output.csv", size, shape, os.environ["CSM_OUTPUT_ABSOLUTE_PATH"])
+    output_folder = os.environ["CSM_OUTPUT_ABSOLUTE_PATH"]
+    generate_file("data_output.csv", size, shape, output_folder)
+
+    ingest_csv(Path(output_folder) / "data_output.csv", "dataset_wide", os.environ["CSM_RUN_ID"])

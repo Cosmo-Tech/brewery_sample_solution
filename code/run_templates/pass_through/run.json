@@ -19,30 +19,6 @@
         "fetch_parameters"
       ],
       "useSystemEnvironment": true
-    },
-    {
-      "id": "load_results_to_store",
-      "command": "csm-data",
-      "arguments": [
-        "store",
-        "load-csv-folder"
-      ],
-      "precedents": [
-        "generate_output_data"
-      ],
-      "useSystemEnvironment": true
-    },
-    {
-      "id": "send_results_output",
-      "command": "csm-data",
-      "arguments": [
-        "store",
-        "output"
-      ],
-      "precedents": [
-        "load_results_to_store"
-      ],
-      "useSystemEnvironment": true
     }
   ]
 }

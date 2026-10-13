@@ -38,7 +38,11 @@ LOG_EVERY_BYTES = 128 * 1024 * 1024
 
 def connect(configuration: Configuration | None = None, autocommit: bool = False) -> psycopg.Connection:
     """Connect with the coal-built URI and point search_path to the configured schema."""
-    psql = PostgresUtils(configuration or Configuration())
+    configuration = configuration or Configuration()
+    if "postgres" not in configuration:
+        # A config file without [postgres] hides the POSTGRES_* env vars: rebuild from the env vars only
+        configuration = Configuration(Configuration.CONVERSION_DICT)
+    psql = PostgresUtils(configuration)
     conn = psycopg.connect(psql.full_uri, autocommit=autocommit)
     conn.execute(sql.SQL("SET search_path TO {}").format(sql.Identifier(psql.db_schema)))
     return conn

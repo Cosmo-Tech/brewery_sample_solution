@@ -68,11 +68,12 @@ def ingest_csv(csv_path: Path, table: str, run_id: str, dry_run: bool = False) -
     start = time.perf_counter()
     sent = 0
     next_log = LOG_EVERY_BYTES
-    last_log_time, last_log_sent = start, 0
     with connect(autocommit=False) as conn:
         t_connected = time.perf_counter()
         with conn.cursor() as cur:
             cur.execute("SELECT set_config('csm.run_id', %s, true)", (run_id,))
+            t_copy_start = last_log_time = time.perf_counter()
+            last_log_sent = 0
             with cur.copy(copy_stmt) as copy, open(csv_path, "rb") as f:
                 while chunk := f.read(CHUNK_SIZE):
                     copy.write(chunk)
@@ -81,15 +82,19 @@ def ingest_csv(csv_path: Path, table: str, run_id: str, dry_run: bool = False) -
                         now = time.perf_counter()
                         interval_rate = (sent - last_log_sent) / 1e6 / max(now - last_log_time, 1e-9)
                         print(
-                            f"  {sent / 1e6:,.0f}/{total_bytes / 1e6:,.0f} MB at {now - start:,.1f}s "
-                            f"(interval {interval_rate:,.0f} MB/s, average {sent / 1e6 / (now - start):,.0f} MB/s)"
+                            f"  {sent / 1e6:,.0f}/{total_bytes / 1e6:,.0f} MB at {now - t_copy_start:,.1f}s "
+                            f"(interval {interval_rate:,.0f} MB/s, average {sent / 1e6 / (now - t_copy_start):,.0f} MB/s)"
                         )
                         last_log_time, last_log_sent = now, sent
                         next_log += LOG_EVERY_BYTES
                 t_all_written = time.perf_counter()
             t_copy_done = time.perf_counter()
             rows = cur.rowcount
-            print(f"COPY finished: {rows:,} rows sent in {t_copy_done - start:,.1f}s")
+            copy_seconds = t_copy_done - t_copy_start
+            print(
+                f"COPY finished: {rows:,} rows, {total_bytes / 1e6:,.1f} MB in {copy_seconds:,.1f}s "
+                f"({total_bytes / 1e6 / copy_seconds:,.1f} MB/s)"
+            )
 
             cur.execute(
                 sql.SQL("SELECT count(*) FROM {} WHERE csm_run_id = %s").format(sql.Identifier(table)), (run_id,)
@@ -112,8 +117,7 @@ def ingest_csv(csv_path: Path, table: str, run_id: str, dry_run: bool = False) -
     )
     print(
         f"{'Rolled back (dry run)' if dry_run else 'Committed'}: {rows:,} rows copied, "
-        f"{rows_for_run:,} rows with csm_run_id={run_id!r} in the table, "
-        f"{total_bytes / 1e6:,.1f} MB in {elapsed:.2f}s ({total_bytes / 1e6 / elapsed:,.1f} MB/s)"
+        f"{rows_for_run:,} rows with csm_run_id={run_id!r} in the table, total {elapsed:.2f}s"
     )
     return rows
 

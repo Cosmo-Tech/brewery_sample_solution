@@ -36,13 +36,17 @@ CHUNK_SIZE = 8 * 1024 * 1024
 LOG_EVERY_BYTES = 128 * 1024 * 1024
 
 
+def postgres_configuration(configuration: Configuration) -> Configuration:
+    """Return a configuration exposing `.postgres`, taken from the toml `[[outputs]]` postgres entry, else from env vars."""
+    for output in configuration.safe_get("outputs") or []:
+        if output.get("type") == "postgres":
+            return Configuration({"postgres": output["conf"]["postgres"]})
+    return Configuration(Configuration.CONVERSION_DICT)
+
+
 def connect(configuration: Configuration | None = None, autocommit: bool = False) -> psycopg.Connection:
     """Connect with the coal-built URI and point search_path to the configured schema."""
-    configuration = configuration or Configuration()
-    if "postgres" not in configuration:
-        # A config file without [postgres] hides the POSTGRES_* env vars: rebuild from the env vars only
-        configuration = Configuration(Configuration.CONVERSION_DICT)
-    psql = PostgresUtils(configuration)
+    psql = PostgresUtils(postgres_configuration(configuration or Configuration()))
     conn = psycopg.connect(psql.full_uri, autocommit=autocommit)
     conn.execute(sql.SQL("SET search_path TO {}").format(sql.Identifier(psql.db_schema)))
     return conn

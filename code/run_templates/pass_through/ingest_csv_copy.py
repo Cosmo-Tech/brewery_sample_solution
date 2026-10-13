@@ -68,7 +68,9 @@ def ingest_csv(csv_path: Path, table: str, run_id: str, dry_run: bool = False) -
     start = time.perf_counter()
     sent = 0
     next_log = LOG_EVERY_BYTES
+    last_log_time, last_log_sent = start, 0
     with connect(autocommit=False) as conn:
+        t_connected = time.perf_counter()
         with conn.cursor() as cur:
             cur.execute("SELECT set_config('csm.run_id', %s, true)", (run_id,))
             with cur.copy(copy_stmt) as copy, open(csv_path, "rb") as f:
@@ -76,22 +78,38 @@ def ingest_csv(csv_path: Path, table: str, run_id: str, dry_run: bool = False) -
                     copy.write(chunk)
                     sent += len(chunk)
                     if sent >= next_log:
-                        elapsed = time.perf_counter() - start
-                        print(f"  {sent / 1e6:,.0f}/{total_bytes / 1e6:,.0f} MB ({sent / 1e6 / elapsed:,.0f} MB/s)")
+                        now = time.perf_counter()
+                        interval_rate = (sent - last_log_sent) / 1e6 / max(now - last_log_time, 1e-9)
+                        print(
+                            f"  {sent / 1e6:,.0f}/{total_bytes / 1e6:,.0f} MB at {now - start:,.1f}s "
+                            f"(interval {interval_rate:,.0f} MB/s, average {sent / 1e6 / (now - start):,.0f} MB/s)"
+                        )
+                        last_log_time, last_log_sent = now, sent
                         next_log += LOG_EVERY_BYTES
+                t_all_written = time.perf_counter()
+            t_copy_done = time.perf_counter()
             rows = cur.rowcount
+            print(f"COPY finished: {rows:,} rows sent in {t_copy_done - start:,.1f}s")
 
             cur.execute(
                 sql.SQL("SELECT count(*) FROM {} WHERE csm_run_id = %s").format(sql.Identifier(table)), (run_id,)
             )
             rows_for_run = cur.fetchone()[0]
+            t_counted = time.perf_counter()
+            print(f"count(*): {rows_for_run:,} rows with csm_run_id={run_id!r} in {t_counted - t_copy_done:,.1f}s")
 
         if dry_run:
             conn.rollback()
         else:
             conn.commit()
+        t_end = time.perf_counter()
 
-    elapsed = time.perf_counter() - start
+    elapsed = t_end - start
+    print(
+        f"Timings: connect {t_connected - start:.1f}s, write {t_all_written - t_connected:.1f}s, "
+        f"copy flush/finish {t_copy_done - t_all_written:.1f}s, count {t_counted - t_copy_done:.1f}s, "
+        f"{'rollback' if dry_run else 'commit'} {t_end - t_counted:.1f}s"
+    )
     print(
         f"{'Rolled back (dry run)' if dry_run else 'Committed'}: {rows:,} rows copied, "
         f"{rows_for_run:,} rows with csm_run_id={run_id!r} in the table, "

@@ -291,7 +291,6 @@ parameters:
       fr: 'Evénements'
       en: 'Events'
     varType: '%DATASET_PART_ID_FILE%'
-    defaultValue: 'd-kovkq76eo1qj9'
     additionalData:
       tooltipText:
         fr: "Importez ou exportez un fichier d'événements"
@@ -801,7 +800,6 @@ parameters:
       fr: 'Fichier en lecture seule'
       en: 'Read-only file'
     varType: '%DATASET_PART_ID_FILE%'
-    defaultValue: 'd-kovkq76eo1qj9'
     additionalData:
       readOnly: true
       description: 'Read-only file example'
@@ -811,7 +809,6 @@ parameters:
       fr: 'Tableau des événements (lecture seule)'
       en: 'Read-only table for events'
     varType: '%DATASET_PART_ID_FILE%'
-    defaultValue: 'd-kovkq76eo1qj9'
     additionalData:
       readOnly: true
       subType: 'TABLE'

@@ -7,6 +7,8 @@ solution:
   datasetId: 'd-gj54z3kn08o'
   defaultParameterValues:
     events: 'dp-19rv2o69gol'
+    readonly_file: 'dp-19rv2o69gol'
+    readonly_table_events: 'dp-19rv2o69gol'
 version: null
 tags: null
 additionalData:
@@ -18,6 +20,7 @@ additionalData:
         - 'sim_mock_parameters'
         - 'dynamic_values_customers'
         - 'standalone'
+        - 'readonly_parameters'
       defaultRunTemplateDataset: null
     charts:
       workspaceId: 'invalid_on_purpose'

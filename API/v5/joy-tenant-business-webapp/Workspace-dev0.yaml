@@ -7,6 +7,8 @@ solution:
   datasetId: 'd-6g1vjpwj2ov'
   defaultParameterValues:
     events: 'dp-02p24022q0m'
+    readonly_file: 'dp-02p24022q0m'
+    readonly_table_events: 'dp-02p24022q0m'
 version: null
 tags: null
 additionalData:
@@ -18,6 +20,7 @@ additionalData:
         - 'sim_mock_parameters'
         - 'dynamic_values_customers'
         - 'standalone'
+        - 'readonly_parameters'
       defaultRunTemplateDataset: null
     menu:
       supportUrl: 'https://support.cosmotech.com'

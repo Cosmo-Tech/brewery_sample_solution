@@ -5,16 +5,15 @@ RUN apt-get update \
         build-essential \
         ca-certificates \
         ccache \
-        clang-format \
         curl \
         default-jre \
+        docker-buildx \
+        docker-cli \
         git \
-        lsb-release \
         ninja-build \
         python3 \
         python3-dev \
         python3-venv \
-        zlib1g-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

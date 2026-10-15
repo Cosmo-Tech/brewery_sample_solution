@@ -1098,9 +1098,18 @@ runTemplates:
       en: 'Run Template with read-only parameters'
     name: 'Run Template with read-only parameters'
     description: 'Run Template with read-only parameters'
-    csmSimulation: 'BreweryDemoSimulationWithConnector'
     parameterGroups:
       - 'readonly_parameter_group'
+  - id: 'etl_readonly_parameters'
+    labels:
+      fr: 'ETL avec des paramètres en lecture seule'
+      en: 'ETL with read-only parameters'
+    name: 'ETL with read-only parameters'
+    description: 'ETL with read-only parameters'
+    parameterGroups:
+      - 'readonly_parameter_group'
+    tags:
+      - datasource
   - id: dynamic_values_customers
     labels:
       fr: Valeurs dynamiques (requiert un dataset Twingraph)

@@ -240,6 +240,7 @@ additionalData:
       datasourceFilter:
         - etl_mock_parameters_datasource
         - etl_mock_parameters_subdatasource
+        - etl_readonly_parameters
         - etl_instance_generator
         - FileUploadToDataset
         - etl_zip2db

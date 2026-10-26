@@ -19,6 +19,23 @@
         "fetch_parameters"
       ],
       "useSystemEnvironment": true
+    },
+    {
+      "id": "load-csv-to-postgres",
+      "command": "csm-data",
+      "arguments": [
+        "postgres",
+        "load-csv",
+        "--csv-file",
+        "$CSM_OUTPUT_ABSOLUTE_PATH/data_output.csv",
+        "--table",
+        "dataset_wide",
+        "--add-id"
+      ],
+      "useSystemEnvironment": true,
+      "precedents": [
+        "generate_output_data"
+      ]
     }
   ]
 }

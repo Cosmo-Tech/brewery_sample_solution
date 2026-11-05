@@ -24,8 +24,8 @@
       "id": "load-csv-to-postgres",
       "command": "csm-data",
       "arguments": [
-        "postgres",
-        "load-csv",
+        "custom",
+        "load-csv-file",
         "--csv-file",
         "$CSM_OUTPUT_ABSOLUTE_PATH/data_output.csv",
         "--table",

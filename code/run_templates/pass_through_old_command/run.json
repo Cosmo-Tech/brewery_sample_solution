@@ -1,0 +1,41 @@
+{
+  "steps": [
+    {
+      "id": "fetch_parameters",
+      "command": "csm-data",
+      "arguments": [
+        "api",
+        "run-load-data"
+      ],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "generate_output_data",
+      "command": "python",
+      "arguments": [
+        "code/run_templates/pass_through/generate_csv_files.py"
+      ],
+      "precedents": [
+        "fetch_parameters"
+      ],
+      "useSystemEnvironment": true
+    },
+    {
+      "id": "load-csv-to-postgres",
+      "command": "csm-data",
+      "arguments": [
+        "postgres",
+        "load-csv",
+        "--csv-file",
+        "$CSM_OUTPUT_ABSOLUTE_PATH/data_output.csv",
+        "--table",
+        "dataset_wide",
+        "--add-id"
+      ],
+      "useSystemEnvironment": true,
+      "precedents": [
+        "generate_output_data"
+      ]
+    }
+  ]
+}

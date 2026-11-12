@@ -21,21 +21,30 @@
       "useSystemEnvironment": true
     },
     {
-      "id": "load-csv-to-postgres",
+      "id": "load_results_to_store",
       "command": "csm-data",
       "arguments": [
-        "postgres",
-        "load-csv",
-        "--csv-file",
-        "$CSM_OUTPUT_ABSOLUTE_PATH/data_output.csv",
-        "--table",
-        "dataset_wide",
-        "--add-id"
+        "store",
+        "load-csv-folder",
+        "--csv-folder",
+        "$CSM_OUTPUT_ABSOLUTE_PATH"
       ],
       "useSystemEnvironment": true,
       "precedents": [
         "generate_output_data"
       ]
+    },
+    {
+      "id": "send_results_to_psql",
+      "command": "csm-data",
+      "arguments": [
+        "store",
+        "output"
+      ],
+      "precedents": [
+        "load_results_to_store"
+      ],
+      "useSystemEnvironment": true
     }
   ]
 }

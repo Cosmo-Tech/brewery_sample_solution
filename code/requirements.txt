@@ -1,6 +1,6 @@
 cosmotech-run-orchestrator~=2.1.0
 azure-storage-blob
-cosmotech-acceleration-library[custom] @ git+https://github.com/Cosmo-Tech/CosmoTech-Acceleration-Library.git@main
+cosmotech-acceleration-library[custom] @ git+https://github.com/Cosmo-Tech/CosmoTech-Acceleration-Library.git@7be1e62b90c5613becac7b8f32f1ec0a25c7fa55
 faker~=30.6.0
 psycopg2-binary==2.9.*
 numpy~=2.3.2

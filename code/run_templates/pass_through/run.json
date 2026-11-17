@@ -29,7 +29,7 @@
         "--csv-file",
         "$CSM_OUTPUT_ABSOLUTE_PATH/data_output.csv",
         "--table",
-        "dataset_wide",
+        "cosmotech_data_output",
         "--add-id"
       ],
       "useSystemEnvironment": true,

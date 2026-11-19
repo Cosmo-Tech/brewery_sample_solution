@@ -27,9 +27,9 @@
         "custom",
         "load-csv-file",
         "--csv-file",
-        "$CSM_OUTPUT_ABSOLUTE_PATH/data_output.csv",
+        "$CSM_OUTPUT_ABSOLUTE_PATH/data_output_new_command.csv",
         "--table",
-        "cosmotech_data_output",
+        "cosmotech_data_output_new_command",
         "--add-id"
       ],
       "useSystemEnvironment": true,

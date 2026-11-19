@@ -152,6 +152,6 @@ if __name__ == "__main__":
     shape = parameters.get("csv_file_shape", "wide")
 
     output_folder = os.environ["CSM_OUTPUT_ABSOLUTE_PATH"]
-    generate_file("data_output.csv", size, shape, output_folder)
+    generate_file("data_output_new_command.csv", size, shape, output_folder)
 
-    # ingest_csv(Path(output_folder) / "data_output.csv", "dataset_wide", os.environ["CSM_RUN_ID"])
+    # ingest_csv(Path(output_folder) / "data_output_new_command.csv", "dataset_wide", os.environ["CSM_RUN_ID"])
